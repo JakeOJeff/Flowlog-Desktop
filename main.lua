@@ -1,14 +1,28 @@
+local SceneryInit = require("scenery")
+
+lg = love.graphics
+lm = love.mouse
+lk = love.keyboard
+la = love.audio
+lf = love.filesystem
+
+defW = love.graphics.getWidth()
+defH = love.graphics.getHeight()
+wW = defW
+wH = defH
+
+zoomFactor = 1
+scale = wH/defH * zoomFactor
+
+local scenery = SceneryInit(
+    {
+        path = "src.home";
+        key = "home";
+        default = true;
+    }
+)
+
+scenery:hook(love) -- Hook scenery to love callback functions
 
 
 
-function love.load()
-    love.window.setTitle("Flowlog")
-end
-
-function love.update(dt)
-
-end
-
-function love.draw()
-
-end
