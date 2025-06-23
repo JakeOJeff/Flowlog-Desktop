@@ -25,4 +25,16 @@ local scenery = SceneryInit(
 scenery:hook(love) -- Hook scenery to love callback functions
 
 
+-- Global funcs()
+ 
+    -- To be added later
+
+-- Window resize callback
+function love.resize(w, h)
+    wW = w
+    wH = h
+    scaleReset()
+
+end
+
 
