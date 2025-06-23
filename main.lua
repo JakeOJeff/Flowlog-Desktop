@@ -1,5 +1,8 @@
-function love.load()
 
+
+
+function love.load()
+    love.window.setTitle("Flowlog")
 end
 
 function love.update(dt)
