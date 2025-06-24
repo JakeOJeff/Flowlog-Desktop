@@ -14,6 +14,13 @@ function Button:initialize(x, y, width, height, text, callback, color, hover, du
 
     self.callback = callback or function() end
     --self.ext = load(ext) or load('print("no Function")') -- charString -> func
+    self.normal = {
+        x = self.x,
+        y = self.y,
+        width = self.width,
+        height = self.height,
+        color = self.color
+    }
     hover = hover or {}
     self.hover = {
         x = hover.x or self.x,
@@ -23,9 +30,11 @@ function Button:initialize(x, y, width, height, text, callback, color, hover, du
         color = hover.color or self.color
     }
 
-    self.duration = duration or 0.1
-    self.tweenHover = tween.new(self.duration, self, self.hover)
-    self.tweenReset = tween.new(self.duration, self.hover, self)
+    self.duration = duration or 0.2
+
+
+    self.tweenHover = tween.new(self.duration, self.normal, self.hover)
+    self.tweenReset = tween.new(self.duration, self.hover, self.normal)
 
     return self
 end
@@ -50,4 +59,7 @@ function Button:mousepressed(x, y, button)
    end
 end
 
+function Button:draw()
+
+end
 return Button
