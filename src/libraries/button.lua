@@ -1,4 +1,6 @@
-local class = require 'middleclass'
+local class = require 'src.packages.middleclass'
+local tween = require 'src.packages.tween'
+
 local Button = class('Button')
 
 
@@ -8,9 +10,11 @@ function Button:initialize(x, y, width, height, text, callback, color, hover, du
     self.width = width or 50
     self.height = height or 20
     self.text = text or "Button"
-    self.callback = callback or function() end
     self.color = color
-    self.ext = loadstring(ext) or loadstring("") -- string -> func
+
+    self.callback = callback or function() end
+    self.ext = loadstring(ext) or loadstring('print("no Function")') -- charString -> func
+
     self.hover = {
         x = hover.x or self.x,
         y = hover.y or self.y,
@@ -19,11 +23,22 @@ function Button:initialize(x, y, width, height, text, callback, color, hover, du
         text = hover.text or self.text,
         color = hover.color or self.color
     }
+
     self.duration = duration or 0
+    self.tweenHover = tween.new(self.duration, self, self.hover)
+    self.tweenReset = tween.new(self.duration, self.hover, self)
+
+    return self
 end
 
 function Button:update(dt)
-    
+    local mx, my = love.mouse.getPosition()
+
+    if mx > self.x and mx < self.x + self.width and my > self.y and my < self.y + self.height then
+        self.tweenHover:update(dt)
+    else
+        self.tweenReset:update(dt)
+    end
 
 end
 
@@ -35,3 +50,5 @@ function Button:mousepressed(x, y, button)
          end
    end
 end
+
+return Button
