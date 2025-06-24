@@ -16,6 +16,7 @@ end
 
 function home:draw()
 
+    love.graphics.print("TEST HOME")
 end
 
 
