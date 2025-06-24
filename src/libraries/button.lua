@@ -42,7 +42,22 @@ function Button:initialize(x, y, width, height, text, callback, color, hover,
 
     return self
 end
-
+function Button:recall()
+    self.state = {
+        x = self.x,
+        y = self.y,
+        width = self.width,
+        height = self.height,
+        color = {unpack(self.color)}
+    }
+    self.normal = {
+        x = self.x,
+        y = self.y,
+        width = self.width,
+        height = self.height,
+        color = {unpack(self.color)}
+    }
+end
 function Button:update(dt)
     local mx, my = love.mouse.getPosition()
 

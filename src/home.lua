@@ -11,7 +11,7 @@ local elements = require 'src.datalists.elements'
 local welcomeMessage = "Welcome to Flowlog Desktop <3"
 
 function home:load()
-    
+    elements:load()
 
 end
 
@@ -30,6 +30,8 @@ function home:draw()
     love.graphics.setFont(font)
     lg.setColor(hexToRGB("#6a381f"))
     lg.print(welcomeMessage, wW/2 - font:getWidth(welcomeMessage)/2 , wH/2 - 25)
+
+    lg.setColor(1,1,1)
     elements.startBtn:draw()
 
 end
