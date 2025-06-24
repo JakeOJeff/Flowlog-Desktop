@@ -10,21 +10,20 @@ function Button:initialize(x, y, width, height, text, callback, color, hover, du
     self.width = width or 50
     self.height = height or 20
     self.text = text or "Button"
-    self.color = color
+    self.color = color or {1,1,1}
 
     self.callback = callback or function() end
-    self.ext = loadstring(ext) or loadstring('print("no Function")') -- charString -> func
-
+    --self.ext = load(ext) or load('print("no Function")') -- charString -> func
+    hover = hover or {}
     self.hover = {
         x = hover.x or self.x,
         y = hover.y or self.y,
         width = hover.width or self.width,
         height = hover.height or self.height,
-        text = hover.text or self.text,
         color = hover.color or self.color
     }
 
-    self.duration = duration or 0
+    self.duration = duration or 0.1
     self.tweenHover = tween.new(self.duration, self, self.hover)
     self.tweenReset = tween.new(self.duration, self.hover, self)
 
