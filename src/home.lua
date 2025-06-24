@@ -1,16 +1,14 @@
 local home = {}
 
 -- Library Initialization
-local button = require 'src.libraries.button'
+button = require 'src.libraries.button'
 
 
 -- CLASS OOP INITIALIZATION -- 
+local elements = require 'src.datalists.elements'
 
--- Buttons
-local testButton = button:new()
-testButton.hover.width = 100
-testButton.hover.x = 125
-testButton.duration = 1
+-- Strs 
+local welcomeMessage = "Welcome to Flowlog Desktop <3"
 
 function home:load()
     
@@ -21,16 +19,19 @@ end
 
 function home:update(dt)
 
-    testButton:update(dt)
+    elements:update(dt)
 
 end
 
 
 function home:draw()
+    lg.setBackgroundColor(hexToRGB("#eccea7"))
 
-    lg.print("Welcome to Flowlog Desktop <3")
-    
-    testButton:draw()
+    love.graphics.setFont(font)
+    lg.setColor(hexToRGB("#6a381f"))
+    lg.print(welcomeMessage, wW/2 - font:getWidth(welcomeMessage)/2 , wH/2 - 25)
+    elements.startBtn:draw()
+
 end
 
 

@@ -14,6 +14,27 @@ wH = defH
 zoomFactor = 1
 scale = wH/defH * zoomFactor
 
+font = love.graphics.newFont("assets/cour.ttf", 18)
+
+
+-- All necessary UTILITY functions ( To be added later)
+
+function hexToRGB(hex)
+
+    hex = hex:gsub("#", "")
+
+    if #hex == 3 then
+        hex = hex:sub(1,1):rep(2)..hex:sub(2,2):rep(2)..hex:sub(3,3):rep(2)
+    end
+
+    local r = tonumber(hex:sub(1,2), 16)/255
+    local g = tonumber(hex:sub(3,4), 16)/255
+    local b = tonumber(hex:sub(5,6), 16)/255
+
+    return {r, g, b}
+
+end
+
 local scenery = SceneryInit(
     {
         path = "src.home";
@@ -38,21 +59,3 @@ function love.resize(w, h)
 end
 
 
-
--- All necessary UTILITY functions ( To be added later)
-
-function hexToRGB(hex)
-
-    hex = hex:gsub("#", "")
-
-    if #hex == 3 then
-        hex = hex:sub(1,1):rep(2)..hex:sub(2,2):rep(2)..hex:sub(3,3):rep(2)
-    end
-
-    local r = tonumber(hex:sub(1,2), 16)/255
-    local g = tonumber(hex:sub(3,4), 16)/255
-    local b = tonumber(hex:sub(5,6), 16)/255
-
-    return {r, g, b}
-
-end
