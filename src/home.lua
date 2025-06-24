@@ -24,3 +24,5 @@ function home:keypressed(button)
 
 end
 
+return home
+
