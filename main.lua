@@ -38,5 +38,15 @@ function love.resize(w, h)
 end
 
 
+
 -- All necessary UTILITY functions ( To be added later)
 
+function hexToRGB(hex)
+
+    hex = hex:gsub("#", "")
+
+    if #hex == 3 then
+        
+    end
+
+end

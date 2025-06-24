@@ -9,7 +9,8 @@ local button = require 'src.libraries.button'
 -- Buttons
 local testButton = button:new()
 testButton.hover.width = 100
-testButton.duration = 2
+testButton.hover.x = 125
+testButton.duration = 1
 
 function home:load()
     
@@ -27,6 +28,8 @@ end
 
 function home:draw()
 
+    lg.print("Welcome to Flowlog Desktop <3")
+    
     testButton:draw()
 end
 
