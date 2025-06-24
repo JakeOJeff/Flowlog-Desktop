@@ -8,8 +8,8 @@ local button = require 'src.libraries.button'
 
 -- Buttons
 local testButton = button:new()
-testButton.hover.x = 115
-testButton.duration = 5
+testButton.hover.width = 100
+testButton.duration = 2
 
 function home:load()
     

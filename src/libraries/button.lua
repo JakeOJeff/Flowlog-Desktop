@@ -42,7 +42,10 @@ end
 function Button:update(dt)
     local mx, my = love.mouse.getPosition()
 
+    
+
     if mx > self.x and mx < self.x + self.width and my > self.y and my < self.y + self.height then
+        print("Entered Button")
         self.tweenHover:update(dt)
     else
         self.tweenReset:update(dt)
@@ -60,6 +63,6 @@ function Button:mousepressed(x, y, button)
 end
 
 function Button:draw()
-
+    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 return Button
