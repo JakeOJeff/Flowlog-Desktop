@@ -13,6 +13,7 @@ function elements:load()
     self.startBtn.hover.width = 206
     self.startBtn.hover.height = 56
     self.startBtn.hover.color = hexToRGB("#965535")
+    self.font = font
 
     self.startBtn:recall()
 
@@ -29,6 +30,7 @@ function elements:load()
     self.pasteBtn.hover.width = 206
     self.pasteBtn.hover.height = 56
     self.pasteBtn.hover.color = hexToRGB("#965535")
+    self.font = pfont
 
     self.pasteBtn:recall()
     --In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!

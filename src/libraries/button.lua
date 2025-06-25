@@ -4,7 +4,7 @@ local tween = require 'src.packages.tween'
 local Button = class('Button')
 
 function Button:initialize(x, y, width, height, text, callback, color, rounded, hover,
-                           duration, ext)
+                           duration, ext, fontName)
     self.x = x or 10
     self.y = y or 10
     self.width = width or 50
@@ -12,6 +12,7 @@ function Button:initialize(x, y, width, height, text, callback, color, rounded, 
     self.rounded = rounded or 10
     self.text = text or "Button"
     self.color = color or {1, 1, 1}
+    self.font = fontName or font
 
     self.callback = callback or function() end
     -- self.ext = load(ext) or load('print("no Function")') -- charString -> func
@@ -101,8 +102,8 @@ function Button:draw()
                             self.state.width, self.state.height, self.state.rounded, self.state.rounded)
     love.graphics.setColor(1,1,1)
     love.graphics.print(self.text,
-                        self.state.x + self.state.width/2 - font:getWidth(self.text)/2,
-                    self.state.y + self.state.height/2 - font:getHeight()/2)
+                        self.state.x + self.state.width/2 - self.font:getWidth(self.text)/2,
+                    self.state.y + self.state.height/2 - self.font:getHeight()/2)
     love.graphics.setColor(1, 1, 1) -- Reset to default
 end
 return Button

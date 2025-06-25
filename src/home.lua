@@ -14,7 +14,7 @@ local infoText = "Get the metadata from the Flowlog extension"
 function home:load()
     elements:load()
     elements.pasteBtn.callback = function()
-        
+
     end
 
 end
@@ -36,6 +36,7 @@ function home:draw()
     love.graphics.setFont(pfont)
     lg.print(infoText, wW/2 - pfont:getWidth(infoText)/2 , wH/2)
     lg.setColor(1,1,1)
+        love.graphics.setFont(pfont)
     elements.pasteBtn:draw()
 
 end
