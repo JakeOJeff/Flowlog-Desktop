@@ -16,7 +16,7 @@ local info2Text = "Flowlog can now work on desktop as well!"
 function home:load()
     elements:load()
     elements.pasteBtn.callback = function()
-
+        print(love.system.getClipboardText())
     end
 
     elements.enterFlowLogBtn.callback = function()
