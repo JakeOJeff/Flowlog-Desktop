@@ -38,7 +38,7 @@ function Button:initialize(x, y, width, height, text, callback, color, hover,
         color = {unpack(hover.color or self.color)}
     }
 
-    self.duration = duration or 0.2
+    self.duration = duration or 0.3
 
     return self
 end
@@ -84,6 +84,10 @@ function Button:draw()
     love.graphics.setColor(self.state.color)
     love.graphics.rectangle("fill", self.state.x, self.state.y,
                             self.state.width, self.state.height)
+    love.graphics.setColor(1,1,1)
+    love.graphics.print(self.text,
+                        self.state.x + self.state.width/2 - font:getWidth(self.text)/2,
+                    self.state.y + self.state.height/2 - font:getHeight()/2)
     love.graphics.setColor(1, 1, 1) -- Reset to default
 end
 return Button

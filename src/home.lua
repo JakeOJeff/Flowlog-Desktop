@@ -37,8 +37,8 @@ function home:draw()
 end
 
 
-function home:keypressed(button)
-
+function home:mousepressed(x, y, button)
+    elements:mousepressed(x, y, button)
 end
 
 return home

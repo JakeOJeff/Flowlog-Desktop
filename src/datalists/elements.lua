@@ -2,24 +2,31 @@ local elements = {}
 
 function elements:load()
     self.startBtn = button:new()
-    self.startBtn.x = 200
+    self.startBtn.text = "Start"
+    self.startBtn.width = 200
+    self.startBtn.height = 50
+    self.startBtn.x = wW/2 - self.startBtn.width/2 
+    self.startBtn.y = wH/2 - self.startBtn.height/2 + 30
     self.startBtn.color = hexToRGB("#723c21")
-    self.startBtn.hover.color = hexToRGB("ffffff")
-    self.startBtn.hover.x = 400
+    self.startBtn.hover.x = wW/2 - self.startBtn.width/2  - 3
+    self.startBtn.hover.y = wH/2 - self.startBtn.height/2 - 3  + 30
+    self.startBtn.hover.width = 206
+    self.startBtn.hover.height = 72
+    self.startBtn.hover.color = hexToRGB("#965535")
     self.startBtn:recall()
-
+    --In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 end
 
 function elements:update(dt)
-    if self.startBtn then self.startBtn:update(dt) end
+    self.startBtn:update(dt)
 end
 
 function elements:draw()
-    if self.startBtn then self.startBtn:draw() end
+    self.startBtn:draw()
 end
 
 function elements:mousepressed(x, y, button)
-    if self.startBtn then self.startBtn:mousepressed(x, y, button) end
+    self.startBtn:mousepressed(x, y, button) 
 end
 
 return elements
