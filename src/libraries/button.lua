@@ -12,7 +12,7 @@ function Button:initialize(x, y, width, height, text, callback, color, rounded, 
     self.rounded = rounded or 10
     self.text = text or "Button"
     self.color = color or {1, 1, 1}
-    self.font = fontName or font
+    self.font = fontName or hfont
 
     self.callback = callback or function() end
     -- self.ext = load(ext) or load('print("no Function")') -- charString -> func
@@ -48,6 +48,8 @@ function Button:initialize(x, y, width, height, text, callback, color, rounded, 
     return self
 end
 function Button:recall()
+
+    self.font = self.font or hfont
     self.state = {
         x = self.x,
         y = self.y,

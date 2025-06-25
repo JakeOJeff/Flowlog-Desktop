@@ -11,9 +11,9 @@ function elements:load()
     self.startBtn.hover.x = wW/2 - self.startBtn.width/2  - 3
     self.startBtn.hover.y = wH/2 - self.startBtn.height/2 - 3  + 26
     self.startBtn.hover.width = 206
-    self.startBtn.hover.height = 56
+    self.startBtn.hover.height = 41
     self.startBtn.hover.color = hexToRGB("#965535")
-    self.font = font
+    self.startBtn.font = font
 
     self.startBtn:recall()
 
@@ -23,16 +23,34 @@ function elements:load()
     self.pasteBtn.width = 200
     self.pasteBtn.height = 35
     self.pasteBtn.x = wW/2 - self.pasteBtn.width/2 
-    self.pasteBtn.y = wH/2 - self.pasteBtn.height/2 + 26
+    self.pasteBtn.y = wH/2 - self.pasteBtn.height/2 - 25
     self.pasteBtn.color = hexToRGB("#723c21")
     self.pasteBtn.hover.x = wW/2 - self.pasteBtn.width/2  - 3
-    self.pasteBtn.hover.y = wH/2 - self.pasteBtn.height/2 - 3  + 26
+    self.pasteBtn.hover.y = wH/2 - self.pasteBtn.height/2 - 3 - 25
     self.pasteBtn.hover.width = 206
-    self.pasteBtn.hover.height = 56
+    self.pasteBtn.hover.height = 41
     self.pasteBtn.hover.color = hexToRGB("#965535")
-    self.font = pfont
+    self.pasteBtn.font = pfont
 
     self.pasteBtn:recall()
+
+
+    
+    self.enterFlowLogBtn = button:new()
+    self.enterFlowLogBtn.text = "Run Flow"
+    self.enterFlowLogBtn.width = 200
+    self.enterFlowLogBtn.height = 35
+    self.enterFlowLogBtn.x = wW/2 - self.pasteBtn.width/2 
+    self.enterFlowLogBtn.y = wH/2 - self.pasteBtn.height/2 + 90
+    self.enterFlowLogBtn.color = hexToRGB("#723c21")
+    self.enterFlowLogBtn.hover.x = wW/2 - self.pasteBtn.width/2  - 3
+    self.enterFlowLogBtn.hover.y = wH/2 - self.pasteBtn.height/2 - 3  + 90
+    self.enterFlowLogBtn.hover.width = 206
+    self.enterFlowLogBtn.hover.height = 41
+    self.enterFlowLogBtn.hover.color = hexToRGB("#965535")
+    self.enterFlowLogBtn.font = pfont
+
+    self.enterFlowLogBtn:recall()
     --In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 end
 

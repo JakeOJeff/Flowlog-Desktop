@@ -14,7 +14,10 @@ wH = defH
 zoomFactor = 1
 scale = wH/defH * zoomFactor
 
-font = love.graphics.newFont("assets/cour.ttf", 22)
+hhfont = love.graphics.newFont("assets/cour.ttf", 28)
+hhfontb = love.graphics.newFont("assets/cour_b.ttf", 28)
+hfont = love.graphics.newFont("assets/cour.ttf", 22)
+hfontb = love.graphics.newFont("assets/cour_b.ttf", 22)
 pfont = love.graphics.newFont("assets/cour.ttf", 14)
 
 
