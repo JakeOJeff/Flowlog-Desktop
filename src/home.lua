@@ -8,18 +8,18 @@ button = require 'src.libraries.button'
 local elements = require 'src.datalists.elements'
 
 -- Strs 
-local welcomeMessage = "Welcome to Flowlog Desktop <3"
+local homePage = "Paste/Enter in your metadata"
+local infoText = "Get the metadata from the Flowlog extension"
 
 function home:load()
     elements:load()
+    
 
 end
 
 
 
 function home:update(dt)
-
-    elements:update(dt)
 
 end
 
@@ -29,16 +29,15 @@ function home:draw()
 
     love.graphics.setFont(font)
     lg.setColor(hexToRGB("#6a381f"))
-    lg.print(welcomeMessage, wW/2 - font:getWidth(welcomeMessage)/2 , wH/2 - 25)
-
+    lg.print(homePage, wW/2 - font:getWidth(homePage)/2 , wH/2 - 25)
+    love.graphics.setFont(pfont)
+    lg.print(infoText, wW/2 - pfont:getWidth(infoText)/2 , wH/2)
     lg.setColor(1,1,1)
-    elements.startBtn:draw()
 
 end
 
 
 function home:mousepressed(x, y, button)
-    elements:mousepressed(x, y, button)
 end
 
 return home

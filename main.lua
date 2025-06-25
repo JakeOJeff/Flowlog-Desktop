@@ -14,7 +14,8 @@ wH = defH
 zoomFactor = 1
 scale = wH/defH * zoomFactor
 
-font = love.graphics.newFont("assets/cour.ttf", 18)
+font = love.graphics.newFont("assets/cour.ttf", 22)
+pfont = love.graphics.newFont("assets/cour.ttf", 14)
 
 
 -- All necessary UTILITY functions ( To be added later)
@@ -37,9 +38,13 @@ end
 
 local scenery = SceneryInit(
     {
+        path = "src.welcome";
+        key = "welcome";
+        default = true;
+    },
+    {
         path = "src.home";
         key = "home";
-        default = true;
     }
 )
 
