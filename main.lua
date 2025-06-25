@@ -20,6 +20,7 @@ hfont = love.graphics.newFont("assets/cour.ttf", 22)
 hfontb = love.graphics.newFont("assets/cour_b.ttf", 22)
 pfont = love.graphics.newFont("assets/cour.ttf", 14)
 
+-- File Initialization
 
 -- All necessary UTILITY functions ( To be added later)
 
@@ -48,6 +49,14 @@ local scenery = SceneryInit(
     {
         path = "src.home";
         key = "home";
+    },
+    {
+        path = "src.data";
+        key = "data";
+    },
+        {
+        path = "src.direct";
+        key = "direct";
     }
 )
 
