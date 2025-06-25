@@ -60,6 +60,8 @@ end
 
 
 function home:mousepressed(x, y, button)
+    elements.pasteBtn:mousepressed(x, y, button)
+    elements.enterFlowLogBtn:mousepressed(x, y, button)
 end
 
 return home
