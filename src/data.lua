@@ -111,12 +111,19 @@ function drawMoodData()
         stressed = "😖", peaceful = "🧘", lonely = "🥺"
     }
 
-    local moodColors = {
-        happy = {0.2, 0.8, 0.2}, sad = {0.4, 0.4, 1}, angry = {1, 0.3, 0.3},
-        tired = {0.7, 0.7, 0.7}, anxious = {0.9, 0.5, 0.2}, excited = {1, 0.7, 0.2},
-        bored = {0.6, 0.6, 0.6}, stressed = {1, 0.4, 0.4}, peaceful = {0.3, 0.8, 0.6},
-        lonely = {0.6, 0.5, 0.9}
-    }
+  local moodColors = {
+    happy     = {0.89, 0.65, 0.42},    -- fawn
+    sad       = {0.925, 0.808, 0.654}, -- sunset
+    angry     = {0.447, 0.235, 0.129}, -- kobicha
+    tired     = {0.925, 0.808, 0.654}, -- sunset
+    anxious   = {0.565, 0.424, 0.306}, -- raw umber
+    excited   = {0.89, 0.65, 0.42},    -- fawn
+    bored     = {0.565, 0.424, 0.306}, -- raw umber
+    stressed  = {0.447, 0.235, 0.129}, -- kobicha
+    peaceful  = {0.996, 0.886, 0.737}, -- navajo white
+    lonely    = {0.573, 0.463, 0.369}  -- raw umber hover
+}
+
 
     local moodSuggestions = {
         happy = "You're doing great! Keep that energy flowing 🎉",
