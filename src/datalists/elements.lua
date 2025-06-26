@@ -14,7 +14,7 @@ function elements:load()
     self.startBtn.hover.height = 41
     self.startBtn.hover.color = hexToRGB("#965535")
     self.startBtn.font = font
-
+    self.startBtn.duration = 0.06
     self.startBtn:recall()
 
 
@@ -31,6 +31,7 @@ function elements:load()
     self.pasteBtn.hover.height = 41
     self.pasteBtn.hover.color = hexToRGB("#965535")
     self.pasteBtn.font = pfont
+    self.pasteBtn.duration = 0.06
 
     self.pasteBtn:recall()
 
@@ -49,8 +50,30 @@ function elements:load()
     self.enterFlowLogBtn.hover.height = 41
     self.enterFlowLogBtn.hover.color = hexToRGB("#965535")
     self.enterFlowLogBtn.font = pfont
+    self.enterFlowLogBtn.duration = 0.06
 
     self.enterFlowLogBtn:recall()
+
+    self.menuButtons = {}
+
+    for i = 1, 3 do
+        local btn = button:new()
+        btn.width = 150
+        btn.height = 40
+        btn.x = (wW/2 - btn.width/2 - (btn.width + 10) ) + (i * btn.width)
+        btn.y = 20
+        btn.color = hexToRGB("#723c21")
+
+        btn.hover.x = (wW/2 - btn.width/2 - (btn.width + 10) ) + (i * btn.width) - 3
+        btn.hover.y = 20 - 3
+        btn.hover.width = 156
+        btn.hover.height = 46
+        btn.hover.color = hexToRGB("#965535")
+
+        btn.font = pfont
+        btn.duration = 0.06
+        self.menuButtons[i] = btn
+    end
     --In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 end
 

@@ -3,7 +3,6 @@ local home = {}
 -- Library Initialization
 button = require 'src.libraries.button'
 
-
 -- CLASS OOP INITIALIZATION -- 
 local elements = require 'src.datalists.elements'
 
@@ -17,50 +16,70 @@ function home:load()
     elements:load()
     elements.pasteBtn.callback = function()
         local dataReceived = love.system.getClipboardText()
-        
-        love.filesystem.write("data.txt", dataReceived )
+        local dataFiled = {
+            mood = {
+                currentMood = "tired",
+                intensity = 6,
+                notes = "Didn't sleep well",
+                timestamp = "2025-06-26T08:30:00",
+                tags = {"#health", "#sleep"}
+            },
+            tasks = {
+                {
+                    title = "Submit Report",
+                    done = false,
+                    due = "2025-06-26",
+                    priority = "high",
+                    timestamp = "2025-06-26T09:00:00",
+                    doneTime = nil,
+                    tags = {"#work"}
+                }
+            },
+            log = {
+                timestamp = "2025-06-26T10:00:00",
+                mood = "calm",
+                task = "Morning meditation",
+                note = "Felt peaceful after 10 minutes of breathing"
+            }
+        }
+        local tempTable = json.encode(dataFiled)
+        love.filesystem.write("data.txt", tempTable)
         home.setScene("data")
     end
 
-    elements.enterFlowLogBtn.callback = function()
-        home.setScene("direct")
-    end
+    elements.enterFlowLogBtn.callback = function() home.setScene("direct") end
 end
-
-
 
 function home:update(dt)
     elements.pasteBtn:update(dt)
     elements.enterFlowLogBtn:update(dt)
 end
 
-
 function home:draw()
     lg.setBackgroundColor(hexToRGB("#eccea7"))
 
     love.graphics.setFont(hfont)
     lg.setColor(hexToRGB("#6a381f"))
-    lg.print(homeText, wW/2 - hfont:getWidth(homeText)/2 , wH/2 - 85)
+    lg.print(homeText, wW / 2 - hfont:getWidth(homeText) / 2, wH / 2 - 85)
     love.graphics.setFont(pfont)
-    lg.print(infoText, wW/2 - pfont:getWidth(infoText)/2 , wH/2 - 60)
-    lg.setColor(1,1,1)
+    lg.print(infoText, wW / 2 - pfont:getWidth(infoText) / 2, wH / 2 - 60)
+    lg.setColor(1, 1, 1)
     love.graphics.setFont(pfont)
     elements.pasteBtn:draw()
 
     lg.setColor(hexToRGB("#6a381f"))
     love.graphics.setFont(hhfont)
-    lg.print("OR", wW/2 - hfont:getWidth("OR")/2 , wH/2)
+    lg.print("OR", wW / 2 - hfont:getWidth("OR") / 2, wH / 2)
 
     love.graphics.setFont(hfont)
-    lg.print(home2Text, wW/2 - hfont:getWidth(home2Text)/2 , wH/2 + 30)
+    lg.print(home2Text, wW / 2 - hfont:getWidth(home2Text) / 2, wH / 2 + 30)
     love.graphics.setFont(pfont)
-    lg.print(info2Text, wW/2 - pfont:getWidth(info2Text)/2 , wH/2 + 55)
-    lg.setColor(1,1,1)
+    lg.print(info2Text, wW / 2 - pfont:getWidth(info2Text) / 2, wH / 2 + 55)
+    lg.setColor(1, 1, 1)
     love.graphics.setFont(pfont)
     elements.enterFlowLogBtn:draw()
 
 end
-
 
 function home:mousepressed(x, y, button)
     elements.pasteBtn:mousepressed(x, y, button)
