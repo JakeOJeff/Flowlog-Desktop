@@ -8,6 +8,7 @@ local receivedData = love.filesystem.read("data.txt")
 isDataValid = false
 fileStatusText = ""
 DATA = {}
+
 if receivedData then
     DATA, _, err = json.decode(receivedData)
     if DATA then
@@ -15,42 +16,42 @@ if receivedData then
         isDataValid = true
     else
         print("JSON decode error:", err)
-        fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
+        fileStatusText =
+            "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
     end
 else
     print("Failed to read data.txt")
     fileStatusText = "NO DATA RECEIVED"
 end
 
-
-
-tabs = {
-    "mood",
-    "tasks",
-    "log"
-}
+tabs = {"mood", "tasks", "log"}
 currentTab = 1
 
 function data:draw()
     if not isDataValid then
         love.graphics.print(fileStatusText)
     else
-        for i = 1, 3 do
-            elements.menuButtons[i]:draw()
-        end
-        
+        for i = 1, 3 do elements.menuButtons[i]:draw() end
+        lg.setColor(hexToRGB("#6a381f"))
+
         if currentTab == 1 then
             lg.setFont(hhfontb)
-            lg.print("Mood")
-            
+            lg.print("Mood", 0, 60)
+
             lg.setFont(hhfont)
-            lg.print(getTimeOfDay() .. ", Hope you are doing well.")
-            
+            lg.print(getTimeOfDay() .. "! Hope you are doing well.", 0, 85)
+
             lg.setFont(hfont)
-            lg.print("Current Mood " .. DATA.mood.currentMood )
+            lg.print("Current Mood " .. DATA.mood.currentMood, 0, 110)
         end
     end
 
+end
+
+function data:update(dt) for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
+
+function data:mousepressed(x, y, button)
+    for i = 1, 3 do elements.menuButtons[i]:mousepressed(x, y, button) end
 end
 
 function checkDataValidity(dataTable)

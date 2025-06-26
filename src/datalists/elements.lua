@@ -72,6 +72,7 @@ function elements:load()
 
         btn.font = pfont
         btn.duration = 0.06
+        btn:recall()
         self.menuButtons[i] = btn
     end
     --In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
