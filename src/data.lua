@@ -12,14 +12,14 @@ if receivedData then
     DATA, _, err = json.decode(receivedData)
     if DATA then
         print("Success!", DATA.mood.currentMood)
-            isDataValid = true
+        isDataValid = true
     else
         print("JSON decode error:", err)
-            fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
+        fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
     end
 else
     print("Failed to read data.txt")
-        fileStatusText = "NO DATA RECEIVED"
+    fileStatusText = "NO DATA RECEIVED"
 end
 
 
