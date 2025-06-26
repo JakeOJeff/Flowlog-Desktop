@@ -12,7 +12,7 @@ function Button:initialize(x, y, width, height, text, callback, color, rounded, 
     self.rounded = rounded or 10
     self.text = text or "Button"
     self.color = color or {1, 1, 1}
-    self.font = fontName or hfont
+    self.font = fontName or lg.getFont()
 
     self.callback = callback or function() end
     -- self.ext = load(ext) or load('print("no Function")') -- charString -> func
@@ -25,15 +25,7 @@ function Button:initialize(x, y, width, height, text, callback, color, rounded, 
         rounded = self.rounded,
         color = {unpack(self.color)}
     }
-    self.normal = {
-        x = self.x,
-        y = self.y,
-        width = self.width,
-        height = self.height,
-        rounded = self.rounded,
-        color = {unpack(self.color)}
-    }
-
+    self.normal = self.state
     self.hover = {
         x = hover.x or self.x,
         y = hover.y or self.y,
@@ -43,7 +35,7 @@ function Button:initialize(x, y, width, height, text, callback, color, rounded, 
         color = {unpack(hover.color or self.color)}
     }
 
-    self.duration = duration or 0.3
+    self.duration = duration or 0.06
 
     return self
 end

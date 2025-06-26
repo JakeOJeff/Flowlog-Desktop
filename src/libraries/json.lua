@@ -671,7 +671,7 @@ function json.use_lpeg ()
     local t = {}
     repeat
       key, obj, cont, npos = pegmatch (ObjectContent, str, pos, nullval, state)
-      if not npos then break end
+      if not npos then break end 
       pos = npos
       t[key] = obj
     until cont == 'last'
