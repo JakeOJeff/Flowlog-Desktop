@@ -60,21 +60,24 @@ function elements:load()
         local btn = button:new()
         btn.width = 150
         btn.height = 40
-        btn.x = (wW/2 - btn.width/2 - (btn.width + 10) ) + (i * btn.width)
+        btn.x = (wW/2   - btn.width * 2 - btn.width/2 ) + ((10  +btn.width) * i)
         btn.y = 20
         btn.color = hexToRGB("#723c21")
 
-        btn.hover.x = (wW/2 - btn.width/2 - (btn.width + 10) ) + (i * btn.width) - 3
+        btn.hover.x = (wW/2 - btn.width*2 - btn.width/2 ) + ((10  +btn.width) * i) - 3
         btn.hover.y = 20 - 3
         btn.hover.width = 156
         btn.hover.height = 46
         btn.hover.color = hexToRGB("#965535")
 
-        btn.font = pfont
+        btn.font = hfont
         btn.duration = 0.06
         btn:recall()
         self.menuButtons[i] = btn
     end
+    self.menuButtons[1].text = "MOOD"
+    self.menuButtons[2].text = "TASKS"
+    self.menuButtons[3].text = "LOG"
     --In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 end
 
