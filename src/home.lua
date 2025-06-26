@@ -59,7 +59,7 @@ function home:draw()
     lg.setBackgroundColor(hexToRGB("#eccea7"))
 
     love.graphics.setFont(hfont)
-    lg.setColor(hexToRGB("#6a381f"))
+    lg.setColor(hexToRGB("#906c4e"))
     lg.print(homeText, wW / 2 - hfont:getWidth(homeText) / 2, wH / 2 - 85)
     love.graphics.setFont(pfont)
     lg.print(infoText, wW / 2 - pfont:getWidth(infoText) / 2, wH / 2 - 60)
@@ -67,7 +67,7 @@ function home:draw()
     love.graphics.setFont(pfont)
     elements.pasteBtn:draw()
 
-    lg.setColor(hexToRGB("#6a381f"))
+    lg.setColor(hexToRGB("#906c4e"))
     love.graphics.setFont(hhfont)
     lg.print("OR", wW / 2 - hfont:getWidth("OR") / 2, wH / 2)
 

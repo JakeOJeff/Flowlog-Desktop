@@ -32,23 +32,28 @@ function data:draw()
         love.graphics.print(fileStatusText)
     else
         for i = 1, 3 do elements.menuButtons[i]:draw() end
-        lg.setColor(hexToRGB("#6a381f"))
+        lg.setColor(hexToRGB("#906c4e"))
 
         if currentTab == 1 then
             lg.setFont(hhfontb)
-            lg.print("Mood", 0, 60)
-
-            lg.setFont(hhfont)
-            lg.print(getTimeOfDay() .. "! Hope you are doing well.", 0, 85)
+            lg.print("Mood", wW/2 - hhfontb:getWidth("Mood")/2, 75)
 
             lg.setFont(hfont)
-            lg.print("Current Mood " .. DATA.mood.currentMood, 0, 110)
+            local timeWelcomeMessage = getTimeOfDay() .. "! Hope you are doing well."
+            lg.print(timeWelcomeMessage, wW/2 - hfont:getWidth(timeWelcomeMessage)/2, 100)
+
+            lg.setFont(hfont)
+            lg.print("Current Mood " .. DATA.mood.currentMood, 0, 140)
         end
     end
 
 end
 
-function data:update(dt) for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
+function data:update(dt) 
+    for i = 1, 3 do elements.menuButtons[i]:update(dt) end 
+
+    
+end
 
 function data:mousepressed(x, y, button)
     for i = 1, 3 do elements.menuButtons[i]:mousepressed(x, y, button) end

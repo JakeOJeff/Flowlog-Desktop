@@ -23,7 +23,7 @@ $navajo-white:#fee2bc;
 $fawn:#e3a66b;
 $sunset:#eccea7;
 $kobicha:#723c21;
-$raw-umber:#906c4e;
+$raw-umber:#906c4e; : HOVER : #92765e
 
 /* SCSS HSL */
 $navajo-white: hsla(35, 97%, 87%, 1);
