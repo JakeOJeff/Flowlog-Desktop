@@ -33,9 +33,11 @@ function data:draw()
             lg.setFont(hhfontb)
             lg.print("Mood")
             
+            lg.setFont(hhfont)
+            lg.print(getTimeOfDay()", Hope you are doing well.")
+            
             lg.setFont(hfont)
-            lg.print(" Hope you are doing well.")
-        
+            lg.print("Current Mood")
         end
     end
 
@@ -48,6 +50,7 @@ function checkDataValidity(dataTable)
         return "invalid"
     end
 end
+
 function getTimeOfDay()
     local hour = tonumber(os.date("%H")) -- gets the hour in 24-hour format
 
