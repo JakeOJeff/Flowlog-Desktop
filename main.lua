@@ -17,17 +17,18 @@ scale = wH/defH * zoomFactor
 
 deffont = love.graphics.getFont()
 
-hhfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 28)
-hhfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 28)
-hfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 22)
-hfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 22)
-pfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 14)
+hhfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 30)
+hhfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 30)
+hfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 24)
+hfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 24)
+pfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 16)
 tagfont = love.graphics.newFont("assets/fonts/Nunito-Regular.ttf", 18)
 
 -- Color palette
 pals = {
-    softBackground = {0.976, 0.804, 0.804},  -- #f9cdcd
+    softBackground = {0.949, 0.866, 0.866},  -- #f2dddd
     lightAccent    = {0.898, 0.663, 0.663},  -- #e5a9a9
+    lightAccentBorder = {0.949, 0.796, 0.796},  -- approx #f2cbcb
     buttonColor    = {0.776, 0.478, 0.463},  -- #c67a76
     buttonHover     = {0.847, 0.561, 0.545},  -- #d88f8b
     headingColor   = {0.667, 0.341, 0.314},  -- #aa5750

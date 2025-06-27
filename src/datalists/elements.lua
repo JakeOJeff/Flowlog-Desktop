@@ -106,7 +106,7 @@ function elements:load()
 
 
 
-        self.exitButton = button:new()
+    self.exitButton = button:new()
     self.exitButton.text = "X"
     self.exitButton.width = 40
     self.exitButton.height = 40

@@ -52,14 +52,25 @@ function data:draw()
             drawTasksData()
         end
     end
-    lg.setColor(0, 0, 0, 0.3)
-    lg.draw(streakImage, 50, wW - 76, 0, 50 / streakImage:getWidth(),
+
+    -- STREAK IMAGE 
+
+    -- SHADOW
+    lg.setColor(0, 0, 0, 0.1)
+    lg.draw(streakImage, 50, wW - 80 + 3, 0, 50 / streakImage:getWidth(),
             50 / streakImage:getHeight())
 
     lg.setColor(1, 1, 1)
 
     lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(),
             50 / streakImage:getHeight())
+
+
+    -- Streak Number 
+    lg.setColor(pals.headingColor)
+    lg.setFont(hhfontb)
+    lg.print("10", 100, wW - 60 )
+
 end
 
 function data:update(dt)
@@ -129,18 +140,18 @@ function drawMoodData()
     local tagHeight = 30
     local tagPaddingX = 12
 
-    local moodColors = {
-        happy = {0.984, 0.753, 0.498}, -- #fbc080 (warm pastel orange)
-        sad = {0.867, 0.659, 0.682}, -- #dd9faa (soft mauve)
-        angry = {0.745, 0.373, 0.353}, -- #be5f5a (deep rose red)
-        tired = {0.875, 0.753, 0.702}, -- #dfc0b3 (pale beige-pink)
-        anxious = {0.729, 0.553, 0.486}, -- #ba8d7c (soft earthy brown)
-        excited = {0.988, 0.616, 0.459}, -- #fc9d75 (vivid peach)
-        bored = {0.729, 0.639, 0.561}, -- #baa390 (dusty taupe)
-        stressed = {0.667, 0.298, 0.267}, -- #aa4c44 (muted rust red)
-        peaceful = {0.988, 0.875, 0.820}, -- #fcdfd1 (creamy light peach)
-        lonely = {0.714, 0.557, 0.533} -- #b68e88 (warm muted rose)
-    }
+    -- local moodColors = {
+    --     happy = {0.984, 0.753, 0.498}, -- #fbc080 (warm pastel orange)
+    --     sad = {0.867, 0.659, 0.682}, -- #dd9faa (soft mauve)
+    --     angry = {0.745, 0.373, 0.353}, -- #be5f5a (deep rose red)
+    --     tired = {0.875, 0.753, 0.702}, -- #dfc0b3 (pale beige-pink)
+    --     anxious = {0.729, 0.553, 0.486}, -- #ba8d7c (soft earthy brown)
+    --     excited = {0.988, 0.616, 0.459}, -- #fc9d75 (vivid peach)
+    --     bored = {0.729, 0.639, 0.561}, -- #baa390 (dusty taupe)
+    --     stressed = {0.667, 0.298, 0.267}, -- #aa4c44 (muted rust red)
+    --     peaceful = {0.988, 0.875, 0.820}, -- #fcdfd1 (creamy light peach)
+    --     lonely = {0.714, 0.557, 0.533} -- #b68e88 (warm muted rose)
+    -- }
 
     local moodSuggestions = {
         happy = "You're doing great! Keep that energy flowing 🎉",
@@ -156,7 +167,7 @@ function drawMoodData()
     }
 
     local mood = DATA.mood.currentMood
-    local moodColor = moodColors[mood] or {hexToRGB("#906c4e")}
+    -- local moodColor = moodColors[mood] or {hexToRGB("#906c4e")}
     local suggestion = moodSuggestions[mood] or
                            "You're doing your best, and that's enough."
 
@@ -170,26 +181,38 @@ function drawMoodData()
     lg.print(timeWelcomeMessage,
              wW / 2 - hfont:getWidth(timeWelcomeMessage) / 2, 100)
 
+
     -- Mood Box
     local y = 150
     local boxWidth, boxHeight = 600, 135
     local boxX = wW / 2 - boxWidth / 2
 
-    -- Shadow
-    lg.setColor(0, 0, 0, 0.2)
-    lg.rectangle("fill", boxX + 4, y + 4, boxWidth, boxHeight, 12, 12)
+    -- -- Shadow
+    -- lg.setColor(0, 0, 0, 0.2)
+    -- lg.rectangle("fill", boxX + 4, y + 4, boxWidth, boxHeight, 12, 12)
 
-    -- Colored Box
-    lg.setColor(moodColor[1], moodColor[2], moodColor[3], 0.3)
+    -- -- Colored Box
+    -- lg.setColor(pals.lightAccent[1], pals.lightAccent[2], pals.lightAccent[3], 0.3)
+    -- lg.rectangle("fill", boxX, y, boxWidth, boxHeight, 12, 12)
+    -- lg.setColor(pals.lightAccent)
+    -- lg.rectangle("line", boxX, y, boxWidth, boxHeight, 12, 12)
+
+        -- Main Taskbox Shadow 
+    lg.setColor(0, 0, 0, 0.2)
+    lg.rectangle("fill", boxX + 4, y + 4, boxWidth, boxHeight, 12,
+                 12)
+
+    -- Colored box 
+    lg.setColor(pals.lightAccent)
     lg.rectangle("fill", boxX, y, boxWidth, boxHeight, 12, 12)
-    lg.setColor(moodColor)
+    lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", boxX, y, boxWidth, boxHeight, 12, 12)
 
-    lg.setColor(pals.textColor)
+    lg.setColor(1,1,1)
     lg.print("Current Mood: " .. mood,
              wW / 2 - hfont:getWidth("Current Mood: " .. mood) / 2, y + 15)
     lg.print("Mood Intensity: " .. DATA.mood.intensity,
-             wW / 2 - hfont:getWidth("Intensity: " .. DATA.mood.intensity) / 2,
+             wW / 2 - hfont:getWidth("Mood Intensity: " .. DATA.mood.intensity) / 2,
              y + 45)
     lg.print("Notes: " .. DATA.mood.notes,
              wW / 2 - hfont:getWidth("Notes: " .. DATA.mood.notes) / 2, y + 75)
@@ -247,11 +270,11 @@ function drawMoodData()
             lg.rectangle("fill", tagX + 2, tagY + 2, tagWidth, tagHeight, 8, 8)
 
             -- Tag Background
-            lg.setColor(moodColor[1], moodColor[2], moodColor[3], 0.25)
+            lg.setColor(pals.lightAccent)
             lg.rectangle("fill", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
             -- Border
-            lg.setColor(moodColor)
+            lg.setColor(pals.lightAccentBorder)
             lg.rectangle("line", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
             -- Tag Text
@@ -311,7 +334,7 @@ function drawTasksData()
 
     -- Task Header
     lg.setFont(hhfontb)
-    lg.setColor(hexToRGB("#906c4e"))
+    lg.setColor(pals.headingColor)
     lg.print("Tasks", wW / 2 - hhfontb:getWidth("Tasks") / 2, 75)
 
     lg.setFont(hfont)
@@ -329,9 +352,9 @@ function drawTasksData()
                  12)
 
     -- Colored box 
-    lg.setColor(hexToRGB("#fee2bc"))
+    lg.setColor(pals.lightAccent)
     lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
-    lg.setColor(hexToRGB("#ffffff"))
+    lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
 
 end
