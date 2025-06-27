@@ -27,6 +27,8 @@ end
 tabs = {"mood", "tasks", "log"}
 currentTab = 1
 
+local streakImage = love.graphics.newImage("assets/imgs/streak.png")
+
 function data:load()
     for i = 1, 3 do
         elements.menuButtons[i].callback = function() currentTab = i end
@@ -55,6 +57,7 @@ function data:draw()
         end
     end
 
+    lg.draw(streakImage, 50, wW - 50, )
 end
 
 function data:update(dt)elements.refreshButton:update(dt) elements.exitButton:update(dt)   for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
@@ -294,10 +297,11 @@ function drawTasksData()
         "You have had exceptional motivation today!",
         "At this pace, you are having exceptional self-growth!",
         "It is insanely inspiring how committed you are to this!",
-        
+        "You are unstoppable today!"
         
     }
     local doneTasksToday = 10
+    local tasksDescriptionMessage = "You have been doing well!"
 
 
     -- Task Header
@@ -306,7 +310,6 @@ function drawTasksData()
     lg.print("Tasks", wW / 2 - hhfontb:getWidth("Tasks") / 2, 75)
 
     lg.setFont(hfont)
-    local tasksDescriptionMessage = "You have been doing well!"
     lg.print(tasksDescriptionMessage,
     wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
 
