@@ -22,7 +22,7 @@ function home:load()
                 intensity = 6,
                 notes = "Didn't sleep well",
                 timestamp = "2025-06-26T08:30:00",
-                tags = {"#health", "#sleep", "#tired"}
+                tags = {"#health", "#sleep", "#tired", "#sleep", "#tired", "#sleep", "#tired", "#sleep", "#tired"}
             },
             tasks = {
                 {
