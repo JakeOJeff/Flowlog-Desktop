@@ -56,8 +56,12 @@ function data:draw()
             drawTasksData()
         end
     end
+    lg.setColor(0,0,0,0.3)
+    lg.draw(streakImage, 50, wW - 76, 0, 50/streakImage:getWidth(), 50/streakImage:getHeight())
 
-    lg.draw(streakImage, 50, wW - 50, )
+    lg.setColor(1,1,1)
+
+    lg.draw(streakImage, 50, wW - 80, 0, 50/streakImage:getWidth(), 50/streakImage:getHeight())
 end
 
 function data:update(dt)elements.refreshButton:update(dt) elements.exitButton:update(dt)   for i = 1, 3 do elements.menuButtons[i]:update(dt) end end

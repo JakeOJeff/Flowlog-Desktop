@@ -1,3 +1,20 @@
+
+// 🌲 Wooden Therapy Palette SCSS
+
+$warm-oak:       #A47551; // Primary wooden tone – warm and grounding
+$creamy-birch:   #F5EEE6; // Soft birch white – ideal background
+$muted-moss:     #A8B9A3; // Calming green – highlights, support
+$charred-walnut: #5C4033; // Deep brown – text or contrast
+$dusty-clay:     #D8BBA4; // Light pinkish tan – accents, hovers
+
+// Optional Wood Accent
+$golden-teak:    #B68D40; // Golden wood hue – warm accent
+
+
+
+
+
+
 #da969b	(218,150,155)
 #ca7f68	(202,127,104)
 #ffb3b3	(255,179,179)

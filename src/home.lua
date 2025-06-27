@@ -18,7 +18,7 @@ function home:load()
         local dataReceived = love.system.getClipboardText()
         local dataFiled = {
             mood = {
-                currentMood = "happy",
+                currentMood = "peaceful",
                 intensity = 6,
                 notes = "Didn't sleep well",
                 timestamp = "2025-06-26T08:30:00",
