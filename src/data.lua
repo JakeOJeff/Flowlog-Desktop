@@ -165,7 +165,7 @@ function drawMoodData()
     lg.setColor(1, 1, 1)
     lg.print("Current Mood: " .. mood,
              wW / 2 - hfont:getWidth("Current Mood: " .. mood) / 2, y + 15)
-    lg.print("Intensity: " .. DATA.mood.intensity,
+    lg.print("Mood Intensity: " .. DATA.mood.intensity,
              wW / 2 - hfont:getWidth("Intensity: " .. DATA.mood.intensity) / 2,
              y + 45)
     lg.print("Notes: " .. DATA.mood.notes,

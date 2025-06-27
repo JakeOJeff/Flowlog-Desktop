@@ -22,10 +22,10 @@ function elements:load()
     self.pasteBtn.width = 200
     self.pasteBtn.height = 35
     self.pasteBtn.x = wW / 2 - self.pasteBtn.width / 2
-    self.pasteBtn.y = wH / 2 - self.pasteBtn.height / 2 - 25
+    self.pasteBtn.y = wH / 2 - self.pasteBtn.height / 2 - 40
     self.pasteBtn.color = hexToRGB("#906c4e")
     self.pasteBtn.hover.x = wW / 2 - self.pasteBtn.width / 2 - 3
-    self.pasteBtn.hover.y = wH / 2 - self.pasteBtn.height / 2 - 3 - 25
+    self.pasteBtn.hover.y = wH / 2 - self.pasteBtn.height / 2 - 3 - 40
     self.pasteBtn.hover.width = 206
     self.pasteBtn.hover.height = 41
     self.pasteBtn.hover.color = hexToRGB("#92765e")
@@ -39,10 +39,10 @@ function elements:load()
     self.enterFlowLogBtn.width = 200
     self.enterFlowLogBtn.height = 35
     self.enterFlowLogBtn.x = wW / 2 - self.pasteBtn.width / 2
-    self.enterFlowLogBtn.y = wH / 2 - self.pasteBtn.height / 2 + 90
+    self.enterFlowLogBtn.y = wH / 2 - self.pasteBtn.height / 2 + 100
     self.enterFlowLogBtn.color = hexToRGB("#906c4e")
     self.enterFlowLogBtn.hover.x = wW / 2 - self.pasteBtn.width / 2 - 3
-    self.enterFlowLogBtn.hover.y = wH / 2 - self.pasteBtn.height / 2 - 3 + 90
+    self.enterFlowLogBtn.hover.y = wH / 2 - self.pasteBtn.height / 2 - 3 + 100
     self.enterFlowLogBtn.hover.width = 206
     self.enterFlowLogBtn.hover.height = 41
     self.enterFlowLogBtn.hover.color = hexToRGB("#92765e")

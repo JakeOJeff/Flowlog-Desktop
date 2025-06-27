@@ -91,13 +91,42 @@ function Button:mousepressed(x, y, button)
 end
 
 function Button:draw()
+    local r, g, b = unpack(self.state.color)
+
+    -- Calculate shadow color (darker)
+    local shadowColor = {r * 0.6, g * 0.6, b * 0.6, 0.1}
+    -- Calculate border color (lighter)
+    local borderColor = {
+        math.min(r + 0.2, 1),
+        math.min(g + 0.2, 1),
+        math.min(b + 0.2, 1)
+    }
+
+    -- Draw shadow (offset by 3 pixels)
+    
+    love.graphics.setColor(shadowColor)
+    love.graphics.rectangle("fill", self.state.x + 3, self.state.y + 3,
+                            self.state.width, self.state.height, self.state.rounded, self.state.rounded)
+
+    -- Draw main button
     love.graphics.setColor(self.state.color)
     love.graphics.rectangle("fill", self.state.x, self.state.y,
                             self.state.width, self.state.height, self.state.rounded, self.state.rounded)
-    love.graphics.setColor(1,1,1)
+
+    -- Draw border (outline)
+    love.graphics.setColor(borderColor)
+    love.graphics.setLineWidth(2)
+    love.graphics.rectangle("line", self.state.x, self.state.y,
+                            self.state.width, self.state.height, self.state.rounded, self.state.rounded)
+
+    -- Draw button text
+    love.graphics.setColor(1, 1, 1)
     love.graphics.print(self.text,
-                        self.state.x + self.state.width/2 - self.font:getWidth(self.text)/2,
-                    self.state.y + self.state.height/2 - self.font:getHeight()/2)
-    love.graphics.setColor(1, 1, 1) -- Reset to default
+        self.state.x + self.state.width/2 - self.font:getWidth(self.text)/2,
+        self.state.y + self.state.height/2 - self.font:getHeight()/2)
+
+    -- Reset color
+    love.graphics.setColor(1, 1, 1)
 end
+
 return Button
