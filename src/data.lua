@@ -177,7 +177,7 @@ function drawMoodData()
 
     -- Tags
     y = y + 180
-    lg.setFont(hfont)
+    lg.setFont(tagfont)
     lg.setColor(hexToRGB("#906c4e"))
     lg.print("Tags:", wW / 2 - hfont:getWidth("Tags:") / 2, y)
 
@@ -192,7 +192,7 @@ function drawMoodData()
     local maxLineWidth = wW - 2 * padding
 
     for i, tag in ipairs(tags) do
-        local tagWidth = hfont:getWidth(tag) + 2 * tagPaddingX + tagMargin
+        local tagWidth = tagfont:getWidth(tag) + 2 * tagPaddingX + tagMargin
         if lineWidth + tagWidth > maxLineWidth and #line > 0 then
             table.insert(tagLines, line)
             line = {}
@@ -205,59 +205,60 @@ function drawMoodData()
 
     local tagTextColor = {1, 1, 1}
 
-    -- Draw each line
-    -- for _, tagLine in ipairs(tagLines) do
-    --     local totalLineWidth = 0
-    --     for _, tag in ipairs(tagLine) do
-    --         totalLineWidth = totalLineWidth + hfont:getWidth(tag) + 2 *
-    --                              tagPaddingX + tagMargin
-    --     end
-    --     totalLineWidth = totalLineWidth - tagMargin
+    --Draw each line
+    for _, tagLine in ipairs(tagLines) do
+        local totalLineWidth = 0
+        for _, tag in ipairs(tagLine) do
+            totalLineWidth = totalLineWidth + tagfont:getWidth(tag) + 2 *
+                                 tagPaddingX + tagMargin
+        end
+        totalLineWidth = totalLineWidth - tagMargin
 
-    --     local tagX = wW / 2 - totalLineWidth / 2
+        local tagX = wW / 2 - totalLineWidth / 2
 
-    --     for _, tag in ipairs(tagLine) do
-    --         local tagWidth = hfont:getWidth(tag) + 2 * tagPaddingX
+        for _, tag in ipairs(tagLine) do
+            local tagWidth = tagfont:getWidth(tag) + 2 * tagPaddingX
 
-    --         -- Tag Shadow
-    --         lg.setColor(0, 0, 0, 0.2)
-    --         lg.rectangle("fill", tagX + 2, tagY + 2, tagWidth, tagHeight, 8, 8)
+            -- Tag Shadow
+            lg.setColor(0, 0, 0, 0.2)
+            lg.rectangle("fill", tagX + 2, tagY + 2, tagWidth, tagHeight, 8, 8)
 
-    --         -- Tag Background
-    --         lg.setColor(moodColor[1], moodColor[2], moodColor[3], 0.25)
-    --         lg.rectangle("fill", tagX, tagY, tagWidth, tagHeight, 8, 8)
+            -- Tag Background
+            lg.setColor(moodColor[1], moodColor[2], moodColor[3], 0.25)
+            lg.rectangle("fill", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
-    --         -- Border
-    --         lg.setColor(moodColor)
-    --         lg.rectangle("line", tagX, tagY, tagWidth, tagHeight, 8, 8)
+            -- Border
+            lg.setColor(moodColor)
+            lg.rectangle("line", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
-    --         -- Tag Text
-    --         local mx, my = love.mouse:getPosition()
-    --         if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY +
-    --             tagHeight then
-    --             lg.setColor(hexToRGB("#906c4e"))
-    --             if love.mouse.isDown(1) then
-    --                 love.system.setClipboardText(tag)
-    --                 lg.setColor(hexToRGB("#92765e"))
-    --             end
-    --         else
-    --             lg.setColor(hexToRGB("#ffffff"))
-    --         end
+            -- Tag Text
+            local mx, my = love.mouse:getPosition()
+            if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY +
+                tagHeight then
+                lg.setColor(hexToRGB("#906c4e"))
+                if love.mouse.isDown(1) then
+                    love.system.setClipboardText(tag)
+                    lg.setColor(hexToRGB("#92765e"))
+                end
+            else
+                lg.setColor(hexToRGB("#ffffff"))
+            end
 
-    --         lg.print(tag, tagX + tagPaddingX,
-    --                  tagY + tagHeight / 2 - hfont:getHeight() / 2)
+            lg.setFont(tagfont)
+            lg.print(tag, tagX + tagPaddingX,
+                     tagY + tagHeight / 2 - tagfont:getHeight() / 2)
 
-    --         tagX = tagX + tagWidth + tagMargin
-    --     end
-    --     tagY = tagY + tagHeight + tagMargin
-    -- end
+            tagX = tagX + tagWidth + tagMargin
+        end
+        tagY = tagY + tagHeight + tagMargin
+    end
 
-    -- -- Suggestion
-    -- lg.setFont(sfont or hfont)
-    -- local tipY = tagY + 20
-    -- lg.setColor(hexToRGB("#906c4e"))
+    -- Suggestion
+    lg.setFont(hfont)
+    local tipY = tagY + 20
+    lg.setColor(hexToRGB("#906c4e"))
 
-    -- lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
+    lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
 end
 
 return data
