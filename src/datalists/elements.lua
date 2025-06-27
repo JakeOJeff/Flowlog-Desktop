@@ -52,18 +52,18 @@ function elements:load()
     self.enterFlowLogBtn:recall()
 
     self.exitButton = button:new()
-    self.exitButton.text = "▼"
+    self.exitButton.text = "X"
     self.exitButton.width = 40
     self.exitButton.height = 40
-    self.exitButton.x = 10
+    self.exitButton.x = 50
     self.exitButton.y = 20
     self.exitButton.color = hexToRGB("#906c4e")
-    self.exitButton.hover.x = 10 - 3
+    self.exitButton.hover.x = 50 - 3
     self.exitButton.hover.y = 20 - 3
     self.exitButton.hover.width = 46
     self.exitButton.hover.height = 46
     self.exitButton.hover.color = hexToRGB("#92765e")
-    self.exitButton.font = deffont
+    self.exitButton.font = hfontb
     self.exitButton.duration = 0.06
 
     self.exitButton:recall()
@@ -93,7 +93,7 @@ function elements:load()
         btn.hover.height = btn.height + 6
         btn.hover.color = hexToRGB("#92765e")
 
-        btn.font = hfont
+        btn.font = hfontb
         btn.duration = 0.06
         btn:recall()
 
@@ -103,6 +103,23 @@ function elements:load()
     self.menuButtons[1].text = "MOOD"
     self.menuButtons[2].text = "TASKS"
     self.menuButtons[3].text = "LOG"
+
+    self.refreshButton = button:new()
+    self.refreshButton.text = "O"
+    self.refreshButton.width = 40
+    self.refreshButton.height = 40
+    self.refreshButton.x = startX + 2 * (buttonWidth + spacing) + 178
+    self.refreshButton.y = 20
+    self.refreshButton.color = hexToRGB("#906c4e")
+    self.refreshButton.hover.x = startX + 2 * (buttonWidth + spacing) + 178 - 3
+    self.refreshButton.hover.y = 20 - 3
+    self.refreshButton.hover.width = 46
+    self.refreshButton.hover.height = 46
+    self.refreshButton.hover.color = hexToRGB("#92765e")
+    self.refreshButton.font = hfontb
+    self.refreshButton.duration = 0.06
+
+    self.refreshButton:recall()
     -- In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 end
 

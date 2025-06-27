@@ -31,6 +31,12 @@ function data:load()
     for i = 1, 3 do
         elements.menuButtons[i].callback = function() currentTab = i end
     end
+    elements.refreshButton.callback = function()
+        data.setScene("home")
+    end
+    elements.exitButton.callback = function()
+        love.event.quit()
+    end
 end
 
 function data:draw()
@@ -38,6 +44,7 @@ function data:draw()
         love.graphics.print(fileStatusText)
     else
         elements.exitButton:draw()
+        elements.refreshButton:draw()
         for i = 1, 3 do elements.menuButtons[i]:draw() end
         lg.setColor(hexToRGB("#906c4e"))
 
@@ -50,10 +57,10 @@ function data:draw()
 
 end
 
-function data:update(dt) elements.exitButton:update(dt)   for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
+function data:update(dt)elements.refreshButton:update(dt) elements.exitButton:update(dt)   for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
 
 function data:mousepressed(x, y, button)
-    for i = 1, 3 do elements.exitButton:mousepressed(x, y, button) elements.menuButtons[i]:mousepressed(x, y, button) end
+    elements.refreshButton:mousepressed(x, y, button) elements.exitButton:mousepressed(x, y, button) for i = 1, 3 do  elements.menuButtons[i]:mousepressed(x, y, button) end
 end
 
 function checkDataValidity(dataTable)
