@@ -28,10 +28,10 @@ end
 
 
 function welcome:draw()
-    lg.setBackgroundColor(hexToRGB("#eccea7"))
+    lg.setBackgroundColor(pals.softBackground)
 
     love.graphics.setFont(hfont)
-    lg.setColor(hexToRGB("#906c4e"))
+    lg.setColor(pals.textColor)
     lg.print(welcomeMessage, wW/2 - hfont:getWidth(welcomeMessage)/2 , wH/2 - 25)
 
     lg.setColor(1,1,1)

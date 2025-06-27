@@ -33,12 +33,8 @@ function data:load()
     for i = 1, 3 do
         elements.menuButtons[i].callback = function() currentTab = i end
     end
-    elements.refreshButton.callback = function()
-        data.setScene("home")
-    end
-    elements.exitButton.callback = function()
-        love.event.quit()
-    end
+    elements.refreshButton.callback = function() data.setScene("home") end
+    elements.exitButton.callback = function() love.event.quit() end
 end
 
 function data:draw()
@@ -56,18 +52,26 @@ function data:draw()
             drawTasksData()
         end
     end
-    lg.setColor(0,0,0,0.3)
-    lg.draw(streakImage, 50, wW - 76, 0, 50/streakImage:getWidth(), 50/streakImage:getHeight())
+    lg.setColor(0, 0, 0, 0.3)
+    lg.draw(streakImage, 50, wW - 76, 0, 50 / streakImage:getWidth(),
+            50 / streakImage:getHeight())
 
-    lg.setColor(1,1,1)
+    lg.setColor(1, 1, 1)
 
-    lg.draw(streakImage, 50, wW - 80, 0, 50/streakImage:getWidth(), 50/streakImage:getHeight())
+    lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(),
+            50 / streakImage:getHeight())
 end
 
-function data:update(dt)elements.refreshButton:update(dt) elements.exitButton:update(dt)   for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
+function data:update(dt)
+    elements.refreshButton:update(dt)
+    elements.exitButton:update(dt)
+    for i = 1, 3 do elements.menuButtons[i]:update(dt) end
+end
 
 function data:mousepressed(x, y, button)
-    elements.refreshButton:mousepressed(x, y, button) elements.exitButton:mousepressed(x, y, button) for i = 1, 3 do  elements.menuButtons[i]:mousepressed(x, y, button) end
+    elements.refreshButton:mousepressed(x, y, button)
+    elements.exitButton:mousepressed(x, y, button)
+    for i = 1, 3 do elements.menuButtons[i]:mousepressed(x, y, button) end
 end
 
 function checkDataValidity(dataTable)
@@ -126,16 +130,16 @@ function drawMoodData()
     local tagPaddingX = 12
 
     local moodColors = {
-        happy = {0.89, 0.65, 0.42}, -- fawn
-        sad = {0.925, 0.808, 0.654}, -- sunset
-        angry = {0.447, 0.235, 0.129}, -- kobicha
-        tired = {0.925, 0.808, 0.654}, -- sunset
-        anxious = {0.565, 0.424, 0.306}, -- raw umber
-        excited = {0.89, 0.65, 0.42}, -- fawn
-        bored = {0.565, 0.424, 0.306}, -- raw umber
-        stressed = {0.447, 0.235, 0.129}, -- kobicha
-        peaceful = {0.996, 0.886, 0.737}, -- navajo white
-        lonely = {0.573, 0.463, 0.369} -- raw umber hover
+        happy = {0.984, 0.753, 0.498}, -- #fbc080 (warm pastel orange)
+        sad = {0.867, 0.659, 0.682}, -- #dd9faa (soft mauve)
+        angry = {0.745, 0.373, 0.353}, -- #be5f5a (deep rose red)
+        tired = {0.875, 0.753, 0.702}, -- #dfc0b3 (pale beige-pink)
+        anxious = {0.729, 0.553, 0.486}, -- #ba8d7c (soft earthy brown)
+        excited = {0.988, 0.616, 0.459}, -- #fc9d75 (vivid peach)
+        bored = {0.729, 0.639, 0.561}, -- #baa390 (dusty taupe)
+        stressed = {0.667, 0.298, 0.267}, -- #aa4c44 (muted rust red)
+        peaceful = {0.988, 0.875, 0.820}, -- #fcdfd1 (creamy light peach)
+        lonely = {0.714, 0.557, 0.533} -- #b68e88 (warm muted rose)
     }
 
     local moodSuggestions = {
@@ -158,7 +162,7 @@ function drawMoodData()
 
     -- Mood Header
     lg.setFont(hhfontb)
-    lg.setColor(hexToRGB("#906c4e"))
+    lg.setColor(pals.headingColor)
     lg.print("Mood", wW / 2 - hhfontb:getWidth("Mood") / 2, 75)
 
     lg.setFont(hfont)
@@ -181,7 +185,7 @@ function drawMoodData()
     lg.setColor(moodColor)
     lg.rectangle("line", boxX, y, boxWidth, boxHeight, 12, 12)
 
-    lg.setColor(1, 1, 1)
+    lg.setColor(pals.textColor)
     lg.print("Current Mood: " .. mood,
              wW / 2 - hfont:getWidth("Current Mood: " .. mood) / 2, y + 15)
     lg.print("Mood Intensity: " .. DATA.mood.intensity,
@@ -197,7 +201,7 @@ function drawMoodData()
     -- Tags
     y = y + 180
     lg.setFont(tagfont)
-    lg.setColor(hexToRGB("#906c4e"))
+    lg.setColor(pals.textColor)
     lg.print("Tags:", wW / 2 - hfont:getWidth("Tags:") / 2, y)
 
     y = y + 30
@@ -254,10 +258,10 @@ function drawMoodData()
             local mx, my = love.mouse:getPosition()
             if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY +
                 tagHeight then
-                lg.setColor(hexToRGB("#906c4e"))
+                lg.setColor(pals.textColor)
                 if love.mouse.isDown(1) then
                     love.system.setClipboardText(tag)
-                    lg.setColor(hexToRGB("#92765e"))
+                    lg.setColor(pals.headingColor)
                 end
             else
                 lg.setColor(hexToRGB("#ffffff"))
@@ -275,7 +279,7 @@ function drawMoodData()
     -- Suggestion
     lg.setFont(hfont)
     local tipY = tagY + 20
-    lg.setColor(hexToRGB("#906c4e"))
+    lg.setColor(pals.textColor)
 
     lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
 end
@@ -294,19 +298,16 @@ function drawTasksData()
     }
 
     local taskDoneMessages = {
-        "You have so much potential today!",
-        "You are doing so good so far.",
-        "You are doing so well!",
-        "You have been brilliant today!",
+        "You have so much potential today!", "You are doing so good so far.",
+        "You are doing so well!", "You have been brilliant today!",
         "You have had exceptional motivation today!",
         "At this pace, you are having exceptional self-growth!",
         "It is insanely inspiring how committed you are to this!",
         "You are unstoppable today!"
-        
+
     }
     local doneTasksToday = 10
     local tasksDescriptionMessage = "You have been doing well!"
-
 
     -- Task Header
     lg.setFont(hhfontb)
@@ -315,25 +316,23 @@ function drawTasksData()
 
     lg.setFont(hfont)
     lg.print(tasksDescriptionMessage,
-    wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
-
+             wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
 
     -- Main TaskBox
     local y = 150
     local mainBoxWidth, mainBoxHeight = 600, 135
-    local mainBoxX = wW/2 - mainBoxWidth /2
+    local mainBoxX = wW / 2 - mainBoxWidth / 2
 
     -- Main Taskbox Shadow 
-    lg.setColor(0,0,0,0.2)
-    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.setColor(0, 0, 0, 0.2)
+    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12,
+                 12)
 
     -- Colored box 
     lg.setColor(hexToRGB("#fee2bc"))
     lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
     lg.setColor(hexToRGB("#ffffff"))
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
-
-
 
 end
 return data

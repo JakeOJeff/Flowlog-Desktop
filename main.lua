@@ -23,6 +23,18 @@ hfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 22)
 hfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 22)
 pfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 14)
 tagfont = love.graphics.newFont("assets/fonts/Nunito-Regular.ttf", 18)
+
+-- Color palette
+pals = {
+    softBackground = {0.976, 0.804, 0.804},  -- #f9cdcd
+    lightAccent    = {0.898, 0.663, 0.663},  -- #e5a9a9
+    buttonColor    = {0.776, 0.478, 0.463},  -- #c67a76
+    buttonHover     = {0.847, 0.561, 0.545},  -- #d88f8b
+    headingColor   = {0.667, 0.341, 0.314},  -- #aa5750
+    textColor      = {0.459, 0.227, 0.200}   -- #753a33
+}
+
+
 -- File Initialization
 
 -- All necessary UTILITY functions ( To be added later)

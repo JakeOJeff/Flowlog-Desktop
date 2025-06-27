@@ -7,12 +7,12 @@ function elements:load()
     self.startBtn.height = 35
     self.startBtn.x = wW / 2 - self.startBtn.width / 2
     self.startBtn.y = wH / 2 - self.startBtn.height / 2 + 26
-    self.startBtn.color = hexToRGB("#906c4e")
+    self.startBtn.color = pals.buttonColor
     self.startBtn.hover.x = wW / 2 - self.startBtn.width / 2 - 3
     self.startBtn.hover.y = wH / 2 - self.startBtn.height / 2 - 3 + 26
     self.startBtn.hover.width = 206
     self.startBtn.hover.height = 41
-    self.startBtn.hover.color = hexToRGB("#92765e")
+    self.startBtn.hover.color = pals.buttonHover
     self.startBtn.font = font
     self.startBtn.duration = 0.06
     self.startBtn:recall()
@@ -23,12 +23,12 @@ function elements:load()
     self.pasteBtn.height = 35
     self.pasteBtn.x = wW / 2 - self.pasteBtn.width / 2
     self.pasteBtn.y = wH / 2 - self.pasteBtn.height / 2 - 40
-    self.pasteBtn.color = hexToRGB("#906c4e")
+    self.pasteBtn.color = pals.buttonColor
     self.pasteBtn.hover.x = wW / 2 - self.pasteBtn.width / 2 - 3
     self.pasteBtn.hover.y = wH / 2 - self.pasteBtn.height / 2 - 3 - 40
     self.pasteBtn.hover.width = 206
     self.pasteBtn.hover.height = 41
-    self.pasteBtn.hover.color = hexToRGB("#92765e")
+    self.pasteBtn.hover.color = pals.buttonHover
     self.pasteBtn.font = pfont
     self.pasteBtn.duration = 0.06
 
@@ -40,33 +40,33 @@ function elements:load()
     self.enterFlowLogBtn.height = 35
     self.enterFlowLogBtn.x = wW / 2 - self.pasteBtn.width / 2
     self.enterFlowLogBtn.y = wH / 2 - self.pasteBtn.height / 2 + 100
-    self.enterFlowLogBtn.color = hexToRGB("#906c4e")
+    self.enterFlowLogBtn.color = pals.buttonColor
     self.enterFlowLogBtn.hover.x = wW / 2 - self.pasteBtn.width / 2 - 3
     self.enterFlowLogBtn.hover.y = wH / 2 - self.pasteBtn.height / 2 - 3 + 100
     self.enterFlowLogBtn.hover.width = 206
     self.enterFlowLogBtn.hover.height = 41
-    self.enterFlowLogBtn.hover.color = hexToRGB("#92765e")
+    self.enterFlowLogBtn.hover.color = pals.buttonHover
     self.enterFlowLogBtn.font = pfont
     self.enterFlowLogBtn.duration = 0.06
 
     self.enterFlowLogBtn:recall()
 
-    self.exitButton = button:new()
-    self.exitButton.text = "X"
-    self.exitButton.width = 40
-    self.exitButton.height = 40
-    self.exitButton.x = 50
-    self.exitButton.y = 20
-    self.exitButton.color = hexToRGB("#906c4e")
-    self.exitButton.hover.x = 50 - 3
-    self.exitButton.hover.y = 20 - 3
-    self.exitButton.hover.width = 46
-    self.exitButton.hover.height = 46
-    self.exitButton.hover.color = hexToRGB("#92765e")
-    self.exitButton.font = hfontb
-    self.exitButton.duration = 0.06
+    self.refreshButton = button:new()
+    self.refreshButton.text = "O"
+    self.refreshButton.width = 40
+    self.refreshButton.height = 40
+    self.refreshButton.x = 50
+    self.refreshButton.y = 20
+    self.refreshButton.color = pals.buttonColor
+    self.refreshButton.hover.x = 50 - 3
+    self.refreshButton.hover.y = 20 - 3
+    self.refreshButton.hover.width = 46
+    self.refreshButton.hover.height = 46
+    self.refreshButton.hover.color = pals.buttonHover
+    self.refreshButton.font = hfontb
+    self.refreshButton.duration = 0.06
 
-    self.exitButton:recall()
+    self.refreshButton:recall()
 
     self.menuButtons = {}
 
@@ -84,14 +84,14 @@ function elements:load()
         -- Centering logic
         btn.x = startX + (i - 1) * (btn.width + spacing)
         btn.y = 20
-        btn.color = hexToRGB("#906c4e")
+        btn.color = pals.buttonColor
 
         -- Hover logic (slightly larger for effect)
         btn.hover.x = btn.x - 3
         btn.hover.y = btn.y - 3
         btn.hover.width = btn.width + 6
         btn.hover.height = btn.height + 6
-        btn.hover.color = hexToRGB("#92765e")
+        btn.hover.color = pals.buttonHover
 
         btn.font = hfontb
         btn.duration = 0.06
@@ -104,22 +104,24 @@ function elements:load()
     self.menuButtons[2].text = "TASKS"
     self.menuButtons[3].text = "LOG"
 
-    self.refreshButton = button:new()
-    self.refreshButton.text = "O"
-    self.refreshButton.width = 40
-    self.refreshButton.height = 40
-    self.refreshButton.x = startX + 2 * (buttonWidth + spacing) + 178
-    self.refreshButton.y = 20
-    self.refreshButton.color = hexToRGB("#906c4e")
-    self.refreshButton.hover.x = startX + 2 * (buttonWidth + spacing) + 178 - 3
-    self.refreshButton.hover.y = 20 - 3
-    self.refreshButton.hover.width = 46
-    self.refreshButton.hover.height = 46
-    self.refreshButton.hover.color = hexToRGB("#92765e")
-    self.refreshButton.font = hfontb
-    self.refreshButton.duration = 0.06
 
-    self.refreshButton:recall()
+
+        self.exitButton = button:new()
+    self.exitButton.text = "X"
+    self.exitButton.width = 40
+    self.exitButton.height = 40
+    self.exitButton.x = startX + 2 * (buttonWidth + spacing) + 178
+    self.exitButton.y = 20
+    self.exitButton.color = pals.buttonColor
+    self.exitButton.hover.x =  startX + 2 * (buttonWidth + spacing) + 178 - 3
+    self.exitButton.hover.y = 20 - 3
+    self.exitButton.hover.width = 46
+    self.exitButton.hover.height = 46
+    self.exitButton.hover.color = pals.buttonHover
+    self.exitButton.font = hfontb
+    self.exitButton.duration = 0.06
+
+    self.exitButton:recall()
     -- In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 end
 
