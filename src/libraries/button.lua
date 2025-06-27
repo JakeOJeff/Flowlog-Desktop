@@ -120,6 +120,7 @@ function Button:draw()
                             self.state.width, self.state.height, self.state.rounded, self.state.rounded)
 
     -- Draw button text
+    love.graphics.setFont(self.font)
     love.graphics.setColor(1, 1, 1)
     love.graphics.print(self.text,
         self.state.x + self.state.width/2 - self.font:getWidth(self.text)/2,

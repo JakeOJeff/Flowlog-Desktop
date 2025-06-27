@@ -40,7 +40,20 @@ function data:draw()
         for i = 1, 3 do elements.menuButtons[i]:draw() end
         lg.setColor(hexToRGB("#906c4e"))
 
-        if currentTab == 1 then drawMoodData() end
+        if currentTab == 1 then 
+            drawMoodData() 
+        elseif currentTab == 2 then 
+            -- Mood Header
+            lg.setFont(hhfontb)
+            lg.setColor(hexToRGB("#906c4e"))
+            lg.print("Tasks", wW / 2 - hhfontb:getWidth("Tasks") / 2, 75)
+
+                lg.setFont(hfont)
+            local tasksDescriptionMessage = "You have been doing well!"
+            lg.print(tasksDescriptionMessage,
+            wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
+
+        end
     end
 
 end
