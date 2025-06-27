@@ -87,7 +87,8 @@ function formatDateTime(iso)
     return os.date("%A, %d %B %Y - %I:%M %p", t)
 end
 function formatDateTime(iso)
-    local year, month, day, hour, min, sec = iso:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):?(%d*)")
+    local year, month, day, hour, min, sec = iso:match(
+                                                 "(%d+)-(%d+)-(%d+)T(%d+):(%d+):?(%d*)")
     local t = os.time({
         year = tonumber(year),
         month = tonumber(month),
@@ -105,21 +106,18 @@ function drawMoodData()
     local tagHeight = 30
     local tagPaddingX = 12
 
-
-
-  local moodColors = {
-    happy     = {0.89, 0.65, 0.42},    -- fawn
-    sad       = {0.925, 0.808, 0.654}, -- sunset
-    angry     = {0.447, 0.235, 0.129}, -- kobicha
-    tired     = {0.925, 0.808, 0.654}, -- sunset
-    anxious   = {0.565, 0.424, 0.306}, -- raw umber
-    excited   = {0.89, 0.65, 0.42},    -- fawn
-    bored     = {0.565, 0.424, 0.306}, -- raw umber
-    stressed  = {0.447, 0.235, 0.129}, -- kobicha
-    peaceful  = {0.996, 0.886, 0.737}, -- navajo white
-    lonely    = {0.573, 0.463, 0.369}  -- raw umber hover
-}
-
+    local moodColors = {
+        happy = {0.89, 0.65, 0.42}, -- fawn
+        sad = {0.925, 0.808, 0.654}, -- sunset
+        angry = {0.447, 0.235, 0.129}, -- kobicha
+        tired = {0.925, 0.808, 0.654}, -- sunset
+        anxious = {0.565, 0.424, 0.306}, -- raw umber
+        excited = {0.89, 0.65, 0.42}, -- fawn
+        bored = {0.565, 0.424, 0.306}, -- raw umber
+        stressed = {0.447, 0.235, 0.129}, -- kobicha
+        peaceful = {0.996, 0.886, 0.737}, -- navajo white
+        lonely = {0.573, 0.463, 0.369} -- raw umber hover
+    }
 
     local moodSuggestions = {
         happy = "You're doing great! Keep that energy flowing 🎉",
@@ -136,21 +134,23 @@ function drawMoodData()
 
     local mood = DATA.mood.currentMood
     local moodColor = moodColors[mood] or {hexToRGB("#906c4e")}
-    local suggestion = moodSuggestions[mood] or "You're doing your best, and that's enough."
+    local suggestion = moodSuggestions[mood] or
+                           "You're doing your best, and that's enough."
 
     -- Mood Header
     lg.setFont(hhfontb)
     lg.setColor(hexToRGB("#906c4e"))
-    lg.print("Mood", wW/2 - hhfontb:getWidth("Mood")/2, 75)
+    lg.print("Mood", wW / 2 - hhfontb:getWidth("Mood") / 2, 75)
 
     lg.setFont(hfont)
     local timeWelcomeMessage = getTimeOfDay() .. "! Hope you are doing well."
-    lg.print(timeWelcomeMessage, wW/2 - hfont:getWidth(timeWelcomeMessage)/2, 100)
+    lg.print(timeWelcomeMessage,
+             wW / 2 - hfont:getWidth(timeWelcomeMessage) / 2, 100)
 
     -- Mood Box
     local y = 150
     local boxWidth, boxHeight = 600, 135
-    local boxX = wW/2 - boxWidth/2
+    local boxX = wW / 2 - boxWidth / 2
 
     -- Shadow
     lg.setColor(0, 0, 0, 0.2)
@@ -163,19 +163,23 @@ function drawMoodData()
     lg.rectangle("line", boxX, y, boxWidth, boxHeight, 12, 12)
 
     lg.setColor(1, 1, 1)
-    lg.print("Current Mood: " .. mood, wW/2 - hfont:getWidth("Current Mood: " .. mood)/2, y + 20)
-    lg.print("Intensity: " .. DATA.mood.intensity, wW/2 - hfont:getWidth("Intensity: " .. DATA.mood.intensity)/2, y + 50)
-    lg.print("Notes: " .. DATA.mood.notes, wW/2 - hfont:getWidth("Notes: " .. DATA.mood.notes)/2, y + 80)
+    lg.print("Current Mood: " .. mood,
+             wW / 2 - hfont:getWidth("Current Mood: " .. mood) / 2, y + 15)
+    lg.print("Intensity: " .. DATA.mood.intensity,
+             wW / 2 - hfont:getWidth("Intensity: " .. DATA.mood.intensity) / 2,
+             y + 45)
+    lg.print("Notes: " .. DATA.mood.notes,
+             wW / 2 - hfont:getWidth("Notes: " .. DATA.mood.notes) / 2, y + 75)
 
     -- Time
     local formattedDate = formatDateTime(DATA.mood.timestamp)
-    lg.print(formattedDate, wW/2 - hfont:getWidth(formattedDate)/2, y + 100)
+    lg.print(formattedDate, wW / 2 - hfont:getWidth(formattedDate) / 2, y + 105)
 
     -- Tags
     y = y + 180
     lg.setFont(hfont)
     lg.setColor(hexToRGB("#906c4e"))
-    lg.print("Tags:", wW/2 - hfont:getWidth("Tags:")/2, y)
+    lg.print("Tags:", wW / 2 - hfont:getWidth("Tags:") / 2, y)
 
     y = y + 30
     local tagY = y
@@ -199,60 +203,61 @@ function drawMoodData()
     end
     if #line > 0 then table.insert(tagLines, line) end
 
-    local tagTextColor = {1,1,1}
+    local tagTextColor = {1, 1, 1}
 
     -- Draw each line
-    for _, tagLine in ipairs(tagLines) do
-        local totalLineWidth = 0
-        for _, tag in ipairs(tagLine) do
-            totalLineWidth = totalLineWidth + hfont:getWidth(tag) + 2 * tagPaddingX + tagMargin
-        end
-        totalLineWidth = totalLineWidth - tagMargin
+    -- for _, tagLine in ipairs(tagLines) do
+    --     local totalLineWidth = 0
+    --     for _, tag in ipairs(tagLine) do
+    --         totalLineWidth = totalLineWidth + hfont:getWidth(tag) + 2 *
+    --                              tagPaddingX + tagMargin
+    --     end
+    --     totalLineWidth = totalLineWidth - tagMargin
 
-        local tagX = wW/2 - totalLineWidth / 2
+    --     local tagX = wW / 2 - totalLineWidth / 2
 
-        for _, tag in ipairs(tagLine) do
-            local tagWidth = hfont:getWidth(tag) + 2 * tagPaddingX
+    --     for _, tag in ipairs(tagLine) do
+    --         local tagWidth = hfont:getWidth(tag) + 2 * tagPaddingX
 
-            -- Tag Shadow
-            lg.setColor(0, 0, 0, 0.2)
-            lg.rectangle("fill", tagX + 2, tagY + 2, tagWidth, tagHeight, 8, 8)
+    --         -- Tag Shadow
+    --         lg.setColor(0, 0, 0, 0.2)
+    --         lg.rectangle("fill", tagX + 2, tagY + 2, tagWidth, tagHeight, 8, 8)
 
-            -- Tag Background
-            lg.setColor(moodColor[1], moodColor[2], moodColor[3], 0.25)
-            lg.rectangle("fill", tagX, tagY, tagWidth, tagHeight, 8, 8)
+    --         -- Tag Background
+    --         lg.setColor(moodColor[1], moodColor[2], moodColor[3], 0.25)
+    --         lg.rectangle("fill", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
-            -- Border
-            lg.setColor(moodColor)
-            lg.rectangle("line", tagX, tagY, tagWidth, tagHeight, 8, 8)
+    --         -- Border
+    --         lg.setColor(moodColor)
+    --         lg.rectangle("line", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
-            -- Tag Text
-            local mx, my = love.mouse:getPosition()
-            if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY + tagHeight then
-                lg.setColor(hexToRGB("#906c4e"))
-                if love.mouse.isDown(1) then
-                    love.system.setClipboardText(tag)
-                    lg.setColor(hexToRGB("#92765e"))
-                end
-            else
-                    lg.setColor(hexToRGB("#ffffff"))
-            end
+    --         -- Tag Text
+    --         local mx, my = love.mouse:getPosition()
+    --         if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY +
+    --             tagHeight then
+    --             lg.setColor(hexToRGB("#906c4e"))
+    --             if love.mouse.isDown(1) then
+    --                 love.system.setClipboardText(tag)
+    --                 lg.setColor(hexToRGB("#92765e"))
+    --             end
+    --         else
+    --             lg.setColor(hexToRGB("#ffffff"))
+    --         end
 
-            lg.print(tag, tagX + tagPaddingX, tagY + tagHeight/2 - hfont:getHeight()/2)
+    --         lg.print(tag, tagX + tagPaddingX,
+    --                  tagY + tagHeight / 2 - hfont:getHeight() / 2)
 
-            tagX = tagX + tagWidth + tagMargin
-        end
-        tagY = tagY + tagHeight + tagMargin
-    end
+    --         tagX = tagX + tagWidth + tagMargin
+    --     end
+    --     tagY = tagY + tagHeight + tagMargin
+    -- end
 
-    -- Suggestion
-    lg.setFont(sfont or hfont)
-    local tipY = tagY + 20
-        lg.setColor(hexToRGB("#906c4e"))
+    -- -- Suggestion
+    -- lg.setFont(sfont or hfont)
+    -- local tipY = tagY + 20
+    -- lg.setColor(hexToRGB("#906c4e"))
 
-    lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
+    -- lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
 end
-
-
 
 return data
