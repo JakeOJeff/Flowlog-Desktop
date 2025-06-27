@@ -14,6 +14,9 @@ wH = defH
 zoomFactor = 1
 scale = wH/defH * zoomFactor
 
+
+deffont = love.graphics.getFont()
+
 hhfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 28)
 hhfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 28)
 hfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 22)

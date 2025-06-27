@@ -50,7 +50,7 @@ function data:draw()
 
 end
 
-function data:update(dt) for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
+function data:update(dt) elements.exitButton:update(dt)   for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
 
 function data:mousepressed(x, y, button)
     for i = 1, 3 do elements.exitButton:mousepressed(x, y, button) elements.menuButtons[i]:mousepressed(x, y, button) end
