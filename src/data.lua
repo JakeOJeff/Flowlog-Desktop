@@ -286,6 +286,20 @@ function drawTasksData()
         "Proud of the progress you've accomplished so far!"
     }
 
+    local taskDoneMessages = {
+        "You have so much potential today!",
+        "You are doing so good so far.",
+        "You are doing so well!",
+        "You have been brilliant today!",
+        "You have had exceptional motivation today!",
+        "At this pace, you are having exceptional self-growth!",
+        "It is insanely inspiring how committed you are to this!",
+        
+        
+    }
+    local doneTasksToday = 10
+
+
     -- Task Header
     lg.setFont(hhfontb)
     lg.setColor(hexToRGB("#906c4e"))
@@ -311,5 +325,8 @@ function drawTasksData()
     lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
     lg.setColor(hexToRGB("#ffffff"))
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+
+
+
 end
 return data
