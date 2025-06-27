@@ -105,11 +105,7 @@ function drawMoodData()
     local tagHeight = 30
     local tagPaddingX = 12
 
-    local moodIcons = {
-        happy = "😄", sad = "😢", angry = "😡", tired = "😴",
-        anxious = "😰", excited = "🤩", bored = "😐",
-        stressed = "😖", peaceful = "🧘", lonely = "🥺"
-    }
+
 
   local moodColors = {
     happy     = {0.89, 0.65, 0.42},    -- fawn
@@ -139,13 +135,12 @@ function drawMoodData()
     }
 
     local mood = DATA.mood.currentMood
-    local moodColor = moodColors[mood] or {1, 1, 1}
-    local moodIcon = moodIcons[mood] or "💬"
+    local moodColor = moodColors[mood] or {hexToRGB("#906c4e")}
     local suggestion = moodSuggestions[mood] or "You're doing your best, and that's enough."
 
     -- Mood Header
     lg.setFont(hhfontb)
-    lg.setColor(1, 1, 1)
+    lg.setColor(hexToRGB("#906c4e"))
     lg.print("Mood", wW/2 - hhfontb:getWidth("Mood")/2, 75)
 
     lg.setFont(hfont)
@@ -154,7 +149,7 @@ function drawMoodData()
 
     -- Mood Box
     local y = 150
-    local boxWidth, boxHeight = 400, 150
+    local boxWidth, boxHeight = 600, 135
     local boxX = wW/2 - boxWidth/2
 
     -- Shadow
@@ -168,18 +163,19 @@ function drawMoodData()
     lg.rectangle("line", boxX, y, boxWidth, boxHeight, 12, 12)
 
     lg.setColor(1, 1, 1)
-    lg.print(moodIcon .. " Current Mood: " .. mood, wW/2 - hfont:getWidth("Current Mood: " .. mood)/2, y + 10)
-    lg.print("Intensity: " .. DATA.mood.intensity, wW/2 - hfont:getWidth("Intensity: " .. DATA.mood.intensity)/2, y + 40)
-    lg.print("Notes: " .. DATA.mood.notes, wW/2 - hfont:getWidth("Notes: " .. DATA.mood.notes)/2, y + 70)
+    lg.print("Current Mood: " .. mood, wW/2 - hfont:getWidth("Current Mood: " .. mood)/2, y + 20)
+    lg.print("Intensity: " .. DATA.mood.intensity, wW/2 - hfont:getWidth("Intensity: " .. DATA.mood.intensity)/2, y + 50)
+    lg.print("Notes: " .. DATA.mood.notes, wW/2 - hfont:getWidth("Notes: " .. DATA.mood.notes)/2, y + 80)
 
     -- Time
     local formattedDate = formatDateTime(DATA.mood.timestamp)
-    lg.print("🕒 " .. formattedDate, wW/2 - hfont:getWidth(formattedDate)/2, y + 100)
+    lg.print(formattedDate, wW/2 - hfont:getWidth(formattedDate)/2, y + 100)
 
     -- Tags
     y = y + 180
     lg.setFont(hfont)
-    lg.print("🏷️ Tags:", wW/2 - hfont:getWidth("🏷️ Tags:")/2, y)
+    lg.setColor(hexToRGB("#906c4e"))
+    lg.print("Tags:", wW/2 - hfont:getWidth("Tags:")/2, y)
 
     y = y + 30
     local tagY = y
@@ -202,6 +198,8 @@ function drawMoodData()
         lineWidth = lineWidth + tagWidth
     end
     if #line > 0 then table.insert(tagLines, line) end
+
+    local tagTextColor = {1,1,1}
 
     -- Draw each line
     for _, tagLine in ipairs(tagLines) do
@@ -229,7 +227,17 @@ function drawMoodData()
             lg.rectangle("line", tagX, tagY, tagWidth, tagHeight, 8, 8)
 
             -- Tag Text
-            lg.setColor(1, 1, 1)
+            local mx, my = love.mouse:getPosition()
+            if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY + tagHeight then
+                lg.setColor(hexToRGB("#906c4e"))
+                if love.mouse.isDown(1) then
+                    love.system.setClipboardText(tag)
+                    lg.setColor(hexToRGB("#92765e"))
+                end
+            else
+                    lg.setColor(hexToRGB("#ffffff"))
+            end
+
             lg.print(tag, tagX + tagPaddingX, tagY + tagHeight/2 - hfont:getHeight()/2)
 
             tagX = tagX + tagWidth + tagMargin
@@ -240,8 +248,9 @@ function drawMoodData()
     -- Suggestion
     lg.setFont(sfont or hfont)
     local tipY = tagY + 20
-    lg.setColor(1, 1, 1)
-    lg.printf("💡 Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
+        lg.setColor(hexToRGB("#906c4e"))
+
+    lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
 end
 
 
