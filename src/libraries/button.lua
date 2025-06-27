@@ -94,18 +94,19 @@ function Button:draw()
     local r, g, b = unpack(self.state.color)
 
     -- Calculate shadow color (darker)
-    local shadowColor = {r * 0.6, g * 0.6, b * 0.6, 0.1}
+    local shadowColor = {r * 0.6, g * 0.6, b * 0.6, 0.2}
     -- Calculate border color (lighter)
     local borderColor = {
         math.min(r + 0.2, 1),
         math.min(g + 0.2, 1),
-        math.min(b + 0.2, 1)
+        math.min(b + 0.2, 1),
+        0.5
     }
 
     -- Draw shadow (offset by 3 pixels)
     
     love.graphics.setColor(shadowColor)
-    love.graphics.rectangle("fill", self.state.x + 3, self.state.y + 3,
+    love.graphics.rectangle("fill", self.state.x , self.state.y + 4,
                             self.state.width, self.state.height, self.state.rounded, self.state.rounded)
 
     -- Draw main button

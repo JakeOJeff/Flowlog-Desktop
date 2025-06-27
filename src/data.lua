@@ -37,22 +37,14 @@ function data:draw()
     if not isDataValid then
         love.graphics.print(fileStatusText)
     else
+        elements.exitButton:draw()
         for i = 1, 3 do elements.menuButtons[i]:draw() end
         lg.setColor(hexToRGB("#906c4e"))
 
-        if currentTab == 1 then 
-            drawMoodData() 
-        elseif currentTab == 2 then 
-            -- Mood Header
-            lg.setFont(hhfontb)
-            lg.setColor(hexToRGB("#906c4e"))
-            lg.print("Tasks", wW / 2 - hhfontb:getWidth("Tasks") / 2, 75)
-
-                lg.setFont(hfont)
-            local tasksDescriptionMessage = "You have been doing well!"
-            lg.print(tasksDescriptionMessage,
-            wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
-
+        if currentTab == 1 then
+            drawMoodData()
+        elseif currentTab == 2 then
+            drawTasksData()
         end
     end
 
@@ -61,7 +53,7 @@ end
 function data:update(dt) for i = 1, 3 do elements.menuButtons[i]:update(dt) end end
 
 function data:mousepressed(x, y, button)
-    for i = 1, 3 do elements.menuButtons[i]:mousepressed(x, y, button) end
+    for i = 1, 3 do elements.exitButton:mousepressed(x, y, button) elements.menuButtons[i]:mousepressed(x, y, button) end
 end
 
 function checkDataValidity(dataTable)
@@ -218,7 +210,7 @@ function drawMoodData()
 
     local tagTextColor = {1, 1, 1}
 
-    --Draw each line
+    -- Draw each line
     for _, tagLine in ipairs(tagLines) do
         local totalLineWidth = 0
         for _, tag in ipairs(tagLine) do
@@ -274,4 +266,43 @@ function drawMoodData()
     lg.printf("Tip: " .. suggestion, padding, tipY, wW - 2 * padding, "center")
 end
 
+function drawTasksData()
+    local padding = 20
+
+    local motivationMessages = {
+        "You've been doing so well so far",
+        "Proud of you how far you've come along.",
+        "Take a break and relax whenever you need to.",
+        "Don't forget to rest every once in a while!",
+        "If you ever feel down or burnt out, don't forget to take a rest!",
+        "Don't feel ashamed to take a rest if you are exhausted",
+        "Proud of the progress you've accomplished so far!"
+    }
+
+    -- Task Header
+    lg.setFont(hhfontb)
+    lg.setColor(hexToRGB("#906c4e"))
+    lg.print("Tasks", wW / 2 - hhfontb:getWidth("Tasks") / 2, 75)
+
+    lg.setFont(hfont)
+    local tasksDescriptionMessage = "You have been doing well!"
+    lg.print(tasksDescriptionMessage,
+    wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
+
+
+    -- Main TaskBox
+    local y = 150
+    local mainBoxWidth, mainBoxHeight = 600, 135
+    local mainBoxX = wW/2 - mainBoxWidth /2
+
+    -- Main Taskbox Shadow 
+    lg.setColor(0,0,0,0.2)
+    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12, 12)
+
+    -- Colored box 
+    lg.setColor(hexToRGB("#fee2bc"))
+    lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.setColor(hexToRGB("#ffffff"))
+    lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+end
 return data

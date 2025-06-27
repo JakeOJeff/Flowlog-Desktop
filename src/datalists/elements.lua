@@ -51,6 +51,23 @@ function elements:load()
 
     self.enterFlowLogBtn:recall()
 
+    self.exitButton = button:new()
+    self.exitButton.text = "▼"
+    self.exitButton.width = 20
+    self.exitButton.height = 20
+    self.exitButton.x = 10
+    self.exitButton.y = 20
+    self.exitButton.color = hexToRGB("#906c4e")
+    self.exitButton.hover.x = 10 - 3
+    self.exitButton.hover.y = 20 - 3
+    self.exitButton.hover.width = 26
+    self.exitButton.hover.height = 26
+    self.exitButton.hover.color = hexToRGB("#92765e")
+    self.exitButton.font = lg.getFont()
+    self.exitButton.duration = 0.06
+
+    self.exitButton:recall()
+
     self.menuButtons = {}
 
     local totalButtons = 3
