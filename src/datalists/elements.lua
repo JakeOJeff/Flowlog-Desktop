@@ -123,6 +123,9 @@ function elements:load()
 
     self.exitButton:recall()
     -- In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
+
+    self.pichart = graphing:new()
+
 end
 
 -- function elements:update(dt)

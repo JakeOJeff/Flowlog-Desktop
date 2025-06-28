@@ -1,10 +1,14 @@
 local data = {}
 
+-- Library Initialization
+button = require 'src.libraries.button'
+graphing = require 'src.libraries.graphing'
+json = require "src.libraries.json"
+
 -- CLASS OOP INITIALIZATION -- 
 local elements = require 'src.datalists.elements'
 
--- Get libraries 
-json = require "src.libraries.json"
+
 
 -- Find image 
 local streakImage = love.graphics.newImage("assets/imgs/streak.png")
@@ -85,6 +89,7 @@ function data:draw()
         lg.setFont(hhfontb)
         lg.print("10", 100, wW - 60 )
     end
+    elements.pichart:draw()
 
 
 end
