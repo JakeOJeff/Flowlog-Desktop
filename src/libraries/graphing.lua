@@ -5,45 +5,29 @@ local Graphing = class("Graphing")
 
 function Graphing:initialize(x, y, type, data, size)
 
-    self.x = 200--(math.floor(x/2)) or 200
-    self.y = 200--(math.floor(y/2))  or 200
+    self.x = 200 -- (math.floor(x/2)) or 200
+    self.y = 200 -- (math.floor(y/2))  or 200
     self.type = type or "pi"
     self.size = size or 100
     self.data = data or {
-        {
-            name = "tag1",
-            value = 34,
-        },
-        {
-            name = "tag2",
-            value = 300
-        },
-        {
-            name = "tag3",
-            value = 54
-        }
+        {name = "tag1", value = 34}, {name = "tag2", value = 300},
+        {name = "tag3", value = 54}
     }
     self.totalValue = 0
     for i = 1, #self.data do
         self.totalValue = self.totalValue + self.data[i].value
     end
-    
+
     for i = 1, #self.data do
         self.data[i].percent = self.data[i].value / self.totalValue
     end
 end
 
+function Graphing:update(dt) end
 
-function Graphing:update(dt)
-
-end
-
-function Graphing:draw()
-    self:drawPIChart()
-end
+function Graphing:draw() self:drawPIChart() end
 
 function Graphing:drawPIChart()
-
 
     local startAngle = 0
     for i = 1, #self.data do
@@ -55,11 +39,9 @@ function Graphing:drawPIChart()
 
         startAngle = startAngle + angle
     end
-        love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(1, 1, 1)
     love.graphics.circle("line", self.x, self.y, self.size, 1000)
 end
-
-
 
 function piSector(x, y, startAngleDeg, angleDeg, radius)
     local startRad = math.rad(startAngleDeg)
@@ -75,19 +57,73 @@ function piSector(x, y, startAngleDeg, angleDeg, radius)
         table.insert(points, px)
         table.insert(points, py)
     end
+    px, py = love.mouse.getPosition()
+    local isHovered = isPointInPolygon(px, py, points)
 
-    love.graphics.polygon("fill", points)
+    -- Compute polygon center (bounding box method)
+    local function getPolygonCenter(points)
+        local minX, maxX = points[1], points[1]
+        local minY, maxY = points[2], points[2]
+        for i = 3, #points, 2 do
+            local x, y = points[i], points[i + 1]
+            if x < minX then minX = x end
+            if x > maxX then maxX = x end
+            if y < minY then minY = y end
+            if y > maxY then maxY = y end
+        end
+        return (minX + maxX) / 2, (minY + maxY) / 2
+    end
+
+    local cx, cy = getPolygonCenter(points)
+    local drawPoints = isHovered and scalePolygon(points, 1.2, cx, cy) or points
+
+    -- Draw
+    love.graphics.polygon("fill", drawPoints)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.polygon("line", drawPoints)
+
 end
 
 function getColorFromPercentage(p)
-    
-    local highest = {0.847, 0.561, 0.545}
+    local white = {1, 1, 1}
+    local pink = {0.847, 0.561, 0.545}
 
-    r = highest[1] * p
-    g = highest[2] * p
-    b = highest[3] * p 
-
+    local r = white[1] * (1 - p) + pink[1] * p
+    local g = white[2] * (1 - p) + pink[2] * p
+    local b = white[3] * (1 - p) + pink[3] * p
 
     return {r, g, b}
 end
+function isPointInPolygon(px, py, vertices)
+    local inside = false
+    local j = #vertices - 1
+
+    for i = 1, #vertices - 1, 2 do
+        local xi, yi = vertices[i], vertices[i + 1]
+        local xj, yj = vertices[j], vertices[j + 1]
+
+        local intersect = ((yi > py) ~= (yj > py)) and
+                              (px < (xj - xi) * (py - yi) / (yj - yi + 0.000001) +
+                                  xi)
+        if intersect then inside = not inside end
+
+        j = i
+    end
+
+    return inside
+end
+
+function scalePolygon(points, scale, cx, cy)
+    local scaled = {}
+    for i = 1, #points, 2 do
+        local x = points[i]
+        local y = points[i + 1]
+        local dx = x - cx
+        local dy = y - cy
+        table.insert(scaled, cx + dx * scale)
+        table.insert(scaled, cy + dy * scale)
+    end
+    return scaled
+end
+
 return Graphing
