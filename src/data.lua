@@ -17,6 +17,7 @@ tabs = {"mood", "tasks", "log"}
 currentTab = 1
 DATA = {}
 
+-- Check if data has received ( Find applicable information and send out corresponding error messages )
 if receivedData then
     DATA, _, err = json.decode(receivedData)
     if DATA then
@@ -32,9 +33,7 @@ else
     fileStatusText = "NO DATA RECEIVED"
 end
 
-
-
-
+-- Load Data | Add and load button callbacks
 function data:load()
     for i = 1, 3 do
         elements.menuButtons[i].callback = function() currentTab = i end
@@ -43,6 +42,7 @@ function data:load()
     elements.exitButton.callback = function() love.event.quit() end
 end
 
+-- Update data | Mainly 
 function data:update(dt)
     elements.refreshButton:update(dt)
     elements.exitButton:update(dt)
@@ -50,38 +50,42 @@ function data:update(dt)
 end
 
 function data:draw()
+    -- Only display tab and tab options only if Data is Valid
     if not isDataValid then
         love.graphics.print(fileStatusText)
     else
+        -- Draw all required Button
         elements.exitButton:draw()
         elements.refreshButton:draw()
         for i = 1, 3 do elements.menuButtons[i]:draw() end
-        lg.setColor(hexToRGB("#906c4e"))
 
+        -- Tab Display
         if currentTab == 1 then
             drawMoodData()
         elseif currentTab == 2 then
             drawTasksData()
+        elseif currentTab == 3 then 
+            drawLogdata()
         end
+        
+        -- Display Streaks
+        -- SHADOW
+        lg.setColor(0, 0, 0, 0.1)
+        lg.draw(streakImage, 50, wW - 80 + 3, 0, 50 / streakImage:getWidth(),
+                50 / streakImage:getHeight())
+
+        -- Streak Image
+        lg.setColor(1, 1, 1)
+        lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(),
+                50 / streakImage:getHeight())
+
+
+        -- Streak Number 
+        lg.setColor(pals.headingColor)
+        lg.setFont(hhfontb)
+        lg.print("10", 100, wW - 60 )
     end
 
-    -- STREAK IMAGE 
-
-    -- SHADOW
-    lg.setColor(0, 0, 0, 0.1)
-    lg.draw(streakImage, 50, wW - 80 + 3, 0, 50 / streakImage:getWidth(),
-            50 / streakImage:getHeight())
-
-    lg.setColor(1, 1, 1)
-
-    lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(),
-            50 / streakImage:getHeight())
-
-
-    -- Streak Number 
-    lg.setColor(pals.headingColor)
-    lg.setFont(hhfontb)
-    lg.print("10", 100, wW - 60 )
 
 end
 
@@ -176,12 +180,12 @@ function drawMoodData()
     lg.setFont(hfont)
     local timeWelcomeMessage = getTimeOfDay() .. "! Hope you are doing well."
     lg.print(timeWelcomeMessage,
-             wW / 2 - hfont:getWidth(timeWelcomeMessage) / 2, 100)
+             wW / 2 - hfont:getWidth(timeWelcomeMessage) / 2, 105)
 
 
     -- Mood Box
     local y = 150
-    local boxWidth, boxHeight = 600, 135
+    local boxWidth, boxHeight = 600, 160
     local boxX = wW / 2 - boxWidth / 2
 
     -- -- Shadow
@@ -324,10 +328,11 @@ function drawTasksData()
         "At this pace, you are having exceptional self-growth!",
         "It is insanely inspiring how committed you are to this!",
         "You are unstoppable today!"
-
     }
-    local doneTasksToday = 10
-    local tasksDescriptionMessage = "You have been doing well!"
+    local doneTasksToday = 30
+    
+    -- Pick a random motivational message
+    local tasksDescriptionMessage = taskDoneMessages[math.floor(doneTasksToday/10)] or taskDoneMessages[#taskDoneMessages]
 
     -- Task Header
     lg.setFont(hhfontb)
@@ -336,7 +341,39 @@ function drawTasksData()
 
     lg.setFont(hfont)
     lg.print(tasksDescriptionMessage,
-             wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 100)
+             wW / 2 - hfont:getWidth(tasksDescriptionMessage) / 2, 105)
+
+    -- Main TaskBox
+    local y = 150
+    local mainBoxWidth, mainBoxHeight = 600, 450
+    local mainBoxX = wW / 2 - mainBoxWidth / 2
+
+    -- Main Taskbox Shadow 
+    lg.setColor(0, 0, 0, 0.2)
+    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12,
+                 12)
+
+    -- Colored box 
+    lg.setColor(pals.lightAccent)
+    lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.setColor(pals.lightAccentBorder)
+    lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+
+end
+function drawLogdata()
+    local padding = 20
+    
+    -- Pick a random motivational message
+    local logDescriptionMessage = "Check out your logs for today"
+
+    -- Task Header
+    lg.setFont(hhfontb)
+    lg.setColor(pals.headingColor)
+    lg.print("Logs", wW / 2 - hhfontb:getWidth("Logs") / 2, 75)
+
+    lg.setFont(hfont)
+    lg.print(logDescriptionMessage,
+             wW / 2 - hfont:getWidth(logDescriptionMessage) / 2, 105)
 
     -- Main TaskBox
     local y = 150
@@ -355,5 +392,4 @@ function drawTasksData()
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
 
 end
-
 return data

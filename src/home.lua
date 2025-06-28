@@ -33,7 +33,7 @@ function home:load()
                     timestamp = "2025-06-26T09:00:00",
                     doneTime = nil,
                     tags = {"#work"}
-                }
+                 }
             },
             log = {
                 timestamp = "2025-06-26T10:00:00",
