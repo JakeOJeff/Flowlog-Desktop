@@ -10,8 +10,8 @@ function Graphing:initialize(x, y, type, data, size)
     self.type = type or "pi"
     self.size = size or 100
     self.data = data or {
-        {name = "tag1", value = 34}, {name = "tag2", value = 300},
-        {name = "tag3", value = 54}
+        {name = "Happiness", value = 34}, {name = "Sad", value = 300},
+        {name = "Insanity", value = 54}
     }
     self.totalValue = 0
     for i = 1, #self.data do
@@ -28,28 +28,38 @@ function Graphing:update(dt) end
 function Graphing:draw() self:drawPIChart() end
 
 function Graphing:drawPIChart()
+    self.slicePolygons = {} -- Store each slice's polygon points
 
     local startAngle = 0
     for i = 1, #self.data do
         local percent = self.data[i].percent
         local angle = percent * 360
 
-        love.graphics.setColor(getColorFromPercentage(percent))
-        piSector(self.x, self.y, startAngle, angle, self.size)
+        local slicePoints = piSector(self.x, self.y, startAngle, angle,
+                                     self.size)
+
+        -- Save polygon data per slice
+        self.slicePolygons[i] = {
+            points = slicePoints,
+            color = getColorFromPercentage(percent),
+        }
 
         startAngle = startAngle + angle
     end
+
     love.graphics.setColor(1, 1, 1)
     love.graphics.circle("line", self.x, self.y, self.size, 1000)
+
+    self:drawHoveredPieChart()
 end
 
+-- Draw a pie slice and return its points
 function piSector(x, y, startAngleDeg, angleDeg, radius)
     local startRad = math.rad(startAngleDeg)
     local angleRad = math.rad(angleDeg)
     local segments = math.max(3, math.ceil(radius * angleDeg / 45))
 
     local points = {x, y}
-
     for i = 0, segments do
         local theta = startRad + i / segments * angleRad
         local px = x + math.cos(theta) * radius
@@ -57,31 +67,47 @@ function piSector(x, y, startAngleDeg, angleDeg, radius)
         table.insert(points, px)
         table.insert(points, py)
     end
-    px, py = love.mouse.getPosition()
-    local isHovered = isPointInPolygon(px, py, points)
 
-    -- Compute polygon center (bounding box method)
-    local function getPolygonCenter(points)
+    return points -- Return points for hover detection
+end
+
+function Graphing:drawHoveredPieChart()
+    local mx, my = love.mouse.getPosition()
+    function getPolygonCenter(points)
         local minX, maxX = points[1], points[1]
         local minY, maxY = points[2], points[2]
         for i = 3, #points, 2 do
             local x, y = points[i], points[i + 1]
-            if x < minX then minX = x end
-            if x > maxX then maxX = x end
-            if y < minY then minY = y end
-            if y > maxY then maxY = y end
+            minX, maxX = math.min(minX, x), math.max(maxX, x)
+            minY, maxY = math.min(minY, y), math.max(maxY, y)
         end
         return (minX + maxX) / 2, (minY + maxY) / 2
     end
+    for _, slice in ipairs(self.slicePolygons) do 
+                    love.graphics.setColor(slice.color)
+            love.graphics.polygon("fill", slice.points)
 
-    local cx, cy = getPolygonCenter(points)
-    local drawPoints = isHovered and scalePolygon(points, 1.2, cx, cy) or points
+            -- Optional: Draw border
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.polygon("line", slice.points)
+    end
+    for _, slice in ipairs(self.slicePolygons) do
+        if isPointInPolygon(mx, my, slice.points) then
+            local cx, cy = getPolygonCenter(slice.points)
+            local scaledPoints = scalePolygon(slice.points, 1.1, cx, cy)
 
-    -- Draw
-    love.graphics.polygon("fill", drawPoints)
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.polygon("line", drawPoints)
+            love.graphics.setColor(slice.color)
+            love.graphics.polygon("fill", scaledPoints)
 
+            -- Optional: Draw border
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.polygon("line", scaledPoints)
+
+            love.graphics.print(self.data[_].name.." <"..(math.floor(self.data[_].percent * 100)) .. ">", mx, my)
+            break -- Only one hovered slice
+        end
+
+    end
 end
 
 function getColorFromPercentage(p)
