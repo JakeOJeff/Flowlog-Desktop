@@ -2,11 +2,19 @@ local data = {}
 
 -- CLASS OOP INITIALIZATION -- 
 local elements = require 'src.datalists.elements'
--- Require Data
+
+-- Get libraries 
 json = require "src.libraries.json"
+
+-- Find image 
+local streakImage = love.graphics.newImage("assets/imgs/streak.png")
+
+-- receive Data
 local receivedData = love.filesystem.read("data.txt")
 isDataValid = false
 fileStatusText = ""
+tabs = {"mood", "tasks", "log"}
+currentTab = 1
 DATA = {}
 
 if receivedData then
@@ -24,10 +32,8 @@ else
     fileStatusText = "NO DATA RECEIVED"
 end
 
-tabs = {"mood", "tasks", "log"}
-currentTab = 1
 
-local streakImage = love.graphics.newImage("assets/imgs/streak.png")
+
 
 function data:load()
     for i = 1, 3 do
@@ -35,6 +41,12 @@ function data:load()
     end
     elements.refreshButton.callback = function() data.setScene("home") end
     elements.exitButton.callback = function() love.event.quit() end
+end
+
+function data:update(dt)
+    elements.refreshButton:update(dt)
+    elements.exitButton:update(dt)
+    for i = 1, 3 do elements.menuButtons[i]:update(dt) end
 end
 
 function data:draw()
@@ -73,11 +85,7 @@ function data:draw()
 
 end
 
-function data:update(dt)
-    elements.refreshButton:update(dt)
-    elements.exitButton:update(dt)
-    for i = 1, 3 do elements.menuButtons[i]:update(dt) end
-end
+
 
 function data:mousepressed(x, y, button)
     elements.refreshButton:mousepressed(x, y, button)
@@ -120,19 +128,8 @@ function formatDateTime(iso)
     })
     return os.date("%A, %d %B %Y - %I:%M %p", t)
 end
-function formatDateTime(iso)
-    local year, month, day, hour, min, sec = iso:match(
-                                                 "(%d+)-(%d+)-(%d+)T(%d+):(%d+):?(%d*)")
-    local t = os.time({
-        year = tonumber(year),
-        month = tonumber(month),
-        day = tonumber(day),
-        hour = tonumber(hour),
-        min = tonumber(min),
-        sec = sec ~= "" and tonumber(sec) or 0
-    })
-    return os.date("%A, %d %B %Y - %I:%M %p", t)
-end
+
+
 
 function drawMoodData()
     local padding = 20
@@ -358,4 +355,5 @@ function drawTasksData()
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
 
 end
+
 return data
