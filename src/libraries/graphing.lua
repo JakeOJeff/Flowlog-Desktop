@@ -10,9 +10,12 @@ function Graphing:initialize(x, y, type, data, size)
     self.type = type or "pi"
     self.size = size or 100
     self.data = data or {
-        {name = "Happiness", value = 34}, {name = "Sad", value = 300},
-        {name = "Insanity", value = 54}
+        {name = "Happiness", value = 34}, {name = "Sad", value = 75},
+        {name = "Insanity", value = 500},
+        {name = "Crude", value = 300},
+        {name = "Truce", value = 69}
     }
+    self.data = sortDataBasedOnInternalValue(self.data)
     self.totalValue = 0
     for i = 1, #self.data do
         self.totalValue = self.totalValue + self.data[i].value
@@ -21,6 +24,8 @@ function Graphing:initialize(x, y, type, data, size)
     for i = 1, #self.data do
         self.data[i].percent = self.data[i].value / self.totalValue
     end
+    self.shades = generateColorShades(#self.data)
+
 end
 
 function Graphing:update(dt) end
@@ -41,7 +46,8 @@ function Graphing:drawPIChart()
         -- Save polygon data per slice
         self.slicePolygons[i] = {
             points = slicePoints,
-            color = getColorFromPercentage(percent),
+            color = self.shades[i]
+            --color = getColorFromPercentage(percent)
         }
 
         startAngle = startAngle + angle
@@ -95,24 +101,39 @@ function Graphing:drawHoveredPieChart()
         if isPointInPolygon(mx, my, slice.points) then
             local cx, cy = getPolygonCenter(slice.points)
             local scaledPoints = scalePolygon(slice.points, 1.1, cx, cy)
-
+            
             love.graphics.setColor(slice.color)
             love.graphics.polygon("fill", scaledPoints)
 
             -- Optional: Draw border
             love.graphics.setColor(1, 1, 1)
             love.graphics.polygon("line", scaledPoints)
+            
+            -- DRAW TOOLTIP
+            love.graphics.setFont(hfontb)
+            local tooltipText = self.data[_].name.." <"..(math.floor(self.data[_].percent * 100)) .. ">"
+            local tooltipWidth = 20 + hfontb:getWidth(tooltipText)
 
-            love.graphics.print(self.data[_].name.." <"..(math.floor(self.data[_].percent * 100)) .. ">", mx, my)
+                        -- Colored box 
+            love.graphics.setColor(pals.lightAccent)
+            love.graphics.rectangle("fill", mx - 10, my - 10, tooltipWidth, 20 + hfontb:getHeight(), 12, 12)
+            love.graphics.setColor(pals.lightAccentBorder)
+            love.graphics.rectangle("line", mx - 10, my - 10, tooltipWidth, 20 +  hfontb:getHeight(), 12, 12)
+            love.graphics.setColor(0,0,0,0.2)
+            love.graphics.print(tooltipText, mx + 3, my + 3)
+            love.graphics.setColor(1,1,1)
+            love.graphics.print(tooltipText, mx, my)
+            
             break -- Only one hovered slice
         end
 
     end
 end
 
+-- This is a legacy system for colours
 function getColorFromPercentage(p)
     local white = {1, 1, 1}
-    local pink = {0.847, 0.561, 0.545}
+    local pink = {0.667, 0.341, 0.314}
 
     local r = white[1] * (1 - p) + pink[1] * p
     local g = white[2] * (1 - p) + pink[2] * p
@@ -120,6 +141,24 @@ function getColorFromPercentage(p)
 
     return {r, g, b}
 end
+
+function generateColorShades(n)
+        -- Define color range endpoints
+    local white = {1, 1, 1}
+    local pink = {0.847, 0.561, 0.545}
+    local shades = {}
+
+    for i = 1, n do
+        local t = (i - 1) / (n - 1)  -- even distribution from 0 to 1
+        local r = pink[1] * (1 - t) + white[1] * t
+        local g = pink[2] * (1 - t) + white[2] * t
+        local b = pink[3] * (1 - t) + white[3] * t
+        table.insert(shades, {r, g, b})
+    end
+
+    return shades
+end
+
 function isPointInPolygon(px, py, vertices)
     local inside = false
     local j = #vertices - 1
@@ -151,5 +190,21 @@ function scalePolygon(points, scale, cx, cy)
     end
     return scaled
 end
+
+function sortDataBasedOnInternalValue(data)
+    local givenData = data
+    for i = 1, #givenData do
+        for j = 1, #givenData do
+            local temp = 0
+            if givenData[i].value > givenData[j].value then
+                temp = givenData[j]
+                givenData[j] = givenData[i]
+                givenData[i] = temp
+            end
+        end
+    end
+    return givenData
+end
+
 
 return Graphing

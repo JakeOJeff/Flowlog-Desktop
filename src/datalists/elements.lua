@@ -13,7 +13,7 @@ function elements:load()
     self.startBtn.hover.width = 206
     self.startBtn.hover.height = 41
     self.startBtn.hover.color = pals.buttonHover
-    self.startBtn.font = font
+    self.startBtn.font = pfontb
     self.startBtn.duration = 0.06
     self.startBtn:recall()
 
@@ -29,7 +29,7 @@ function elements:load()
     self.pasteBtn.hover.width = 206
     self.pasteBtn.hover.height = 41
     self.pasteBtn.hover.color = pals.buttonHover
-    self.pasteBtn.font = pfont
+    self.pasteBtn.font = pfontb
     self.pasteBtn.duration = 0.06
 
     self.pasteBtn:recall()
@@ -46,7 +46,7 @@ function elements:load()
     self.enterFlowLogBtn.hover.width = 206
     self.enterFlowLogBtn.hover.height = 41
     self.enterFlowLogBtn.hover.color = pals.buttonHover
-    self.enterFlowLogBtn.font = pfont
+    self.enterFlowLogBtn.font = pfontb
     self.enterFlowLogBtn.duration = 0.06
 
     self.enterFlowLogBtn:recall()
@@ -125,6 +125,8 @@ function elements:load()
     -- In my first year of love, I made a button library which turned out to be really badd. 4 years later, I've finally made a lightweight well-made library!
 
     self.pichart = graphing:new()
+    self.pichart.x = 60 + self.pichart.size
+    self.pichart.y = 160 + self.pichart.size
 
 end
 

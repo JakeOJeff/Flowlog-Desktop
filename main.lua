@@ -22,7 +22,8 @@ hhfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 30)
 hfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 24)
 hfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 24)
 pfont = love.graphics.newFont("assets/fonts/Quicksand_Book.otf", 16)
-tagfont = love.graphics.newFont("assets/fonts/Nunito-Regular.ttf", 18)
+pfontb = love.graphics.newFont("assets/fonts/Quicksand_Bold.otf", 16)
+tagfont = love.graphics.newFont("assets/fonts/Nunito-Regular.ttf", 20)
 
 -- Color palette
 pals = {

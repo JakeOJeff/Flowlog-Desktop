@@ -85,11 +85,12 @@ function data:draw()
 
 
         -- Streak Number 
-        lg.setColor(pals.headingColor)
         lg.setFont(hhfontb)
+        lg.setColor(0,0,0,0.2)
+        --lg.print("10", 100 + 3, wW - 60 + 3 )
+        lg.setColor(pals.lightAccent)
         lg.print("10", 100, wW - 60 )
     end
-    elements.pichart:draw()
 
 
 end
@@ -190,7 +191,7 @@ function drawMoodData()
 
     -- Mood Box
     local y = 150
-    local boxWidth, boxHeight = 600, 160
+    local boxWidth, boxHeight = 600, 220
     local boxX = wW / 2 - boxWidth / 2
 
     -- -- Shadow
@@ -214,21 +215,23 @@ function drawMoodData()
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", boxX, y, boxWidth, boxHeight, 12, 12)
 
-    lg.setColor(1,1,1)
-    lg.print("Current Mood: " .. mood,
-             wW / 2 - hfont:getWidth("Current Mood: " .. mood) / 2, y + 15)
-    lg.print("Mood Intensity: " .. DATA.mood.intensity,
-             wW / 2 - hfont:getWidth("Mood Intensity: " .. DATA.mood.intensity) / 2,
-             y + 45)
-    lg.print("Notes: " .. DATA.mood.notes,
-             wW / 2 - hfont:getWidth("Notes: " .. DATA.mood.notes) / 2, y + 75)
+    -- lg.setColor(1,1,1)
+    -- lg.print("Current Mood: " .. mood,
+    --          wW / 2 - hfont:getWidth("Current Mood: " .. mood) / 2, y + 15)
+    -- lg.print("Mood Intensity: " .. DATA.mood.intensity,
+    --          wW / 2 - hfont:getWidth("Mood Intensity: " .. DATA.mood.intensity) / 2,
+    --          y + 45)
+    -- lg.print("Notes: " .. DATA.mood.notes,
+    --          wW / 2 - hfont:getWidth("Notes: " .. DATA.mood.notes) / 2, y + 75)
 
-    -- Time
-    local formattedDate = formatDateTime(DATA.mood.timestamp)
-    lg.print(formattedDate, wW / 2 - hfont:getWidth(formattedDate) / 2, y + 105)
+    -- -- Time
+    -- local formattedDate = formatDateTime(DATA.mood.timestamp)
+    -- lg.print(formattedDate, wW / 2 - hfont:getWidth(formattedDate) / 2, y + 105)
+
+    elements.pichart:draw()
 
     -- Tags
-    y = y + 180
+    y = y + boxHeight + 10
     lg.setFont(tagfont)
     lg.setColor(pals.textColor)
     lg.print("Tags:", wW / 2 - hfont:getWidth("Tags:") / 2, y)
@@ -285,6 +288,8 @@ function drawMoodData()
 
             -- Tag Text
             local mx, my = love.mouse:getPosition()
+                        lg.setFont(tagfont)
+
             if mx > tagX and mx < tagX + tagWidth and my > tagY and my < tagY +
                 tagHeight then
                 lg.setColor(pals.textColor)
@@ -296,7 +301,6 @@ function drawMoodData()
                 lg.setColor(hexToRGB("#ffffff"))
             end
 
-            lg.setFont(tagfont)
             lg.print(tag, tagX + tagPaddingX,
                      tagY + tagHeight / 2 - tagfont:getHeight() / 2)
 
