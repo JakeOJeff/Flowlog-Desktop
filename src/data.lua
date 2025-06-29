@@ -86,7 +86,7 @@ function data:draw()
         lg.setColor(0, 0, 0, 0.2)
         -- lg.print("10", 100 + 3, wW - 60 + 3 )
         lg.setColor(pals.lightAccent)
-        lg.print("10", 100, wW - 60)
+        lg.print(DATA.streak, 100, wW - 60)
     end
 
 end

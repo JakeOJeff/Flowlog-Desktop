@@ -61,7 +61,8 @@ function home:load()
                 mood = "calm",
                 task = "Morning meditation",
                 note = "Felt peaceful after 10 minutes of breathing"
-            }
+            },
+            streak = 0
         }
         local tempTable = json.encode(dataFiled)
         love.filesystem.write("data.txt", tempTable)
