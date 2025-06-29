@@ -16,7 +16,56 @@ function welcome:load()
     elements.startBtn.callback = function()
         welcome.setScene("home")
     end
-    
+    local dataFiled = {
+            mood = {
+                currentMood = "peaceful",
+                intensity = 6,
+                notes = "Didn't sleep well",
+                timestamp = "2025-06-26T08:30:00",
+                tags = {
+                    "#health", "#sleep", "#tired", "#sleep", "#tired", "#sleep",
+                    "#tired", "#sleep", "#tired"
+                }
+            },
+
+            tasks = {
+                ["2025-06-26"] = {
+                    {
+                        title = "Submit Report",
+                        done = 2,
+                        due = "2025-06-26",
+                        priority = "high",
+                        timestamp = "2025-06-26T09:00:00",
+                        doneTime = {
+                            "2025-06-26T10:00:00", "2025-06-26T11:30:00"
+                        },
+                        tags = {"#work"}
+                    }
+                },
+                ["2025-06-27"] = {
+                    {
+                        title = "Complete task",
+                        done = 3,
+                        due = "2025-06-26",
+                        priority = "high",
+                        timestamp = "2025-06-26T09:00:00",
+                        doneTime = {
+                            "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+                        },
+                        tags = {"#work"}
+                    }
+                }
+            },
+            log = {
+                timestamp = "2025-06-26T10:00:00",
+                mood = "calm",
+                task = "Morning meditation",
+                note = "Felt peaceful after 10 minutes of breathing"
+            },
+            streak = 0
+        }
+        local tempTable = json.encode(dataFiled)
+        love.filesystem.write("data.txt", tempTable)
 end
 
 

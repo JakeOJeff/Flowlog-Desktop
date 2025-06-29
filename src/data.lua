@@ -11,13 +11,17 @@ local elements = require 'src.datalists.elements'
 -- Find image 
 local streakImage = love.graphics.newImage("assets/imgs/streak.png")
 
--- receive Data
-local receivedData = love.filesystem.read("data.txt")
 isDataValid = false
 fileStatusText = ""
 tabs = {"mood", "tasks", "log"}
 currentTab = 1
 DATA = {}
+
+-- Load Data | Add and load button callbacks
+function data:load()
+    -- receive Data
+local receivedData = love.filesystem.read("data.txt")
+
 
 -- Check if data has received ( Find applicable information and send out corresponding error messages )
 if receivedData then
@@ -34,9 +38,6 @@ else
     print("Failed to read data.txt")
     fileStatusText = "NO DATA RECEIVED"
 end
-
--- Load Data | Add and load button callbacks
-function data:load()
     for i = 1, 3 do
         elements.menuButtons[i].callback = function() currentTab = i end
     end
