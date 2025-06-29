@@ -416,7 +416,7 @@ function drawLogdata()
         return dateGrid
     end
     -- Profile Grid Display ( 29 x 7 )
-    local dateGrid = generateDateGrid(daysBeforeThisDay(2025-06-30, (29 * 7)), "2025-06-30")
+    local dateGrid = generateDateGrid(daysBeforeThisDay(os.date("%Y-%m-%d"), 29 * 7),os.date("%Y-%m-%d"))
 
     local gridSize = 18
     local spacing = 2
@@ -490,7 +490,8 @@ function daysBeforeThisDay(date, no)
     local y = tonumber(string.sub(date,1, 4))
     local m = tonumber(string.sub(date,6, 7))
     local d = tonumber(string.sub(date,9, 10))
-
+    local num = no
+    print(num)
     local function getMonthDays(month, year)
         if month == 2 then
             if (year % 4 == 0 and year % 100 ~= 0) or (year % 400 == 0) then
@@ -504,21 +505,21 @@ function daysBeforeThisDay(date, no)
             return 31
         end
     end
-    for i = 1, no do
-        if d > 1 then
-            d = d - 1
-        else
-            if m > 1 then
-                m = m - 1
-                d = getMonthDays(m, y)
-            else
-                y = y - 1
-                m = 12
+    local ye, mo, da = y, m, d
+    for i = 1, num do
+        da = da - 1
+        if da < 1 then
+            mo = mo - 1
+            if mo < 1 then
+                mo = 12
+                ye = ye - 1
             end
+            da = getMonthDays(mo, ye)
         end
     end
 
-    return tostring(y.."-"..m.."-"..d)
+    return string.format("%04d-%02d-%02d", ye, mo, da)
+
 end
 
 return data
