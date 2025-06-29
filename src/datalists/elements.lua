@@ -35,7 +35,7 @@ function elements:load()
     self.pasteBtn:recall()
 
     self.enterFlowLogBtn = button:new()
-    self.enterFlowLogBtn.text = "Run Flow"
+    self.enterFlowLogBtn.text = "Run Flow ( WIP )"
     self.enterFlowLogBtn.width = 200
     self.enterFlowLogBtn.height = 35
     self.enterFlowLogBtn.x = wW / 2 - self.pasteBtn.width / 2

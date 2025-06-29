@@ -491,7 +491,6 @@ function daysBeforeThisDay(date, no)
     local m = tonumber(string.sub(date,6, 7))
     local d = tonumber(string.sub(date,9, 10))
     local num = no
-    print(num)
     local function getMonthDays(month, year)
         if month == 2 then
             if (year % 4 == 0 and year % 100 ~= 0) or (year % 400 == 0) then
