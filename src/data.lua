@@ -492,25 +492,16 @@ function daysBeforeThisDay(date, no)
     local d = tonumber(string.sub(date,9, 10))
 
     local function getMonthDays(month, year)
-        local fullDays = {1, 3, 5, 7, 8, 10, 12}
-        local partialDays = {4, 6, 9, 11}
-
-        for i = 1, #fullDays do
-            if month == fullDays[i] then
-                return fullDays[i]
-            end
-        end
-        for i = 1, #partialDays do
-            if month == partialDays[i] then
-                return partialDays[i]
-            end
-        end
         if month == 2 then
-            if year % 4 == 0 then
-                return 28
-            else
+            if (year % 4 == 0 and year % 100 ~= 0) or (year % 400 == 0) then
                 return 29
+            else
+                return 28
             end
+        elseif month == 4 or month == 6 or month == 9 or month == 11 then 
+            return 30
+        else
+            return 31
         end
     end
     for i = 1, no do
