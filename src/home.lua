@@ -22,18 +22,39 @@ function home:load()
                 intensity = 6,
                 notes = "Didn't sleep well",
                 timestamp = "2025-06-26T08:30:00",
-                tags = {"#health", "#sleep", "#tired", "#sleep", "#tired", "#sleep", "#tired", "#sleep", "#tired"}
+                tags = {
+                    "#health", "#sleep", "#tired", "#sleep", "#tired", "#sleep",
+                    "#tired", "#sleep", "#tired"
+                }
             },
+
             tasks = {
-                {
-                    title = "Submit Report",
-                    done = false,
-                    due = "2025-06-26",
-                    priority = "high",
-                    timestamp = "2025-06-26T09:00:00",
-                    doneTime = nil,
-                    tags = {"#work"}
-                 }
+                ["2025-06-26"] = {
+                    {
+                        title = "Submit Report",
+                        done = 2,
+                        due = "2025-06-26",
+                        priority = "high",
+                        timestamp = "2025-06-26T09:00:00",
+                        doneTime = {
+                            "2025-06-26T10:00:00", "2025-06-26T11:30:00"
+                        },
+                        tags = {"#work"}
+                    }
+                },
+                ["2025-06-27"] = {
+                    {
+                        title = "Complete task",
+                        done = 3,
+                        due = "2025-06-26",
+                        priority = "high",
+                        timestamp = "2025-06-26T09:00:00",
+                        doneTime = {
+                            "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+                        },
+                        tags = {"#work"}
+                    }
+                }
             },
             log = {
                 timestamp = "2025-06-26T10:00:00",
@@ -74,7 +95,7 @@ function home:draw()
 
     love.graphics.setFont(hfont)
     lg.print(home2Text, wW / 2 - hfont:getWidth(home2Text) / 2, wH / 2 + 40)
-       lg.setColor(pals.textColor) 
+    lg.setColor(pals.textColor)
     love.graphics.setFont(pfont)
     lg.print(info2Text, wW / 2 - pfont:getWidth(info2Text) / 2, wH / 2 + 65)
     lg.setColor(1, 1, 1)
