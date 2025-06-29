@@ -506,7 +506,7 @@ function daysBeforeThisDay(date, no)
         end
     end
     local ye, mo, da = y, m, d
-    for i = 1, num do
+    for i = 2, num do
         da = da - 1
         if da < 1 then
             mo = mo - 1
