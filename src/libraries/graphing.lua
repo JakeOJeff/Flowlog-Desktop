@@ -100,7 +100,7 @@ function Graphing:drawHoveredPieChart()
     for _, slice in ipairs(self.slicePolygons) do
         if isPointInPolygon(mx, my, slice.points) then
             local cx, cy = getPolygonCenter(slice.points)
-            local scaledPoints = scalePolygon(slice.points, 1.1, cx, cy)
+            local scaledPoints = self:scalePolygon(slice.points, 1.2, cx, cy)
             
             love.graphics.setColor(slice.color)
             love.graphics.polygon("fill", scaledPoints)
@@ -114,15 +114,16 @@ function Graphing:drawHoveredPieChart()
             local tooltipText = self.data[_].name.." <"..(math.floor(self.data[_].percent * 100)) .. ">"
             local tooltipWidth = 20 + hfontb:getWidth(tooltipText)
 
-                        -- Colored box 
+             -- Colored box 
+             local tooltipX, tooltipY = mx + 20, my + 20 
             love.graphics.setColor(pals.lightAccent)
-            love.graphics.rectangle("fill", mx - 10, my - 10, tooltipWidth, 20 + hfontb:getHeight(), 12, 12)
+            love.graphics.rectangle("fill", tooltipX - 10, tooltipY - 10, tooltipWidth, 20 + hfontb:getHeight(), 12, 12)
             love.graphics.setColor(pals.lightAccentBorder)
-            love.graphics.rectangle("line", mx - 10, my - 10, tooltipWidth, 20 +  hfontb:getHeight(), 12, 12)
+            love.graphics.rectangle("line", tooltipX - 10, tooltipY - 10, tooltipWidth, 20 +  hfontb:getHeight(), 12, 12)
             love.graphics.setColor(0,0,0,0.2)
-            love.graphics.print(tooltipText, mx + 3, my + 3)
+            love.graphics.print(tooltipText, tooltipX + 3, tooltipY + 3)
             love.graphics.setColor(1,1,1)
-            love.graphics.print(tooltipText, mx, my)
+            love.graphics.print(tooltipText, tooltipX, tooltipY)
             
             break -- Only one hovered slice
         end
@@ -178,7 +179,7 @@ function isPointInPolygon(px, py, vertices)
     return inside
 end
 
-function scalePolygon(points, scale, cx, cy)
+function Graphing:scalePolygon(points, scale, cx, cy)
     local scaled = {}
     for i = 1, #points, 2 do
         local x = points[i]
@@ -188,6 +189,8 @@ function scalePolygon(points, scale, cx, cy)
         table.insert(scaled, cx + dx * scale)
         table.insert(scaled, cy + dy * scale)
     end
+    scaled[1] = self.x -- To Set the middle points as the same for x 
+    scaled[2] = self.y -- To set the middle points as same for y
     return scaled
 end
 

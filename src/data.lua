@@ -513,7 +513,6 @@ function daysBeforeThisDay(date, no)
             end
         end
     end
-    local dLimit = d
     for i = 1, no do
         if d > 1 then
             d = d - 1
