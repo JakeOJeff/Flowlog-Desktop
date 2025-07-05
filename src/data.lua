@@ -4,9 +4,13 @@ local data = {}
 button = require 'src.libraries.button'
 graphing = require 'src.libraries.graphing'
 json = require "src.libraries.json"
-
 -- CLASS OOP INITIALIZATION -- 
-local elements = require 'src.datalists.elements'
+elements = require 'src.datalists.elements'
+-- Import tabs
+require 'src.data-tabs.mood'
+require 'src.data-tabs.tasks'
+require 'src.data-tabs.logs'
+
 
 -- Find image 
 local streakImage = love.graphics.newImage("assets/imgs/streak.png")

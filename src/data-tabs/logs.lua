@@ -122,4 +122,16 @@ function drawLogdata()
         lg.print(taskText, displayX + 10, my + 10)
     end
 
+    -- Second Taskbox Shadow 
+    y = y + mainBoxHeight + 20
+    lg.setColor(0, 0, 0, 0.2)
+    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12,
+                 12)
+
+    -- Colored box 
+    lg.setColor(pals.lightAccent)
+    lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.setColor(pals.lightAccentBorder)
+    lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+
 end

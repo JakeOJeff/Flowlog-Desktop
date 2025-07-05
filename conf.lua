@@ -3,5 +3,5 @@ function love.conf(t)
     t.console = false
     t.window.width = 700
     t.window.height = 700
-    t.window.borderless = true
+    t.window.borderless = false
 end
