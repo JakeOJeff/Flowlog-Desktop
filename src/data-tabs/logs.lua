@@ -1,4 +1,3 @@
-
 function drawLogdata()
     local padding = 20
 
@@ -11,8 +10,7 @@ function drawLogdata()
     lg.print("Logs", wW / 2 - hhfontb:getWidth("Logs") / 2, 75)
 
     lg.setFont(hfont)
-    lg.print(logDescriptionMessage,
-             wW / 2 - hfont:getWidth(logDescriptionMessage) / 2, 105)
+    lg.print(logDescriptionMessage, wW / 2 - hfont:getWidth(logDescriptionMessage) / 2, 105)
 
     -- Main TaskBox
     local y = 150
@@ -21,15 +19,13 @@ function drawLogdata()
 
     -- Main Taskbox Shadow 
     lg.setColor(0, 0, 0, 0.2)
-    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12,
-                 12)
+    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12, 12)
 
     -- Colored box 
     lg.setColor(pals.lightAccent)
     lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
-
 
     local function generateDateGrid(startDate, endDate)
         local dateGrid = {}
@@ -54,7 +50,7 @@ function drawLogdata()
         return dateGrid
     end
     -- Profile Grid Display ( 29 x 7 )
-    local dateGrid = generateDateGrid(daysBeforeThisDay(os.date("%Y-%m-%d"), 29 * 7),os.date("%Y-%m-%d"))
+    local dateGrid = generateDateGrid(daysBeforeThisDay(os.date("%Y-%m-%d"), 29 * 7), os.date("%Y-%m-%d"))
 
     local gridSize = 18
     local spacing = 2
@@ -65,12 +61,14 @@ function drawLogdata()
     local mx, my = love.mouse.getPosition()
     local isHoveringOverGrid = false
     local hoveredDate = ""
-    local totalCells = #dateGrid 
+    local totalCells = #dateGrid
     local cellCounter = 1
 
     for i = 1, verticalGrids do
         for j = 1, horizontalGrids do
-            if cellCounter > totalCells then break end
+            if cellCounter > totalCells then
+                break
+            end
             local baseSize = gridSize
 
             local givenX = pGridX + ((baseSize + spacing) * (j - 1))
@@ -81,43 +79,36 @@ function drawLogdata()
 
             local currentDate = dateGrid[cellCounter]
             -- Check hover
-            if mx > givenX and mx < givenX + baseSize and my > givenY and my <
-                givenY + baseSize then
+            if mx > givenX and mx < givenX + baseSize and my > givenY and my < givenY + baseSize then
                 drawSize = baseSize * 1.2
                 offset = (drawSize - baseSize) / 2
-                    isHoveringOverGrid = true
-                    hoveredDate = currentDate
+                isHoveringOverGrid = true
+                hoveredDate = currentDate
             end
 
             -- Determine color based on task count (0-N)
             local taskCount = DATA.tasks[currentDate] and #DATA.tasks[currentDate] or 0
-            local colorLevel = math.min(taskCount/4, 1) -- Normalize
+            local colorLevel = math.min(taskCount / 4, 1) -- Normalize
             lg.setColor(1, 1 - colorLevel, 1 - colorLevel)
 
-
-
-            love.graphics.rectangle("fill", givenX - offset, givenY - offset,
-                                    drawSize, drawSize, 4, 4)
+            love.graphics.rectangle("fill", givenX - offset, givenY - offset, drawSize, drawSize, 4, 4)
             lg.setColor(pals.lightAccent)
-            love.graphics.rectangle("line", givenX - offset, givenY - offset,
-                                    drawSize, drawSize, 4, 4)
+            love.graphics.rectangle("line", givenX - offset, givenY - offset, drawSize, drawSize, 4, 4)
 
             cellCounter = cellCounter + 1
-                                end
+        end
     end
 
     if isHoveringOverGrid and hoveredDate then
         lg.setFont(hfontb)
         local taskNo = DATA.tasks[hovereddate] and #DATA.tasks[hoveredDate] or 0
-        local taskText = hoveredDate.." " .. taskNo .. " task(s)"
+        local taskText = hoveredDate .. " " .. taskNo .. " task(s)"
         local tooltipWidth = hfontb:getWidth(taskText) + 20
         local displayX = (mx + tooltipWidth > wW) and (wW - tooltipWidth - 10) or (mx + 10)
         lg.setColor(pals.lightAccent)
-        lg.rectangle("fill", displayX, my, hfontb:getWidth(taskText) + 20,
-                     hfontb:getHeight() + 20, 5, 5)
+        lg.rectangle("fill", displayX, my, hfontb:getWidth(taskText) + 20, hfontb:getHeight() + 20, 5, 5)
         lg.setColor(pals.lightAccent)
-        lg.rectangle("line", displayX, my, hfontb:getWidth(taskText) + 20,
-                     hfontb:getHeight() + 20, 5, 5)
+        lg.rectangle("line", displayX, my, hfontb:getWidth(taskText) + 20, hfontb:getHeight() + 20, 5, 5)
         lg.setColor(1, 1, 1)
         lg.print(taskText, displayX + 10, my + 10)
     end
@@ -125,8 +116,7 @@ function drawLogdata()
     -- Second Taskbox Shadow 
     y = y + mainBoxHeight + 20
     lg.setColor(0, 0, 0, 0.2)
-    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12,
-                 12)
+    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12, 12)
 
     -- Colored box 
     lg.setColor(pals.lightAccent)
@@ -134,5 +124,5 @@ function drawLogdata()
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
 
-    elements.pichart:draw()
+    elements.logschart:draw()
 end

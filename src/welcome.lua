@@ -29,11 +29,11 @@ function welcome:load()
             },
 
             tasks = {
-                ["2025-06-26"] = {
+                {
                     {
                         title = "Submit Report",
                         done = 2,
-                        due = "2025-06-26",
+                        created = "2025-06-26",
                         priority = "high",
                         timestamp = "2025-06-26T09:00:00",
                         doneTime = {
@@ -42,11 +42,11 @@ function welcome:load()
                         tags = {"#work"}
                     }
                 },
-                ["2025-06-27"] = {
+                {
                     {
                         title = "Complete task",
                         done = 3,
-                        due = "2025-06-26",
+                        created = "2025-06-26",
                         priority = "high",
                         timestamp = "2025-06-26T09:00:00",
                         doneTime = {

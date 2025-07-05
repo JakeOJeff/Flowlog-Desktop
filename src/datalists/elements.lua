@@ -129,25 +129,23 @@ function elements:load()
     self.logschart = graphing:new()
     self.logschart.x = 200 + self.pichart.size
     self.logschart.y = 160 + self.pichart.size
-    
-
-
+    local logsChartTable = {}
+    if DATA.tasks then
+        for _, task in ipairs(DATA.tasks) do
+            local taskData = {
+                name = task.title,
+                value = task.done
+            }
+            table.insert(logsChartTable, taskData)
+            print("Task Data: ", taskData.name, taskData.value)
+        end
+        self.logschart.data = logsChartTable
+    end
+    self.logschart:recall()
 end
 
 function elements:update(dt)
-    local logsChartTable = {}
-    if DATA.tasks then
-        for date, taskList in pairs(DATA.tasks) do
-            for _, task in ipairs(taskList) do
-                local taskData = {
-                    name = task.title,
-                    value = task.done
-                }
-                table.insert(logsChartTable, taskData)
-            end
-        end
-            self.logschart.data = logsChartTable
-    end
+
 end
 
 -- function elements:update(dt)

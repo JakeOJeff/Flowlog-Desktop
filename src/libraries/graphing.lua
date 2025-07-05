@@ -32,6 +32,19 @@ function Graphing:update(dt) end
 
 function Graphing:draw() self:drawPIChart() end
 
+function Graphing:recall()
+    self.x = self.x or 100
+    self.y = self.y or 100
+    self.size = self.size or 100
+    self.type = self.type or "pi"
+    self.data = self.data or {
+        {name = "Happiness", value = 34}, {name = "Sad", value = 75},
+        {name = "Insanity", value = 500},
+        {name = "Crude", value = 300},
+        {name = "Truce", value = 69}
+    }
+
+end
 function Graphing:drawPIChart()
     self.slicePolygons = {} -- Store each slice's polygon points
 
