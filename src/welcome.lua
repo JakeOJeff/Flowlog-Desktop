@@ -29,34 +29,29 @@ function welcome:load()
             },
 
             tasks = {
-                {
-                    {
-                        title = "Submit Report",
-                        done = 2,
-                        created = "2025-06-26",
-                        priority = "high",
-                        timestamp = "2025-06-26T09:00:00",
-                        doneTime = {
-                            "2025-06-26T10:00:00", "2025-06-26T11:30:00"
+                        {
+                            title = "Submit Report",
+                            done = 2,
+                            created = "2025-06-26",
+                            priority = "high",
+                            timestamp = "2025-06-26T09:00:00",
+                            doneTime = {
+                                "2025-06-26T10:00:00", "2025-06-26T11:30:00"
+                            },
+                            tags = {"#work"}
                         },
-                        tags = {"#work"}
-                    }
-                },
-                {
-                    {
-                        title = "Complete task",
-                        done = 3,
-                        created = "2025-06-26",
-                        priority = "high",
-                        timestamp = "2025-06-26T09:00:00",
-                        doneTime = {
-                            "2025-06-27T12:00:00", "2025-06-27T13:00:00"
-                        },
-                        tags = {"#work"}
-                    }
-                }
-            },
-        
+                        {
+                            title = "Complete task",
+                            done = 3,
+                            created = "2025-06-26",
+                            priority = "high",
+                            timestamp = "2025-06-26T09:00:00",
+                            doneTime = {
+                                "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+                            },
+                            tags = {"#work"}
+                        }
+                    },
             streak = 0, 
         }
         local tempTable = json.encode(dataFiled)

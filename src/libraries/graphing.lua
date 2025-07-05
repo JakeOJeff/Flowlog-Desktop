@@ -9,12 +9,22 @@ function Graphing:initialize(x, y, type, data, size)
     self.y = 200 -- (math.floor(y/2))  or 200
     self.type = type or "pi"
     self.size = size or 100
-    self.data = data or {
-        {name = "Happiness", value = 34}, {name = "Sad", value = 75},
-        {name = "Insanity", value = 500},
-        {name = "Crude", value = 300},
-        {name = "Truce", value = 69}
-    }
+    self.data = data or {{
+        name = "Happiness",
+        value = 34
+    }, {
+        name = "Sad",
+        value = 75
+    }, {
+        name = "Insanity",
+        value = 500
+    }, {
+        name = "Crude",
+        value = 300
+    }, {
+        name = "Truce",
+        value = 69
+    }}
     self.data = sortDataBasedOnInternalValue(self.data)
     self.totalValue = 0
     for i = 1, #self.data do
@@ -28,22 +38,44 @@ function Graphing:initialize(x, y, type, data, size)
 
 end
 
-function Graphing:update(dt) end
+function Graphing:update(dt)
+end
 
-function Graphing:draw() self:drawPIChart() end
+function Graphing:draw()
+    self:drawPIChart()
+end
 
 function Graphing:recall()
     self.x = self.x or 100
     self.y = self.y or 100
     self.size = self.size or 100
     self.type = self.type or "pi"
-    self.data = self.data or {
-        {name = "Happiness", value = 34}, {name = "Sad", value = 75},
-        {name = "Insanity", value = 500},
-        {name = "Crude", value = 300},
-        {name = "Truce", value = 69}
-    }
+    self.data = self.data or {{
+        name = "Happiness",
+        value = 34
+    }, {
+        name = "Sad",
+        value = 75
+    }, {
+        name = "Insanity",
+        value = 500
+    }, {
+        name = "Crude",
+        value = 300
+    }, {
+        name = "Truce",
+        value = 69
+    }}
+    self.data = sortDataBasedOnInternalValue(self.data)
+    self.totalValue = 0
+    for i = 1, #self.data do
+        self.totalValue = self.totalValue + self.data[i].value
+    end
 
+    for i = 1, #self.data do
+        self.data[i].percent = self.data[i].value / self.totalValue
+    end
+    self.shades = generateColorShades(#self.data)
 end
 function Graphing:drawPIChart()
     self.slicePolygons = {} -- Store each slice's polygon points
@@ -53,14 +85,13 @@ function Graphing:drawPIChart()
         local percent = self.data[i].percent
         local angle = percent * 360
 
-        local slicePoints = piSector(self.x, self.y, startAngle, angle,
-                                     self.size)
+        local slicePoints = piSector(self.x, self.y, startAngle, angle, self.size)
 
         -- Save polygon data per slice
         self.slicePolygons[i] = {
             points = slicePoints,
             color = self.shades[i]
-            --color = getColorFromPercentage(percent)
+            -- color = getColorFromPercentage(percent)
         }
 
         startAngle = startAngle + angle
@@ -102,42 +133,42 @@ function Graphing:drawHoveredPieChart()
         end
         return (minX + maxX) / 2, (minY + maxY) / 2
     end
-    for _, slice in ipairs(self.slicePolygons) do 
-                    love.graphics.setColor(slice.color)
-            love.graphics.polygon("fill", slice.points)
+    for _, slice in ipairs(self.slicePolygons) do
+        love.graphics.setColor(slice.color)
+        love.graphics.polygon("fill", slice.points)
 
-            -- Optional: Draw border
-            love.graphics.setColor(1, 1, 1)
-            love.graphics.polygon("line", slice.points)
+        -- Optional: Draw border
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.polygon("line", slice.points)
     end
     for _, slice in ipairs(self.slicePolygons) do
         if isPointInPolygon(mx, my, slice.points) then
             local cx, cy = getPolygonCenter(slice.points)
             local scaledPoints = self:scalePolygon(slice.points, 1.2, cx, cy)
-            
+
             love.graphics.setColor(slice.color)
             love.graphics.polygon("fill", scaledPoints)
 
             -- Optional: Draw border
             love.graphics.setColor(1, 1, 1)
             love.graphics.polygon("line", scaledPoints)
-            
+
             -- DRAW TOOLTIP
             love.graphics.setFont(hfontb)
-            local tooltipText = self.data[_].name.." <"..(math.floor(self.data[_].percent * 100)) .. ">"
+            local tooltipText = self.data[_].name .. " <" .. (math.floor(self.data[_].percent * 100)) .. ">"
             local tooltipWidth = 20 + hfontb:getWidth(tooltipText)
 
-             -- Colored box 
-             local tooltipX, tooltipY = mx + 20, my + 20 
+            -- Colored box 
+            local tooltipX, tooltipY = mx + 20, my + 20
             love.graphics.setColor(pals.lightAccent)
             love.graphics.rectangle("fill", tooltipX - 10, tooltipY - 10, tooltipWidth, 20 + hfontb:getHeight(), 12, 12)
             love.graphics.setColor(pals.lightAccentBorder)
-            love.graphics.rectangle("line", tooltipX - 10, tooltipY - 10, tooltipWidth, 20 +  hfontb:getHeight(), 12, 12)
-            love.graphics.setColor(0,0,0,0.2)
+            love.graphics.rectangle("line", tooltipX - 10, tooltipY - 10, tooltipWidth, 20 + hfontb:getHeight(), 12, 12)
+            love.graphics.setColor(0, 0, 0, 0.2)
             love.graphics.print(tooltipText, tooltipX + 3, tooltipY + 3)
-            love.graphics.setColor(1,1,1)
+            love.graphics.setColor(1, 1, 1)
             love.graphics.print(tooltipText, tooltipX, tooltipY)
-            
+
             break -- Only one hovered slice
         end
 
@@ -157,13 +188,13 @@ function getColorFromPercentage(p)
 end
 
 function generateColorShades(n)
-        -- Define color range endpoints
+    -- Define color range endpoints
     local white = {1, 1, 1}
     local pink = {0.847, 0.561, 0.545}
     local shades = {}
 
     for i = 1, n do
-        local t = (i - 1) / (n - 1)  -- even distribution from 0 to 1
+        local t = (i - 1) / (n - 1) -- even distribution from 0 to 1
         local r = pink[1] * (1 - t) + white[1] * t
         local g = pink[2] * (1 - t) + white[2] * t
         local b = pink[3] * (1 - t) + white[3] * t
@@ -181,10 +212,10 @@ function isPointInPolygon(px, py, vertices)
         local xi, yi = vertices[i], vertices[i + 1]
         local xj, yj = vertices[j], vertices[j + 1]
 
-        local intersect = ((yi > py) ~= (yj > py)) and
-                              (px < (xj - xi) * (py - yi) / (yj - yi + 0.000001) +
-                                  xi)
-        if intersect then inside = not inside end
+        local intersect = ((yi > py) ~= (yj > py)) and (px < (xj - xi) * (py - yi) / (yj - yi + 0.000001) + xi)
+        if intersect then
+            inside = not inside
+        end
 
         j = i
     end
@@ -221,6 +252,5 @@ function sortDataBasedOnInternalValue(data)
     end
     return givenData
 end
-
 
 return Graphing

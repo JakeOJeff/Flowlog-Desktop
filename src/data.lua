@@ -4,8 +4,6 @@ local data = {}
 button = require 'src.libraries.button'
 graphing = require 'src.libraries.graphing'
 json = require "src.libraries.json"
--- CLASS OOP INITIALIZATION -- 
-elements = require 'src.datalists.elements'
 
 -- Find image 
 local streakImage = love.graphics.newImage("assets/imgs/streak.png")
@@ -15,10 +13,7 @@ fileStatusText = ""
 tabs = {"mood", "tasks", "log"}
 currentTab = 1
 DATA = {}
--- Import tabs
-require 'src.data-tabs.mood'
-require 'src.data-tabs.tasks'
-require 'src.data-tabs.logs'
+
 -- Load Data | Add and load button callbacks
 function data:load()
     -- receive Data
@@ -29,8 +24,28 @@ function data:load()
         DATA, _, err = json.decode(receivedData)
         if DATA then
             print("Success!", DATA.mood.currentMood)
-
             isDataValid = true
+            -- CLASS OOP INITIALIZATION -- 
+            elements = require 'src.datalists.elements'
+            -- Import tabs
+            require 'src.data-tabs.mood'
+            require 'src.data-tabs.tasks'
+            require 'src.data-tabs.logs'
+            print("DATA before tasks loop:", DATA)
+            print("DATA.tasks:", DATA.tasks)
+
+            elements:load()
+            for i = 1, 3 do
+                elements.menuButtons[i].callback = function()
+                    currentTab = i
+                end
+            end
+            elements.refreshButton.callback = function()
+                data.setScene("home")
+            end
+            elements.exitButton.callback = function()
+                love.event.quit()
+            end
         else
             print("JSON decode error:", err)
             fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
@@ -38,17 +53,6 @@ function data:load()
     else
         print("Failed to read data.txt")
         fileStatusText = "NO DATA RECEIVED"
-    end
-    for i = 1, 3 do
-        elements.menuButtons[i].callback = function()
-            currentTab = i
-        end
-    end
-    elements.refreshButton.callback = function()
-        data.setScene("home")
-    end
-    elements.exitButton.callback = function()
-        love.event.quit()
     end
 
 end

@@ -129,18 +129,21 @@ function elements:load()
     self.logschart = graphing:new()
     self.logschart.x = 200 + self.pichart.size
     self.logschart.y = 160 + self.pichart.size
+    if DATA then
+        print("YES DATA EXISTS")
+    end
     local logsChartTable = {}
     if DATA.tasks then
-        for _, task in ipairs(DATA.tasks) do
-            local taskData = {
-                name = task.title,
-                value = task.done
-            }
-            table.insert(logsChartTable, taskData)
-            print("Task Data: ", taskData.name, taskData.value)
+        for i = 1, #DATA.tasks do
+            task = DATA.tasks[i]
+            table.insert(logsChartTable, {
+                name = task.title or "Name",
+                value = task.done or 0,
+            })
         end
         self.logschart.data = logsChartTable
     end
+
     self.logschart:recall()
 end
 
