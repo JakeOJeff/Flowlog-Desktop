@@ -6,11 +6,6 @@ graphing = require 'src.libraries.graphing'
 json = require "src.libraries.json"
 -- CLASS OOP INITIALIZATION -- 
 elements = require 'src.datalists.elements'
--- Import tabs
-require 'src.data-tabs.mood'
-require 'src.data-tabs.tasks'
-require 'src.data-tabs.logs'
-
 
 -- Find image 
 local streakImage = love.graphics.newImage("assets/imgs/streak.png")
@@ -20,40 +15,52 @@ fileStatusText = ""
 tabs = {"mood", "tasks", "log"}
 currentTab = 1
 DATA = {}
-
+-- Import tabs
+require 'src.data-tabs.mood'
+require 'src.data-tabs.tasks'
+require 'src.data-tabs.logs'
 -- Load Data | Add and load button callbacks
 function data:load()
     -- receive Data
-local receivedData = love.filesystem.read("data.txt")
+    local receivedData = love.filesystem.read("data.txt")
 
+    -- Check if data has received ( Find applicable information and send out corresponding error messages )
+    if receivedData then
+        DATA, _, err = json.decode(receivedData)
+        if DATA then
+            print("Success!", DATA.mood.currentMood)
 
--- Check if data has received ( Find applicable information and send out corresponding error messages )
-if receivedData then
-    DATA, _, err = json.decode(receivedData)
-    if DATA then
-        print("Success!", DATA.mood.currentMood)
-        isDataValid = true
+            isDataValid = true
+        else
+            print("JSON decode error:", err)
+            fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
+        end
     else
-        print("JSON decode error:", err)
-        fileStatusText =
-            "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
+        print("Failed to read data.txt")
+        fileStatusText = "NO DATA RECEIVED"
     end
-else
-    print("Failed to read data.txt")
-    fileStatusText = "NO DATA RECEIVED"
-end
     for i = 1, 3 do
-        elements.menuButtons[i].callback = function() currentTab = i end
+        elements.menuButtons[i].callback = function()
+            currentTab = i
+        end
     end
-    elements.refreshButton.callback = function() data.setScene("home") end
-    elements.exitButton.callback = function() love.event.quit() end
+    elements.refreshButton.callback = function()
+        data.setScene("home")
+    end
+    elements.exitButton.callback = function()
+        love.event.quit()
+    end
+
 end
 
 -- Update data | Mainly 
 function data:update(dt)
     elements.refreshButton:update(dt)
     elements.exitButton:update(dt)
-    for i = 1, 3 do elements.menuButtons[i]:update(dt) end
+    elements:update(dt)
+    for i = 1, 3 do
+        elements.menuButtons[i]:update(dt)
+    end
 end
 
 function data:draw()
@@ -64,7 +71,9 @@ function data:draw()
         -- Draw all required Button
         elements.exitButton:draw()
         elements.refreshButton:draw()
-        for i = 1, 3 do elements.menuButtons[i]:draw() end
+        for i = 1, 3 do
+            elements.menuButtons[i]:draw()
+        end
 
         -- Tab Display
         if currentTab == 1 then
@@ -78,13 +87,11 @@ function data:draw()
         -- Display Streaks
         -- SHADOW
         lg.setColor(0, 0, 0, 0.1)
-        lg.draw(streakImage, 50, wW - 80 + 3, 0, 50 / streakImage:getWidth(),
-                50 / streakImage:getHeight())
+        lg.draw(streakImage, 50, wW - 80 + 3, 0, 50 / streakImage:getWidth(), 50 / streakImage:getHeight())
 
         -- Streak Image
         lg.setColor(1, 1, 1)
-        lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(),
-                50 / streakImage:getHeight())
+        lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(), 50 / streakImage:getHeight())
 
         -- Streak Number 
         lg.setFont(hhfontb)
@@ -99,7 +106,9 @@ end
 function data:mousepressed(x, y, button)
     elements.refreshButton:mousepressed(x, y, button)
     elements.exitButton:mousepressed(x, y, button)
-    for i = 1, 3 do elements.menuButtons[i]:mousepressed(x, y, button) end
+    for i = 1, 3 do
+        elements.menuButtons[i]:mousepressed(x, y, button)
+    end
 end
 
 function checkDataValidity(dataTable)
@@ -125,8 +134,7 @@ function getTimeOfDay()
 end
 -- Convert ISO timestamp to formatted date string
 function formatDateTime(iso)
-    local year, month, day, hour, min, sec = iso:match(
-                                                 "(%d+)-(%d+)-(%d+)T(%d+):(%d+):?(%d*)")
+    local year, month, day, hour, min, sec = iso:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):?(%d*)")
     local t = os.time({
         year = tonumber(year),
         month = tonumber(month),
@@ -138,13 +146,10 @@ function formatDateTime(iso)
     return os.date("%A, %d %B %Y - %I:%M %p", t)
 end
 
-
-
-
 function daysBeforeThisDay(date, no)
-    local y = tonumber(string.sub(date,1, 4))
-    local m = tonumber(string.sub(date,6, 7))
-    local d = tonumber(string.sub(date,9, 10))
+    local y = tonumber(string.sub(date, 1, 4))
+    local m = tonumber(string.sub(date, 6, 7))
+    local d = tonumber(string.sub(date, 9, 10))
     local num = no
     local function getMonthDays(month, year)
         if month == 2 then
@@ -153,7 +158,7 @@ function daysBeforeThisDay(date, no)
             else
                 return 28
             end
-        elseif month == 4 or month == 6 or month == 9 or month == 11 then 
+        elseif month == 4 or month == 6 or month == 9 or month == 11 then
             return 30
         else
             return 31

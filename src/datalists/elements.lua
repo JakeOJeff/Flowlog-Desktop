@@ -104,8 +104,6 @@ function elements:load()
     self.menuButtons[2].text = "TASKS"
     self.menuButtons[3].text = "LOG"
 
-
-
     self.exitButton = button:new()
     self.exitButton.text = "X"
     self.exitButton.width = 40
@@ -113,7 +111,7 @@ function elements:load()
     self.exitButton.x = startX + 2 * (buttonWidth + spacing) + 178
     self.exitButton.y = 20
     self.exitButton.color = pals.buttonColor
-    self.exitButton.hover.x =  startX + 2 * (buttonWidth + spacing) + 178 - 3
+    self.exitButton.hover.x = startX + 2 * (buttonWidth + spacing) + 178 - 3
     self.exitButton.hover.y = 20 - 3
     self.exitButton.hover.width = 46
     self.exitButton.hover.height = 46
@@ -128,6 +126,28 @@ function elements:load()
     self.pichart.x = 60 + self.pichart.size
     self.pichart.y = 160 + self.pichart.size
 
+    self.logschart = graphing:new()
+    self.logschart.x = 200 + self.pichart.size
+    self.logschart.y = 160 + self.pichart.size
+    
+
+
+end
+
+function elements:update(dt)
+    local logsChartTable = {}
+    if DATA.tasks then
+        for date, taskList in pairs(DATA.tasks) do
+            for _, task in ipairs(taskList) do
+                local taskData = {
+                    name = task.title,
+                    value = task.done
+                }
+                table.insert(logsChartTable, taskData)
+            end
+        end
+            self.logschart.data = logsChartTable
+    end
 end
 
 -- function elements:update(dt)

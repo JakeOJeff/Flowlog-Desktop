@@ -134,4 +134,5 @@ function drawLogdata()
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
 
+    elements.pichart:draw()
 end

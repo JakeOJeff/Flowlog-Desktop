@@ -56,13 +56,8 @@ function welcome:load()
                     }
                 }
             },
-            log = {
-                timestamp = "2025-06-26T10:00:00",
-                mood = "calm",
-                task = "Morning meditation",
-                note = "Felt peaceful after 10 minutes of breathing"
-            },
-            streak = 0
+        
+            streak = 0, 
         }
         local tempTable = json.encode(dataFiled)
         love.filesystem.write("data.txt", tempTable)
