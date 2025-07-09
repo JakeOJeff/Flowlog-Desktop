@@ -65,6 +65,9 @@ function data:update(dt)
     for i = 1, 3 do
         elements.menuButtons[i]:update(dt)
     end
+    -- for i = 1, #elements.taskcharts do
+    --     elements.taskcharts[i]:update(dt)
+    -- end
 end
 
 function data:draw()
@@ -114,7 +117,17 @@ function data:mousepressed(x, y, button)
         elements.menuButtons[i]:mousepressed(x, y, button)
     end
 end
-
+function data:keypressed(key)
+    if key == "tab" then
+        if currentTab < 3 then
+            currentTab = currentTab + 1
+        else
+            currentTab = 1
+        end
+    elseif key == "escape" then
+        data.setScene("home")
+    end
+end
 function checkDataValidity(dataTable)
     if dataTable.mood and dataTable.tasks and dataTable.mood then
         return "valid"

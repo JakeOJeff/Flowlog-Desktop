@@ -14,6 +14,8 @@ wH = defH
 zoomFactor = 1
 scale = wH/defH * zoomFactor
 
+scrollOffset = 0
+maxScroll = 0
 
 deffont = love.graphics.getFont()
 
@@ -93,3 +95,8 @@ function love.resize(w, h)
 end
 
 
+
+function love.wheelmoved(x, y)
+    scrollOffset = scrollOffset + y * 30  -- 30 is scroll speed
+    scrollOffset = math.max(math.min(scrollOffset, 0), -maxScroll) -- Clamp
+end

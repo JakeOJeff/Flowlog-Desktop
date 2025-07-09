@@ -36,9 +36,8 @@ function welcome:load()
                             priority = "high",
                             timestamp = "2025-06-26T09:00:00",
                             doneTime = {
-                                "2025-06-26T10:00:00", "2025-06-26T11:30:00"
+                                "2025-06-26T10:00:00", "2025-06-26T11:30:00", "2025-06-26T11:30:00", "2025-06-26T12:00:00"
                             },
-                            tags = {"#work"}
                         },
                         {
                             title = "Complete task",
@@ -49,7 +48,6 @@ function welcome:load()
                             doneTime = {
                                 "2025-06-27T12:00:00", "2025-06-27T13:00:00"
                             },
-                            tags = {"#work"}
                         },
                         {
                             title = "MY Task task",
@@ -60,7 +58,6 @@ function welcome:load()
                             doneTime = {
                                 "2025-06-27T12:00:00", "2025-06-27T13:00:00"
                             },
-                            tags = {"#work"}
                         }
                     },
             streak = 0, 
@@ -74,6 +71,7 @@ end
 function welcome:update(dt)
 
     elements.startBtn:update(dt)
+
 end
 
 
@@ -92,6 +90,12 @@ end
 
 function welcome:mousepressed(x, y, button)
     elements.startBtn:mousepressed(x, y, button)
+end
+
+function welcome:keypressed(key)
+    if key == "return" then
+        welcome.setScene("home")     
+    end
 end
 
 return welcome

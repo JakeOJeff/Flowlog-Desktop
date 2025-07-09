@@ -147,6 +147,47 @@ function elements:load()
     end
 
     self.logschart:recall()
+
+    -- self.taskcharts = {}
+    -- if DATA.tasks then
+    --     for i = 1, #DATA.tasks do
+
+    --         -- Remove duplicates
+
+    --         donetimes = removeDuplicateItemsInArray(DATA.tasks[i].doneTime)
+            
+    --         for i = 1, #donetimes do
+    --             print(donetimes[i])
+    --         end
+
+    --         self.taskcharts[i] = graphing:new()
+    --         self.taskcharts[i].size = 80
+
+    --         self.taskcharts[i].data = 
+        
+    --     end
+    -- end
+    
+end
+
+function removeDuplicateItemsInArray(array)
+
+    local finalArray = {}
+    
+    for i = 0, #array do
+        local flag = false
+        for j = 0, #finalArray do
+            
+            if array[i] == finalArray[j] then
+                flag = true
+            end
+        end
+        if not flag then
+            table.insert(finalArray, array[i])
+        end
+    end
+
+    return finalArray
 end
 
 function elements:update(dt)

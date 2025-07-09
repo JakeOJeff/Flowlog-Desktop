@@ -26,6 +26,7 @@ end
 function home:update(dt)
     elements.pasteBtn:update(dt)
     elements.enterFlowLogBtn:update(dt)
+
 end
 
 function home:draw()
@@ -59,6 +60,12 @@ end
 function home:mousepressed(x, y, button)
     elements.pasteBtn:mousepressed(x, y, button)
     elements.enterFlowLogBtn:mousepressed(x, y, button)
+end
+
+function home:keypressed(key)
+    if key == "return" then
+        home.setScene("data")     
+    end
 end
 
 return home
