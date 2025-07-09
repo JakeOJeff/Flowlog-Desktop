@@ -115,14 +115,16 @@ function drawLogdata()
         local taskNo = taskCountByDate[hoveredDate] or 0
         local taskText = hoveredDate .. " " .. taskNo .. " task(s)"
         local tooltipWidth = hfontb:getWidth(taskText) + 20
+        local tooltipHeight = hfontb:getHeight() + 20
         local displayX = (mx + tooltipWidth > wW) and (wW - tooltipWidth - 10) or (mx + 10)
+        local displayY = (my > (y + mainBoxHeight/1.3)) and (y + mainBoxHeight - 20 - tooltipHeight - 10) or (my + 10)
 
         lg.setColor(pals.lightAccent)
-        lg.rectangle("fill", displayX, my, tooltipWidth, hfontb:getHeight() + 20, 5, 5)
+        lg.rectangle("fill", displayX, displayY, tooltipWidth, tooltipHeight, 5, 5)
         lg.setColor(pals.lightAccent)
-        lg.rectangle("line", displayX, my, tooltipWidth, hfontb:getHeight() + 20, 5, 5)
+        lg.rectangle("line", displayX, displayY, tooltipWidth, tooltipHeight, 5, 5)
         lg.setColor(1, 1, 1)
-        lg.print(taskText, displayX + 10, my + 10)
+        lg.print(taskText, displayX + 10, displayY + 10)
     end
 
     -- Second Taskbox Shadow 
