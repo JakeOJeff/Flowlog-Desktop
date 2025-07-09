@@ -50,6 +50,17 @@ function welcome:load()
                                 "2025-06-27T12:00:00", "2025-06-27T13:00:00"
                             },
                             tags = {"#work"}
+                        },
+                        {
+                            title = "MY Task task",
+                            done = 10,
+                            created = "2025-06-26",
+                            priority = "high",
+                            timestamp = "2025-06-26T09:00:00",
+                            doneTime = {
+                                "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+                            },
+                            tags = {"#work"}
                         }
                     },
             streak = 0, 

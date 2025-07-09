@@ -125,10 +125,12 @@ function elements:load()
     self.pichart = graphing:new()
     self.pichart.x = 60 + self.pichart.size
     self.pichart.y = 160 + self.pichart.size
+    self.pichart.size = 80
 
     self.logschart = graphing:new()
-    self.logschart.x = 200 + self.pichart.size
-    self.logschart.y = 160 + self.pichart.size
+    self.logschart.x = 60 + self.logschart.size
+    self.logschart.y = 325 + self.logschart.size
+    self.logschart.size = 80
     if DATA then
         print("YES DATA EXISTS")
     end

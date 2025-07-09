@@ -64,13 +64,22 @@ function drawLogdata()
     local totalCells = #dateGrid
     local cellCounter = 1
 
+    -- Count tasks grouped by date
+    local taskCountByDate = {}
+    for _, task in ipairs(DATA.tasks) do
+        if task.created then
+            taskCountByDate[task.created] = (taskCountByDate[task.created] or 0) + 1
+        end
+    end
+
+    -- Draw the grid
     for i = 1, verticalGrids do
         for j = 1, horizontalGrids do
             if cellCounter > totalCells then
                 break
             end
-            local baseSize = gridSize
 
+            local baseSize = gridSize
             local givenX = pGridX + ((baseSize + spacing) * (j - 1))
             local givenY = pGridY + ((baseSize + spacing) * (i - 1))
 
@@ -78,7 +87,9 @@ function drawLogdata()
             local offset = 0
 
             local currentDate = dateGrid[cellCounter]
-            -- Check hover
+            local taskCount = taskCountByDate[currentDate] or 0
+
+            -- Hover detection
             if mx > givenX and mx < givenX + baseSize and my > givenY and my < givenY + baseSize then
                 drawSize = baseSize * 1.2
                 offset = (drawSize - baseSize) / 2
@@ -86,9 +97,8 @@ function drawLogdata()
                 hoveredDate = currentDate
             end
 
-            -- Determine color based on task count (0-N)
-            local taskCount = DATA.tasks[currentDate] and #DATA.tasks[currentDate] or 0
-            local colorLevel = math.min(taskCount / 4, 1) -- Normalize
+            -- Color by task count
+            local colorLevel = math.min(taskCount / 4, 1)
             lg.setColor(1, 1 - colorLevel, 1 - colorLevel)
 
             love.graphics.rectangle("fill", givenX - offset, givenY - offset, drawSize, drawSize, 4, 4)
@@ -99,30 +109,39 @@ function drawLogdata()
         end
     end
 
+    -- Tooltip on hover
     if isHoveringOverGrid and hoveredDate then
         lg.setFont(hfontb)
-        local taskNo = DATA.tasks[hovereddate] and #DATA.tasks[hoveredDate] or 0
+        local taskNo = taskCountByDate[hoveredDate] or 0
         local taskText = hoveredDate .. " " .. taskNo .. " task(s)"
         local tooltipWidth = hfontb:getWidth(taskText) + 20
         local displayX = (mx + tooltipWidth > wW) and (wW - tooltipWidth - 10) or (mx + 10)
+
         lg.setColor(pals.lightAccent)
-        lg.rectangle("fill", displayX, my, hfontb:getWidth(taskText) + 20, hfontb:getHeight() + 20, 5, 5)
+        lg.rectangle("fill", displayX, my, tooltipWidth, hfontb:getHeight() + 20, 5, 5)
         lg.setColor(pals.lightAccent)
-        lg.rectangle("line", displayX, my, hfontb:getWidth(taskText) + 20, hfontb:getHeight() + 20, 5, 5)
+        lg.rectangle("line", displayX, my, tooltipWidth, hfontb:getHeight() + 20, 5, 5)
         lg.setColor(1, 1, 1)
         lg.print(taskText, displayX + 10, my + 10)
     end
 
     -- Second Taskbox Shadow 
     y = y + mainBoxHeight + 20
+    local secondaryBoxX = mainBoxX
+    local secondaryBoxWidth = mainBoxWidth
+    local secondaryBoxHeight = mainBoxHeight + 25
+
     lg.setColor(0, 0, 0, 0.2)
-    lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.rectangle("fill", secondaryBoxX + 4, y + 4, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
 
     -- Colored box 
     lg.setColor(pals.lightAccent)
-    lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.rectangle("fill", secondaryBoxX, y, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
     lg.setColor(pals.lightAccentBorder)
-    lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
+    lg.rectangle("line", secondaryBoxX, y, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
+
+    -- Seperator Line 
+    lg.rectangle("fill", secondaryBoxX + wW / 1.7, y + 12, 5, secondaryBoxHeight - 18, 10, 10)
 
     elements.logschart:draw()
 end
