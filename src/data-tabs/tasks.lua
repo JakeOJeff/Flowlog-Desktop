@@ -40,11 +40,17 @@ function drawTasksData()
     lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
-    updateMaxScroll()
-    local startY = y + scrollOffset + 25
+        local startY = y + scrollOffset + 25
+        updateMaxScroll()
+
+    lg.push("all")
+
+    love.graphics.setScissor(mainBoxX, y + 25, mainBoxWidth, mainBoxHeight - 50)
     for i, task in ipairs(DATA.tasks) do
         makeTaskCard(i, startY + (i - 1) * 190) -- Adjust spacing
     end
+
+    lg.pop()
 
 end
 
