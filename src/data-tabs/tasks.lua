@@ -2,7 +2,6 @@
 local y = 150
 local mainBoxWidth, mainBoxHeight = 600, 450
 local mainBoxX = wW / 2 - mainBoxWidth / 2
-local maxScroll = 0
 function drawTasksData()
     local padding = 20
 
@@ -42,9 +41,9 @@ function drawTasksData()
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
     updateMaxScroll()
-    local startY = y + scrollOffset + 20
+    local startY = y + scrollOffset + 25
     for i, task in ipairs(DATA.tasks) do
-        makeTaskCard(i, startY + (i - 1) * 180) -- Adjust spacing
+        makeTaskCard(i, startY + (i - 1) * 190) -- Adjust spacing
     end
 
 end
@@ -72,6 +71,6 @@ function makeTaskCard(taskID, scrY)
 
 end
 function updateMaxScroll()
-    local totalHeight = #DATA.tasks * 180 -- Task height + spacing
+    local totalHeight = #DATA.tasks * 190 -- Task height + spacing
     maxScroll = math.max(0, totalHeight - mainBoxHeight + 40)
 end
