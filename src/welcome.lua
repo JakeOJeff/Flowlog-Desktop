@@ -31,7 +31,7 @@ function welcome:load()
             tasks = {
                         {
                             title = "Submit Report",
-                            done = 2,
+                            done = 6,
                             created = "2025-06-26",
                             priority = "high",
                             timestamp = "2025-06-26T09:00:00",
@@ -40,8 +40,8 @@ function welcome:load()
                             },
                         },
                         {
-                            title = "Complete task",
-                            done = 3,
+                            title = "Philipinte Pari",
+                            done = 21,
                             created = "2025-06-26",
                             priority = "high",
                             timestamp = "2025-06-26T09:00:00",
@@ -57,6 +57,26 @@ function welcome:load()
                             timestamp = "2025-06-26T09:00:00",
                             doneTime = {
                                 "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+                            },
+                        },
+                        {
+                            title = "Another Task another Day",
+                            done = 16,
+                            created = "2025-06-26",
+                            priority = "high",
+                            timestamp = "2025-06-26T09:00:00",
+                            doneTime = {
+                                "2025-06-28T12:00:00", "2025-06-28T13:00:00"
+                            },
+                        },
+                        {
+                            title = "This shit pmo",
+                            done = 4,
+                            created = "2025-06-26",
+                            priority = "high",
+                            timestamp = "2025-06-26T09:00:00",
+                            doneTime = {
+                                "2025-06-29T12:00:00", "2025-06-29T13:00:00"
                             },
                         }
                     },

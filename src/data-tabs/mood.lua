@@ -33,7 +33,7 @@ function drawMoodData()
     local mood = DATA.mood.currentMood
     -- local moodColor = moodColors[mood] or {hexToRGB("#906c4e")}
     local suggestion = moodSuggestions[mood] or
-                           "You're doing your best, and that's enough."
+                           "You're doing your best, and that's enough. ( andi )"
 
     -- Mood Header
     lg.setFont(hhfontb)
@@ -41,7 +41,7 @@ function drawMoodData()
     lg.print("Mood", wW / 2 - hhfontb:getWidth("Mood") / 2, 75)
 
     lg.setFont(hfont)
-    local timeWelcomeMessage = getTimeOfDay() .. "! Hope you are doing well."
+    local timeWelcomeMessage = getTimeOfDay() .. "! Orangada Myre"
     lg.print(timeWelcomeMessage,
              wW / 2 - hfont:getWidth(timeWelcomeMessage) / 2, 105)
 

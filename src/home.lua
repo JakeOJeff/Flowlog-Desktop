@@ -44,7 +44,7 @@ function home:draw()
 
     lg.setColor(pals.headingColor)
     love.graphics.setFont(hhfont)
-    lg.print("OR", wW / 2 - hfont:getWidth("OR") / 2, wH / 2)
+    lg.print("OR", wW / 2 - hhfont:getWidth("OR") / 2, wH / 2)
 
     love.graphics.setFont(hfont)
     lg.print(home2Text, wW / 2 - hfont:getWidth(home2Text) / 2, wH / 2 + 40)
