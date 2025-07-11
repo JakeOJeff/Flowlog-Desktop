@@ -23,8 +23,7 @@ function welcome:load()
                 notes = "Didn't sleep well",
                 timestamp = "2025-06-26T08:30:00",
                 tags = {
-                    "#health", "#sleep", "#tired", "#sleep", "#tired", "#sleep",
-                    "#tired", "#sleep", "#tired"
+                    "#health", "#sleep"
                 }
             },
 
