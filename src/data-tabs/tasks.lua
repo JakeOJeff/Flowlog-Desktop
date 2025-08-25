@@ -71,7 +71,7 @@ function makeTaskCard(taskID, scrY)
 
     lg.setColor(pals.headingColor)
     lg.setFont(hhfont)
-    lg.print(task.title, cardX + 20, cardY + 20)
+    lg.print(task.text, cardX + 20, cardY + 20)
 
     -- elements.taskcharts[taskID]:draw()
 

@@ -139,8 +139,8 @@ function elements:load()
         for i = 1, #DATA.tasks do
             task = DATA.tasks[i]
             table.insert(logsChartTable, {
-                name = task.title or "Name",
-                value = task.done or 0,
+                name = task.text or "Name",
+                value = task.count or 0,
             })
         end
         self.logschart.data = logsChartTable

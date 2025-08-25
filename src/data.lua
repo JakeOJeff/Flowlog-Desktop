@@ -17,13 +17,12 @@ DATA = {}
 -- Load Data | Add and load button callbacks
 function data:load()
     -- receive Data
-    local receivedData = love.filesystem.read("data.txt")
 
     -- Check if data has received ( Find applicable information and send out corresponding error messages )
     if receivedData then
         DATA, _, err = json.decode(receivedData)
         if DATA then
-            print("Success!", DATA.mood.currentMood)
+            -- print("Success!", DATA.mood.currentMood)
             isDataValid = true
             -- CLASS OOP INITIALIZATION -- 
             elements = require 'src.datalists.elements'

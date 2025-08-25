@@ -1,4 +1,6 @@
 function drawMoodData()
+
+
     local padding = 20
     local tagMargin = 6
     local tagHeight = 30
@@ -30,7 +32,7 @@ function drawMoodData()
         lonely = "Reach out to someone. Connection helps 🤝"
     }
 
-    local mood = DATA.mood.currentMood
+    local mood = "happy" --DATA.mood.currentMood
     -- local moodColor = moodColors[mood] or {hexToRGB("#906c4e")}
     local suggestion = moodSuggestions[mood] or
                            "You're doing your best, and that's enough. ( andi )"
@@ -41,7 +43,7 @@ function drawMoodData()
     lg.print("Mood", wW / 2 - hhfontb:getWidth("Mood") / 2, 75)
 
     lg.setFont(hfont)
-    local timeWelcomeMessage = getTimeOfDay() .. "! Orangada Myre"
+    local timeWelcomeMessage = getTimeOfDay() .. "! Do well"
     lg.print(timeWelcomeMessage,
              wW / 2 - hfont:getWidth(timeWelcomeMessage) / 2, 105)
 
@@ -93,7 +95,7 @@ function drawMoodData()
 
     y = y + 30
     local tagY = y
-    local tags = DATA.mood.tags
+    local tags = {"vibes","motivated"}--DATA.mood.tags
 
     -- Word wrapping
     local tagLines = {}

@@ -38,6 +38,7 @@ pals = {
     textColor      = {0.459, 0.227, 0.200}   -- #753a33
 }
 
+receivedData = nil --love.filesystem.read("data.txt")
 
 -- File Initialization
 
