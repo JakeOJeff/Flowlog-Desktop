@@ -70,8 +70,14 @@ function makeTaskCard(taskID, scrY)
     lg.rectangle("line", cardX, cardY, cardWidth, cardHeight, 12, 12)
 
     lg.setColor(pals.headingColor)
-    lg.setFont(hhfont)
+    lg.setFont(hhfontb)
     lg.print(task.text, cardX + 20, cardY + 20)
+
+    lg.setColor(pals.textColor)
+    lg.setFont(hfont)
+    lg.print("Task Count: " .. task.count, cardX + 20, cardY + 60)
+
+    lg.print("Priority: " .. task.priority, cardX + 20, cardY + 90)
 
     -- elements.taskcharts[taskID]:draw()
 

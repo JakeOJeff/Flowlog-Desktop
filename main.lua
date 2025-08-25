@@ -39,6 +39,7 @@ pals = {
 }
 
 receivedData = nil --love.filesystem.read("data.txt")
+isDataValid = false
 
 -- File Initialization
 

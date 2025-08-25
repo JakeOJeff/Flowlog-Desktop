@@ -5,12 +5,11 @@ button = require 'src.libraries.button'
 graphing = require 'src.libraries.graphing'
 json = require "src.libraries.json"
 
--- Find image 
+-- Find image
 local streakImage = love.graphics.newImage("assets/imgs/streak.png")
 
-isDataValid = false
 fileStatusText = ""
-tabs = {"mood", "tasks", "log"}
+tabs = { "mood", "tasks", "log" }
 currentTab = 1
 DATA = {}
 
@@ -23,8 +22,7 @@ function data:load()
         DATA, _, err = json.decode(receivedData)
         if DATA then
             -- print("Success!", DATA.mood.currentMood)
-            isDataValid = true
-            -- CLASS OOP INITIALIZATION -- 
+            -- CLASS OOP INITIALIZATION --
             elements = require 'src.datalists.elements'
             -- Import tabs
             require 'src.data-tabs.mood'
@@ -45,6 +43,7 @@ function data:load()
             elements.exitButton.callback = function()
                 love.event.quit()
             end
+            isDataValid = true
         else
             print("JSON decode error:", err)
             fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
@@ -53,26 +52,44 @@ function data:load()
         print("Failed to read data.txt")
         fileStatusText = "NO DATA RECEIVED"
     end
-
 end
 
--- Update data | Mainly 
+-- Update data | Mainly
 function data:update(dt)
-    elements.refreshButton:update(dt)
-    elements.exitButton:update(dt)
-    elements:update(dt)
-    for i = 1, 3 do
-        elements.menuButtons[i]:update(dt)
+    if isDataValid then
+        elements.refreshButton:update(dt)
+        elements.exitButton:update(dt)
+        elements:update(dt)
+        for i = 1, 3 do
+            elements.menuButtons[i]:update(dt)
+        end
+        -- for i = 1, #elements.taskcharts do
+        --     elements.taskcharts[i]:update(dt)
+        -- end
     end
-    -- for i = 1, #elements.taskcharts do
-    --     elements.taskcharts[i]:update(dt)
-    -- end
 end
 
 function data:draw()
     -- Only display tab and tab options only if Data is Valid
-    if not isDataValid then
+    if not isDataValid and checkDataValidity(DATA) == "invalid" then
+        lg.setColor(pals.headingColor)
         love.graphics.print(fileStatusText)
+
+        local butt = {
+            x = 0,
+            y = 50,
+            width = pfont:getWidth("RESTART") + 20,
+            height = 30,
+        }
+        lg.setColor(pals.buttonColor)
+        lg.rectangle("fill", butt.x, butt.y, butt.width, butt.height, 8, 8)
+                lg.setColor(pals.lightAccent)
+        lg.print("RESTART", butt.x + 10, butt.y + 10)
+        mouse = {}
+        mouse.x, mouse.y = love.mouse.getPosition()
+        if love.mouse.isDown(1) and checkMouseCollision(butt, mouse) then
+            love.event.quit("restart")
+        end
     else
         -- Draw all required Button
         elements.exitButton:draw()
@@ -99,36 +116,41 @@ function data:draw()
         lg.setColor(1, 1, 1)
         lg.draw(streakImage, 50, wW - 80, 0, 50 / streakImage:getWidth(), 50 / streakImage:getHeight())
 
-        -- Streak Number 
+        -- Streak Number
         lg.setFont(hhfontb)
         lg.setColor(0, 0, 0, 0.2)
         -- lg.print("10", 100 + 3, wW - 60 + 3 )
         lg.setColor(pals.lightAccent)
         lg.print(DATA.streak, 100, wW - 60)
     end
-
 end
 
 function data:mousepressed(x, y, button)
-    elements.refreshButton:mousepressed(x, y, button)
-    elements.exitButton:mousepressed(x, y, button)
-    for i = 1, 3 do
-        elements.menuButtons[i]:mousepressed(x, y, button)
-    end
-end
-function data:keypressed(key)
-    if key == "tab" then
-        if currentTab < 3 then
-            currentTab = currentTab + 1
-        else
-            currentTab = 1
+    if isDataValid then
+        elements.refreshButton:mousepressed(x, y, button)
+        elements.exitButton:mousepressed(x, y, button)
+        for i = 1, 3 do
+            elements.menuButtons[i]:mousepressed(x, y, button)
         end
-    elseif key == "escape" then
-        data.setScene("home")
     end
 end
+
+function data:keypressed(key)
+    if isDataValid then
+        if key == "tab" then
+            if currentTab < 3 then
+                currentTab = currentTab + 1
+            else
+                currentTab = 1
+            end
+        elseif key == "escape" then
+            data.setScene("home")
+        end
+    end
+end
+
 function checkDataValidity(dataTable)
-    if dataTable.mood and dataTable.tasks and dataTable.mood then
+    if dataTable and dataTable.mood and dataTable.tasks and dataTable.mood then
         return "valid"
     else
         return "invalid"
@@ -148,6 +170,7 @@ function getTimeOfDay()
         return "Night"
     end
 end
+
 -- Convert ISO timestamp to formatted date string
 function formatDateTime(iso)
     local year, month, day, hour, min, sec = iso:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):?(%d*)")
@@ -194,7 +217,6 @@ function daysBeforeThisDay(date, no)
     end
 
     return string.format("%04d-%02d-%02d", ye, mo, da)
-
 end
 
 return data

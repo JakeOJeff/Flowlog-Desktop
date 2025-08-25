@@ -190,6 +190,11 @@ function removeDuplicateItemsInArray(array)
     return finalArray
 end
 
+function checkMouseCollision(button, mousePos)
+    return mousePos.x >= button.x and mousePos.x <= button.x + button.width and
+           mousePos.y >= button.y and mousePos.y <= button.y + button.height
+end
+
 function elements:update(dt)
 
 end
