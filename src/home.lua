@@ -3,10 +3,10 @@ local home = {}
 -- Library Initialization
 button = require 'src.libraries.button'
 
--- CLASS OOP INITIALIZATION -- 
+-- CLASS OOP INITIALIZATION --
 local elements = require 'src.datalists.elements'
 
--- Strs 
+-- Strs
 local homeText = "Paste/Enter in your metadata"
 local infoText = "Get the metadata from the Flowlog extension"
 local home2Text = "Use Flowlog on your Desktop"
@@ -16,17 +16,19 @@ function home:load()
     elements:load()
     elements.pasteBtn.callback = function()
         receivedData = love.system.getClipboardText()
-        
+
         home.setScene("data")
     end
 
-    elements.enterFlowLogBtn.callback = function() if love.filesystem.read("data.txt") then receivedData = love.filesystem.read("data.txt") home.setScene("data") else home.setScene("direct")  end end
+    elements.enterFlowLogBtn.callback = function() if love.filesystem.read("data.txt") then
+            receivedData = love.filesystem.read("data.txt")
+            home.setScene("data")
+        else home.setScene("direct") end end
 end
 
 function home:update(dt)
     elements.pasteBtn:update(dt)
     elements.enterFlowLogBtn:update(dt)
-
 end
 
 function home:draw()
@@ -54,7 +56,6 @@ function home:draw()
     lg.setColor(1, 1, 1)
     love.graphics.setFont(pfont)
     elements.enterFlowLogBtn:draw()
-
 end
 
 function home:mousepressed(x, y, button)
@@ -64,9 +65,8 @@ end
 
 function home:keypressed(key)
     if key == "return" then
-        home.setScene("data")     
+        home.setScene("data")
     end
 end
 
 return home
-
