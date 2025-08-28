@@ -20,7 +20,7 @@ function home:load()
         home.setScene("data")
     end
 
-    elements.enterFlowLogBtn.callback = function() home.setScene("direct") end
+    elements.enterFlowLogBtn.callback = function() if love.filesystem.read("data.txt") then receivedData = love.filesystem.read("data.txt") home.setScene("data") else home.setScene("direct")  end end
 end
 
 function home:update(dt)

@@ -44,13 +44,14 @@ function data:load()
                 love.event.quit()
             end
             isDataValid = true
+            love.filesystem.write("data.txt", receivedData)
         else
             print("JSON decode error:", err)
             fileStatusText = "ERROR RECEIVING DATA : PLEASE RECHECK IF YOU'VE COPIED DATA CORRECTLY"
         end
     else
         print("Failed to read data.txt")
-        fileStatusText = "NO DATA RECEIVED"
+        fileStatusText = "NO DATA RECEIVED " .. err
     end
 end
 
