@@ -17,11 +17,11 @@ function drawLogdata()
     local mainBoxWidth, mainBoxHeight = 600, 162
     local mainBoxX = wW / 2 - mainBoxWidth / 2
 
-    -- Main Taskbox Shadow 
+    -- Main Taskbox Shadow
     lg.setColor(0, 0, 0, 0.2)
     lg.rectangle("fill", mainBoxX + 4, y + 4, mainBoxWidth, mainBoxHeight, 12, 12)
 
-    -- Colored box 
+    -- Colored box
     lg.setColor(pals.lightAccent)
     lg.rectangle("fill", mainBoxX, y, mainBoxWidth, mainBoxHeight, 12, 12)
     lg.setColor(pals.lightAccentBorder)
@@ -66,10 +66,15 @@ function drawLogdata()
 
     -- Count tasks grouped by date
     local taskCountByDate = {}
-    for _, task in ipairs(DATA.tasks) do
-        if task.created then
-            taskCountByDate[task.created] = (taskCountByDate[task.created] or 0) + 1
-        end
+    --[[
+        Style of stats
+          "stats": {
+    "2025-08-25": 25,
+    "2025-08-28": 27
+  },
+    ]]
+    for date, count in pairs(DATA.stats) do
+        taskCountByDate[date] = (taskCountByDate[date] or 0) + count
     end
 
     -- Draw the grid
@@ -117,7 +122,7 @@ function drawLogdata()
         local tooltipWidth = hfontb:getWidth(taskText) + 20
         local tooltipHeight = hfontb:getHeight() + 20
         local displayX = (mx + tooltipWidth > wW) and (wW - tooltipWidth - 10) or (mx + 10)
-        local displayY = (my > (y + mainBoxHeight/1.3)) and (y + mainBoxHeight - 20 - tooltipHeight - 10) or (my + 10)
+        local displayY = (my > (y + mainBoxHeight / 1.3)) and (y + mainBoxHeight - 20 - tooltipHeight - 10) or (my + 10)
 
         lg.setColor(pals.lightAccent)
         lg.rectangle("fill", displayX, displayY, tooltipWidth, tooltipHeight, 5, 5)
@@ -127,7 +132,7 @@ function drawLogdata()
         lg.print(taskText, displayX + 10, displayY + 10)
     end
 
-    -- Second Taskbox Shadow 
+    -- Second Taskbox Shadow
     y = y + mainBoxHeight + 20
     local secondaryBoxX = mainBoxX
     local secondaryBoxWidth = mainBoxWidth
@@ -136,13 +141,13 @@ function drawLogdata()
     lg.setColor(0, 0, 0, 0.2)
     lg.rectangle("fill", secondaryBoxX + 4, y + 4, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
 
-    -- Colored box 
+    -- Colored box
     lg.setColor(pals.lightAccent)
     lg.rectangle("fill", secondaryBoxX, y, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", secondaryBoxX, y, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
 
-    -- Seperator Line 
+    -- Seperator Line
     lg.rectangle("fill", secondaryBoxX + wW / 1.7, y + 12, 5, secondaryBoxHeight - 18, 10, 10)
 
     elements.logschart:draw()
