@@ -16,73 +16,73 @@ function welcome:load()
     elements.startBtn.callback = function()
         welcome.setScene("home")
     end
-    local dataFiled = {
-            mood = {
-                currentMood = "peaceful",
-                intensity = 6,
-                notes = "Didn't sleep well",
-                timestamp = "2025-06-26T08:30:00",
-                tags = {
-                    "#health", "#sleep"
-                }
-            },
+    -- local dataFiled = {
+    --         mood = {
+    --             currentMood = "peaceful",
+    --             intensity = 6,
+    --             notes = "Didn't sleep well",
+    --             timestamp = "2025-06-26T08:30:00",
+    --             tags = {
+    --                 "#health", "#sleep"
+    --             }
+    --         },
 
-            tasks = {
-                        -- {
-                        --     title = "Submit Report",
-                        --     done = 6,
-                        --     created = "2025-06-26",
-                        --     priority = "high",
-                        --     timestamp = "2025-06-26T09:00:00",
-                        --     doneTime = {
-                        --         "2025-06-26T10:00:00", "2025-06-26T11:30:00", "2025-06-26T11:30:00", "2025-06-26T12:00:00"
-                        --     },
-                        -- },
-                        -- {
-                        --     title = "Philipinte Pari",
-                        --     done = 21,
-                        --     created = "2025-06-26",
-                        --     priority = "high",
-                        --     timestamp = "2025-06-26T09:00:00",
-                        --     doneTime = {
-                        --         "2025-06-27T12:00:00", "2025-06-27T13:00:00"
-                        --     },
-                        -- },
-                        -- {
-                        --     title = "MY Task task",
-                        --     done = 10,
-                        --     created = "2025-06-26",
-                        --     priority = "high",
-                        --     timestamp = "2025-06-26T09:00:00",
-                        --     doneTime = {
-                        --         "2025-06-27T12:00:00", "2025-06-27T13:00:00"
-                        --     },
-                        -- },
-                        -- {
-                        --     title = "Another Task another Day",
-                        --     done = 16,
-                        --     created = "2025-06-26",
-                        --     priority = "high",
-                        --     timestamp = "2025-06-26T09:00:00",
-                        --     doneTime = {
-                        --         "2025-06-28T12:00:00", "2025-06-28T13:00:00"
-                        --     },
-                        -- },
-                        -- {
-                        --     title = "This shit pmo",
-                        --     done = 4,
-                        --     created = "2025-06-26",
-                        --     priority = "high",
-                        --     timestamp = "2025-06-26T09:00:00",
-                        --     doneTime = {
-                        --         "2025-06-29T12:00:00", "2025-06-29T13:00:00"
-                        --     },
-                        -- }
-                    },
-            streak = 0, 
-        }
-        local tempTable = json.encode(dataFiled)
-        love.filesystem.write("data.txt", tempTable)
+    --         tasks = {
+    --                     -- {
+    --                     --     title = "Submit Report",
+    --                     --     done = 6,
+    --                     --     created = "2025-06-26",
+    --                     --     priority = "high",
+    --                     --     timestamp = "2025-06-26T09:00:00",
+    --                     --     doneTime = {
+    --                     --         "2025-06-26T10:00:00", "2025-06-26T11:30:00", "2025-06-26T11:30:00", "2025-06-26T12:00:00"
+    --                     --     },
+    --                     -- },
+    --                     -- {
+    --                     --     title = "Philipinte Pari",
+    --                     --     done = 21,
+    --                     --     created = "2025-06-26",
+    --                     --     priority = "high",
+    --                     --     timestamp = "2025-06-26T09:00:00",
+    --                     --     doneTime = {
+    --                     --         "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+    --                     --     },
+    --                     -- },
+    --                     -- {
+    --                     --     title = "MY Task task",
+    --                     --     done = 10,
+    --                     --     created = "2025-06-26",
+    --                     --     priority = "high",
+    --                     --     timestamp = "2025-06-26T09:00:00",
+    --                     --     doneTime = {
+    --                     --         "2025-06-27T12:00:00", "2025-06-27T13:00:00"
+    --                     --     },
+    --                     -- },
+    --                     -- {
+    --                     --     title = "Another Task another Day",
+    --                     --     done = 16,
+    --                     --     created = "2025-06-26",
+    --                     --     priority = "high",
+    --                     --     timestamp = "2025-06-26T09:00:00",
+    --                     --     doneTime = {
+    --                     --         "2025-06-28T12:00:00", "2025-06-28T13:00:00"
+    --                     --     },
+    --                     -- },
+    --                     -- {
+    --                     --     title = "This shit pmo",
+    --                     --     done = 4,
+    --                     --     created = "2025-06-26",
+    --                     --     priority = "high",
+    --                     --     timestamp = "2025-06-26T09:00:00",
+    --                     --     doneTime = {
+    --                     --         "2025-06-29T12:00:00", "2025-06-29T13:00:00"
+    --                     --     },
+    --                     -- }
+    --                 },
+    --         streak = 0, 
+    --     }
+    --     local tempTable = json.encode(dataFiled)
+    --     love.filesystem.write("data.txt", tempTable)
 end
 
 

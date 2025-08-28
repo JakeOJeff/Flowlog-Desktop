@@ -5,12 +5,14 @@ function direct:draw()
     lg.setBackgroundColor(pals.softBackground)
     love.graphics.setFont(hfont)
     lg.setColor(pals.headingColor)
-    lg.print("Direct Input", wW / 2 - hfont:getWidth("Direct Input") / 2, wH / 2 - 100)
+    lg.print("DATA UNKNOWN/UNAVAILABLE", wW / 2 - hfont:getWidth("DATA UNKNOWN/UNAVAILABLE") / 2, wH / 2 - 100)
     love.graphics.setFont(pfont)
     lg.setColor(pals.textColor)
-    local text = "This feature will allow you to directly input your Flowlog data in the app. This is useful for mobile users who cannot easily copy data from the web app."
-    lg.print(text, wW / 2 - pfont:getWidth(text) / 2, wH / 2 - 75)
+    local text = "There are no previous sessions available. Copy metadata from the Flowlog extension and paste the metadata after restarting. Previously saved logs/data will appear here"
+    lg.printf(text, 0, wH / 2 - 75, wW, "center")
     lg.setColor(1, 1, 1)
+
 end
+
 
 return direct
