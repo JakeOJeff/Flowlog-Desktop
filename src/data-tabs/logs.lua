@@ -114,7 +114,8 @@ function drawLogdata()
         end
     end
 
-
+--   -- Seperator Line
+--     lg.rectangle("fill", secondaryBoxX + wW / 1.7, y + 12, 5, secondaryBoxHeight - 18, 10, 10)
 
     -- Second Taskbox Shadow
     y = y + mainBoxHeight + 20
@@ -131,10 +132,7 @@ function drawLogdata()
     lg.setColor(pals.lightAccentBorder)
     lg.rectangle("line", secondaryBoxX, y, secondaryBoxWidth, secondaryBoxHeight, 12, 12)
 
-    -- Seperator Line
-    lg.rectangle("fill", secondaryBoxX + wW / 1.7, y + 12, 5, secondaryBoxHeight - 18, 10, 10)
 
-    elements.logschart:draw()
 
     listY = y + 10
 
@@ -159,6 +157,7 @@ function drawLogdata()
     lg.print(":> This task has been completed "..DATA.mostProductiveTaskCount .. " times.", elements.logschart.x + elements.logschart.size + 20, listY)
 
 
+    elements.logschart:draw()
 
     -- Tooltip on hover
     if isHoveringOverGrid and hoveredDate then
