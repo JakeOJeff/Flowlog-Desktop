@@ -104,7 +104,7 @@ function drawLogdata()
 
             -- Color by task count
             local colorLevel = math.min(taskCount / 4, .5)
-            lg.setColor(1, 1 - colorLevel, 1 - colorLevel)
+            lg.setColor(1, 1 - colorLevel, 1 - colorLevel, math.cos(love.timer.getTime() + (i + j)))
 
             love.graphics.rectangle("fill", givenX - offset, givenY - offset, drawSize, drawSize, 4, 4)
             lg.setColor(pals.lightAccent)
