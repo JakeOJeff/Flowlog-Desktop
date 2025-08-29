@@ -104,7 +104,9 @@ function drawLogdata()
 
             -- Color by task count
             local colorLevel = math.min(taskCount / 4, .5)
-            lg.setColor(1, 1 - colorLevel, 1 - colorLevel, math.cos(love.timer.getTime() + (i + j)))
+            local shadeLevel = (math.sin(love.timer.getTime() + (i + j)) + 0.01) * 0.05
+
+            lg.setColor(1 - shadeLevel, 1 - colorLevel - shadeLevel, 1 - colorLevel - shadeLevel)
 
             love.graphics.rectangle("fill", givenX - offset, givenY - offset, drawSize, drawSize, 4, 4)
             lg.setColor(pals.lightAccent)
@@ -114,8 +116,8 @@ function drawLogdata()
         end
     end
 
---   -- Seperator Line
---     lg.rectangle("fill", secondaryBoxX + wW / 1.7, y + 12, 5, secondaryBoxHeight - 18, 10, 10)
+    --   -- Seperator Line
+    --     lg.rectangle("fill", secondaryBoxX + wW / 1.7, y + 12, 5, secondaryBoxHeight - 18, 10, 10)
 
     -- Second Taskbox Shadow
     y = y + mainBoxHeight + 20
@@ -143,18 +145,19 @@ function drawLogdata()
     listY = listY + tagfont:getHeight() + 5
     lg.setFont(pfont)
     lg.setColor(pals.textColor)
-    lg.print(":> "..DATA.mostProductiveTask, elements.logschart.x + elements.logschart.size + 20, listY)
+    lg.print(":> " .. DATA.mostProductiveTask, elements.logschart.x + elements.logschart.size + 20, listY)
 
 
     listY = listY + pfont:getHeight() + 15
     lg.setFont(tagfont)
     lg.setColor(pals.headingColor)
     lg.print("Productive Task Count", elements.logschart.x + elements.logschart.size + 20, listY)
-    
+
     listY = listY + tagfont:getHeight() + 5
     lg.setFont(pfont)
     lg.setColor(pals.textColor)
-    lg.print(":> This task has been completed "..DATA.mostProductiveTaskCount .. " times.", elements.logschart.x + elements.logschart.size + 20, listY)
+    lg.print(":> This task has been completed " .. DATA.mostProductiveTaskCount .. " times.",
+    elements.logschart.x + elements.logschart.size + 20, listY)
 
 
     elements.logschart:draw()
