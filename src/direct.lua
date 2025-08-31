@@ -5,6 +5,7 @@ function direct:load()
     elements:load()
     elements.refreshButton.callback = function()
         direct.setScene("home")
+        
     end
 end
 
