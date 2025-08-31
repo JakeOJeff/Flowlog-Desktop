@@ -9,6 +9,7 @@ function direct:load()
 end
 
 function direct:draw()
+    -- DATA INPUT NEEDS TO BE SETE SEPERATELY
     lg.setBackgroundColor(pals.softBackground)
     love.graphics.setFont(hfont)
     lg.setColor(pals.headingColor)
