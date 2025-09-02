@@ -64,7 +64,7 @@ function drawLogdata()
     local totalCells = #dateGrid
     local cellCounter = 1
 
-    -- Count tasks grouped by date
+    -- Count tasks grouped by date - ( NEED TO BE FIXED )
     local taskCountByDate = {}
     --[[
         Style of stats
